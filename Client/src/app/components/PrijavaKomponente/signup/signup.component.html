@@ -68,12 +68,12 @@
     />
     <label for="passwordKlijentControl">Vas Password :</label>
     <input
-      type="text"
+      type="password"
       name="passwordKlijentControl"
 
       [formControl]="passwordKlijentControl"
     />
-    <button onclick="signUpClient()">Sign up as Client</button>
+    <button (click)="signUpClient()">Sign up as Client</button>
 <h3>Instruktorski Nalog :</h3>
     <label for="imeInstruktorControl">Ime :</label>
     <input
@@ -115,9 +115,9 @@
 
     <label for="passwordInstruktorControl">Vas Password :</label>
     <input
-      type="text"
+      type="password"
       name="passwordInstruktorControl"
 
       [formControl]="passwordInstruktorControl"
     />
-    <button onclick="signUpInstructor()">Sign up as Instructor</button>
+    <button (click)="signUpInstructor()">Sign up as Instructor</button>

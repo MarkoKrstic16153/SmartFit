@@ -1,1 +1,38 @@
-<p>dodaj-hranu works!</p>
+<h3>Dodajte novu vrstu hrane :</h3>
+<label for="imeControl">Naziv hrane :</label>
+    <input
+      type="text"
+      name="imeControl"
+
+      [formControl]="imeControl"
+    />
+    <label for="ugljeniHidratiControl">Ugljeni Hidrati (100g)</label>
+    <input
+      type="number"
+      name="ugljeniHidratiControl"
+
+      [formControl]="ugljeniHidratiControl"
+    />
+    <label for="proteiniControl">Proteini (100g)</label>
+    <input
+      type="number"
+      name="proteiniControl"
+
+      [formControl]="proteiniControl"
+    />
+    <label for="mastiControl">Masti (100g):</label>
+    <input
+      type="number"
+      name="mastiControl"
+
+      [formControl]="mastiControl"
+    />
+    <label for="vlaknaControl">Vlakna (100g):</label>
+    <input
+      type="number"
+      name="vlaknaControl"
+
+      [formControl]="vlaknaControl"
+    />
+    <div>{{ispisiKalorije()}}</div>
+    <button (click)="DodajHranu()">Dodajte Hranu</button>

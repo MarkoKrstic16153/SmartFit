@@ -9,12 +9,12 @@
     />
     <label for="passwordKlijentControl">Vas Password :</label>
     <input
-      type="text"
+      type="password"
       name="passwordKlijentControl"
 
       [formControl]="passwordKlijentControl"
     />
-    <button onclick="loginClient()">Login as Client</button>
+    <button (click)="loginClient()">Login as Client</button>
 <h3>Instruktorski Nalog : </h3>
     <label for="usernameKlijentControl">Vas Username :</label>
     <input
@@ -26,9 +26,10 @@
 
     <label for="passwordInstruktorControl">Vas Password :</label>
     <input
-    type="text"
+    type="password"
     name="passwordInstruktorControl"
 
     [formControl]="passwordInstruktorControl"
     />
-    <button onclick="loginInstructor()">Login as Instructor</button>
+    <button (click)="loginInstructor()">Login as Instructor</button>
+    

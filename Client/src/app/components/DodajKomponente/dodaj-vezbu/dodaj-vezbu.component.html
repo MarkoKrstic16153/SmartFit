@@ -1,1 +1,72 @@
-<p>dodaj-vezbu works!</p>
+<h3>Dodajte novu vezbu :</h3>
+    <label for="imeControl">Naziv vezbe :</label>
+    <input
+      type="text"
+      name="imeControl"
+
+      [formControl]="imeControl"
+    />
+    <label for="misiciControl">Selektujte misice koje vezba pogadja :</label>
+    <select
+      type="number"
+      name="misiciControl"
+
+      [formControl]="misiciControl">
+    <option *ngFor="let misic of misici" [value]="misic">{{
+        misic
+      }}</option>
+    </select>
+    <button (click)="dodajMisic()">Dodajte Misic</button>
+    <div>
+        {{imeControl.value}} pogadja sledece misice :
+        <ul>
+            <li *ngFor="let pogodjeniMisic of pogodjeniMisici"> 
+                {{pogodjeniMisic}}
+                <button (click)="izbaciMisic(pogodjeniMisic)">Obrisi</button>
+            </li>
+        </ul>
+    </div>
+    <label for="treningControl">Selektujte treninge gde se ona moze raditi</label>
+    <select
+      type="number"
+      name="treningControl"
+
+      [formControl]="treningControl">
+    <option *ngFor="let trening of treninzi" [value]="trening">{{
+        trening
+      }}</option>
+    </select>
+    <button (click)="dodajTrening()">Dodajte Trening</button>
+    <div *ngIf="dozvoljeniTreninzi.length > 0">
+        {{imeControl.value}} se moze raditi na sledecim treninzima :
+        <ul>
+            <li *ngFor="let dozvoljeniTrening of dozvoljeniTreninzi"> 
+                {{dozvoljeniTrening}}
+                <button (click)="izbaciTrening(dozvoljeniTrening)">Obrisi</button>
+            </li>
+        </ul>
+    </div>
+    <label for="tegoviControl">Tegovi</label>
+    <input
+    type="checkbox"
+    name="tegoviControl"
+
+    [formControl]="tegoviControl"
+    />
+    <label for="masineControl">Masine</label>
+    <input
+    type="checkbox"
+    name="masineControl"
+
+    [formControl]="masineControl"
+    />
+    <label for="bodyWeightControl">Bodyweight</label>
+    <input
+    type="checkbox"
+    name="bodyWeightControl"
+
+    [formControl]="bodyWeightControl"
+    />
+
+    <button (click)="dodajteVezbu()">Dodajte Vezbu</button>
+
