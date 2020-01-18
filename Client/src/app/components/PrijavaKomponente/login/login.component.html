@@ -1,1 +1,34 @@
-<p>login works!</p>
+<h2>Prijavite se na vas SmartFit nalog </h2>
+<h3>Korisnicki Nalog : </h3>
+<label for="usernameKlijentControl">Vas Username :</label>
+    <input
+      type="text"
+      name="usernameKlijentControl"
+
+      [formControl]="usernameKlijentControl"
+    />
+    <label for="passwordKlijentControl">Vas Password :</label>
+    <input
+      type="text"
+      name="passwordKlijentControl"
+
+      [formControl]="passwordKlijentControl"
+    />
+    <button onclick="loginClient()">Login as Client</button>
+<h3>Instruktorski Nalog : </h3>
+    <label for="usernameKlijentControl">Vas Username :</label>
+    <input
+    type="text"
+    name="usernameKlijentControl"
+
+    [formControl]="usernameKlijentControl"
+    />
+
+    <label for="passwordInstruktorControl">Vas Password :</label>
+    <input
+    type="text"
+    name="passwordInstruktorControl"
+
+    [formControl]="passwordInstruktorControl"
+    />
+    <button onclick="loginInstructor()">Login as Instructor</button>

@@ -1,6 +1,6 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
-
+import { ReactiveFormsModule } from '@angular/forms';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { LoginComponent } from './components/PrijavaKomponente/login/login.component';
@@ -15,6 +15,8 @@ import { DodajPlanTreningaComponent } from './components/DodajKomponente/dodaj-p
 import { DodajPlanIshraneComponent } from './components/DodajKomponente/dodaj-plan-ishrane/dodaj-plan-ishrane.component';
 import { PlanIshraneComponent } from './components/PrikazKomponente/plan-ishrane/plan-ishrane.component';
 import { PlanTreningaComponent } from './components/PrikazKomponente/plan-treninga/plan-treninga.component';
+import { HomeComponent } from './components/PrikazKomponente/home/home.component';
+import { NavigationComponent } from './components/PrikazKomponente/navigation/navigation.component';
 
 @NgModule({
   declarations: [
@@ -30,11 +32,14 @@ import { PlanTreningaComponent } from './components/PrikazKomponente/plan-trenin
     DodajPlanTreningaComponent,
     DodajPlanIshraneComponent,
     PlanIshraneComponent,
-    PlanTreningaComponent
+    PlanTreningaComponent,
+    HomeComponent,
+    NavigationComponent
   ],
   imports: [
     BrowserModule,
-    AppRoutingModule
+    AppRoutingModule,
+    ReactiveFormsModule
   ],
   providers: [],
   bootstrap: [AppComponent]
