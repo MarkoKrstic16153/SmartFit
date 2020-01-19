@@ -1,6 +1,5 @@
 const mongoose = require("mongoose");
 var Klijent = mongoose.model("klijent", {
-  _id: { type: String },
   ime: { type: String },
   prezime: { type: String },
   visina: { type: Number },
@@ -9,7 +8,8 @@ var Klijent = mongoose.model("klijent", {
   iskustvo: { type: String },
   ciljVezbanja: { type: String },
   userName: { type: String },
-  password: { type: String }
+  password: { type: String },
+  instruktori: { type: [String] }
 });
 
 module.exports = { Klijent };

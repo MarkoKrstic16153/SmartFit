@@ -1,19 +1,21 @@
-import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { Injectable } from "@angular/core";
+import { HttpClient } from "@angular/common/http";
 
-@Injectable({providedIn: 'root'})
+@Injectable({ providedIn: "root" })
 export class LoginService {
-    logovaniUsername:string="";
-    korisnik:boolean = false; 
-    urlGetKlijentPassword='http://localhost:3000/loginklijent/';
-    urlGetInstruktorPassword='http://localhost:3000/logininstruktor/';
-    constructor(private httpClient: HttpClient) { }
-    
-    loginCheckKlijentPassword(username:string){
-        return this.httpClient.get<string>(this.urlGetKlijentPassword+username);
-    }
+  logovaniUsername: string = "";
+  korisnik: boolean = false;
+  urlGetKlijentPassword = "http://localhost:3000/login/loginklijent/";
+  urlGetInstruktorPassword = "http://localhost:3000/login/logininstruktor/";
+  constructor(private httpClient: HttpClient) {}
 
-    loginCheckInstruktorPassword(username:string){
-        return this.httpClient.get<string>(this.urlGetInstruktorPassword+username);
-    }
+  loginCheckKlijentPassword(username: string) {
+    return this.httpClient.get<string>(this.urlGetKlijentPassword + username);
+  }
+
+  loginCheckInstruktorPassword(username: string) {
+    return this.httpClient.get<string>(
+      this.urlGetInstruktorPassword + username
+    );
+  }
 }

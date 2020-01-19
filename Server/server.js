@@ -10,6 +10,9 @@ var { mongoose } = require("./db.js");
 
 //const route = require("./routes/route");
 var klijentController = require("./controllers/klijentController.js");
+var instruktorController = require("./controllers/instruktorController.js");
+var hranaController = require("./controllers/hranaController.js");
+var vezbaController = require("./controllers/vezbaController.js");
 
 const port = 3000;
 
@@ -30,3 +33,6 @@ app.listen(port, () => {
 });
 
 app.use("/klijent", klijentController);
+app.use("/instruktor", instruktorController);
+app.use("/hrana", hranaController);
+app.use("/vezba", vezbaController);

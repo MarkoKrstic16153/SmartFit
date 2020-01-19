@@ -1,50 +1,47 @@
 const express = require("express");
 var router = express.Router();
 
-var { Klijent } = require("../models/klijent");
+var { Instruktor } = require("../models/instruktor");
 
-//localhost:3000/klijent/lista
+//localhost:3000/instruktor/lista
 
 router.get("/lista", (req, res) => {
-  Klijent.find((err, docs) => {
+  Instruktor.find((err, docs) => {
     if (!err) {
       res.send(docs);
     } else {
       console.log(
-        "Greska pri povlacenju korisnika iz baze:" +
+        "Greska pri povlacenju instruktora iz baze:" +
           JSON.stringify(err, undefined, 2)
       );
     }
   });
 });
 
-router.post("/signupklijent", (req, res) => {
-  var klijent = new Klijent({
+router.post("/signupinstruktor", (req, res) => {
+  var instruktor = new Instruktor({
     ime: req.body.ime,
     prezime: req.body.prezime,
-    visina: req.body.visina,
-    tezina: req.body.tezina,
-    bodyFat: req.body.bodyFat,
-    iskustvo: req.body.iskustvo,
-    ciljVezbanja: req.body.ciljVezbanja,
+    akreditacija: req.body.akreditacija,
+    radnoIskustvo: req.body.radnoIskustvo,
     userName: req.body.userName,
     password: req.body.password,
-    instruktori: req.body.instruktori
+    klijenti: req.body.klijenti
   });
-  console.log(klijent);
-  klijent.save((err, doc) => {
+  console.log(instruktor);
+  instruktor.save((err, doc) => {
     if (!err) {
       res.send(doc);
     } else {
       console.log(
-        "Greska pri pamcenju klijenta:" + JSON.stringify(err, undefined, 2)
+        "Greska pri pamcenju instruktor:" + JSON.stringify(err, undefined, 2)
       );
     }
   });
 });
 
 router.get("/:username", (req, res) => {
-  Klijent.findOne({ userName: req.params.username }, (err, doc) => {
+  Instruktor.findOne({ userName: req.params.username }, (err, doc) => {
     if (!err) {
       res.send(doc);
     } else {
