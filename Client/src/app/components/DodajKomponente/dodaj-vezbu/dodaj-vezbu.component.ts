@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, Validators } from '@angular/forms';
 import { Vezba } from 'src/models/Vezba';
+import { VezbeService } from 'src/services/VezbeService';
 
 @Component({
   selector: 'app-dodaj-vezbu',
@@ -18,7 +19,7 @@ export class DodajVezbuComponent implements OnInit {
   bodyWeightControl : FormControl = new FormControl("", Validators.required);
   tegoviControl : FormControl = new FormControl("", Validators.required);
   masineControl : FormControl = new FormControl("", Validators.required);
-  constructor() { }
+  constructor(private vezbaService:VezbeService) { }
 
   ngOnInit() {
 
@@ -68,6 +69,7 @@ export class DodajVezbuComponent implements OnInit {
       vrsteTreninga:this.dozvoljeniTreninzi
     };
     console.log(novaVezba);
+    this.vezbaService.dodajVezbu(novaVezba);
   }
 
 }

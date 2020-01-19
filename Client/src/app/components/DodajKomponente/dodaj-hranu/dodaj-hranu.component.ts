@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, Validators } from '@angular/forms';
 import { Hrana } from 'src/models/Hrana';
+import { HranaService } from 'src/services/HranaService';
 
 @Component({
   selector: 'app-dodaj-hranu',
@@ -13,7 +14,7 @@ export class DodajHranuComponent implements OnInit {
   proteiniControl : FormControl = new FormControl("", Validators.required);
   mastiControl : FormControl = new FormControl("", Validators.required);
   vlaknaControl : FormControl = new FormControl("", Validators.required);
-  constructor() { }
+  constructor(private hranaService:HranaService) { }
 
   ngOnInit() {
   }
@@ -27,6 +28,7 @@ export class DodajHranuComponent implements OnInit {
       vlakna:this.vlaknaControl.value
     };
     console.log(novaHrana);
+    this.hranaService.dodajHranu(novaHrana);
   }
   
   ispisiKalorije():string{

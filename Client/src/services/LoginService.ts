@@ -5,13 +5,15 @@ import { HttpClient } from '@angular/common/http';
 export class LoginService {
     logovaniUsername:string="";
     korisnik:boolean = false; 
+    urlGetKlijentPassword='http://localhost:3000/loginklijent/';
+    urlGetInstruktorPassword='http://localhost:3000/logininstruktor/';
     constructor(private httpClient: HttpClient) { }
     
-    loginCheckKorisnik(username:string,password:string){
-
+    loginCheckKlijentPassword(username:string){
+        return this.httpClient.get<string>(this.urlGetKlijentPassword+username);
     }
 
-    loginCheckInstruktor(username:string,password:string){
-
+    loginCheckInstruktorPassword(username:string){
+        return this.httpClient.get<string>(this.urlGetInstruktorPassword+username);
     }
 }

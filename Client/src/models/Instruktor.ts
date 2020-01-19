@@ -6,4 +6,5 @@ export interface Instruktor{
     akreditacija:string;
     username:string;
     password:string;
+    klijenti:string[];
 }

@@ -8,4 +8,5 @@ export interface Klijent{
     cilj:string;
     username:string;
     password:string;
+    instruktori:string[];
 }
