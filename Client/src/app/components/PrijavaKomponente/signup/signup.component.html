@@ -61,6 +61,7 @@
   [formControl]="passwordKlijentControl"
 />
 <button (click)="signUpClient()">Sign up as Client</button>
+<div *ngIf="signupFlag == true">Username Klijenta je vec zauzet.</div>
 <h3>Instruktorski Nalog :</h3>
 <label for="imeInstruktorControl">Ime :</label>
 <input
@@ -102,3 +103,4 @@
   [formControl]="passwordInstruktorControl"
 />
 <button (click)="signUpInstructor()">Sign up as Instructor</button>
+<div *ngIf="signupFlag1 == true">Username Instruktora je vec zauzet.</div>

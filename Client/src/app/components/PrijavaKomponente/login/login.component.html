@@ -1,35 +1,32 @@
-<h2>Prijavite se na vas SmartFit nalog </h2>
-<h3>Korisnicki Nalog : </h3>
+<h2>Prijavite se na vas SmartFit nalog</h2>
+<h3>Korisnicki Nalog :</h3>
 <label for="usernameKlijentControl">Vas Username :</label>
-    <input
-      type="text"
-      name="usernameKlijentControl"
+<input
+  type="text"
+  name="usernameKlijentControl"
+  [formControl]="usernameKlijentControl"
+/>
+<label for="passwordKlijentControl">Vas Password :</label>
+<input
+  type="password"
+  name="passwordKlijentControl"
+  [formControl]="passwordKlijentControl"
+/>
+<button (click)="loginClient()">Login as Client</button>
+<div *ngIf="kliFlag == true">Greska prilikom login-a kao klijent.</div>
+<h3>Instruktorski Nalog :</h3>
+<label for="usernameInstruktorControl">Vas Username :</label>
+<input
+  type="text"
+  name="usernameInstruktorControl"
+  [formControl]="usernameInstruktorControl"
+/>
 
-      [formControl]="usernameKlijentControl"
-    />
-    <label for="passwordKlijentControl">Vas Password :</label>
-    <input
-      type="password"
-      name="passwordKlijentControl"
-
-      [formControl]="passwordKlijentControl"
-    />
-    <button (click)="loginClient()">Login as Client</button>
-<h3>Instruktorski Nalog : </h3>
-    <label for="usernameKlijentControl">Vas Username :</label>
-    <input
-    type="text"
-    name="usernameKlijentControl"
-
-    [formControl]="usernameKlijentControl"
-    />
-
-    <label for="passwordInstruktorControl">Vas Password :</label>
-    <input
-    type="password"
-    name="passwordInstruktorControl"
-
-    [formControl]="passwordInstruktorControl"
-    />
-    <button (click)="loginInstructor()">Login as Instructor</button>
-    
+<label for="passwordInstruktorControl">Vas Password :</label>
+<input
+  type="password"
+  name="passwordInstruktorControl"
+  [formControl]="passwordInstruktorControl"
+/>
+<button (click)="loginInstructor()">Login as Instructor</button>
+<div *ngIf="instFlag == true">Greska prilikom login-a kao instruktor.</div>

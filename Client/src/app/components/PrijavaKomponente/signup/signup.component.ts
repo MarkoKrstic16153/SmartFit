@@ -19,6 +19,8 @@ export class SignupComponent implements OnInit {
     "Vezbac Pocetnik",
     "Vezbac bez iskustva"
   ];
+  signupFlag: boolean = false;
+  signupFlag1: boolean = false;
   //za klijenta
   imeKlijentControl: FormControl = new FormControl("", Validators.required);
   prezimeKlijentControl: FormControl = new FormControl("", Validators.required);
@@ -74,33 +76,47 @@ export class SignupComponent implements OnInit {
   ngOnInit() {}
 
   signUpInstructor() {
-    let noviInstruktor: Instruktor = {
-      akreditacija: this.akreditacijaInstruktorControl.value,
-      ime: this.imeInstruktorControl.value,
-      password: this.passwordInstruktorControl.value,
-      prezime: this.prezimeInstruktorControl.value,
-      radnoIskustvo: this.radnoIskustvoInstruktorControl.value,
-      username: this.usernameInstruktorControl.value,
-      klijenti: []
-    };
-    console.log(noviInstruktor);
-    this.instruktorService.dodajInstruktora(noviInstruktor);
+    this.loginService
+      .loginCheckInstruktorPassword(this.usernameInstruktorControl.value)
+      .subscribe(({ password }) => {
+        if (password != 1) {
+          let noviInstruktor: Instruktor = {
+            akreditacija: this.akreditacijaInstruktorControl.value,
+            ime: this.imeInstruktorControl.value,
+            password: this.passwordInstruktorControl.value,
+            prezime: this.prezimeInstruktorControl.value,
+            radnoIskustvo: this.radnoIskustvoInstruktorControl.value,
+            userName: this.usernameInstruktorControl.value,
+            klijenti: []
+          };
+          this.instruktorService.dodajInstruktora(noviInstruktor);
+        } else {
+          this.signupFlag1 = true;
+        }
+      });
   }
 
   signUpClient() {
-    let noviKlijent: Klijent = {
-      bodyFat: this.bodyFatKlijentControl.value,
-      cilj: this.ciljKlijentControl.value,
-      ime: this.imeKlijentControl.value,
-      iskustvo: this.iskustvoKlijentControl.value,
-      password: this.passwordKlijentControl.value,
-      prezime: this.prezimeKlijentControl.value,
-      tezina: this.tezinaKlijentControl.value,
-      username: this.usernameKlijentControl.value,
-      visina: this.visinaKlijentControl.value,
-      instruktori: []
-    };
-    console.log(noviKlijent);
-    this.klijentService.dodajKlijenta(noviKlijent);
+    this.loginService
+      .loginCheckKlijentPassword(this.usernameKlijentControl.value)
+      .subscribe(({ password }) => {
+        if (password != 1) {
+          let noviKlijent: Klijent = {
+            bodyFat: this.bodyFatKlijentControl.value,
+            cilj: this.ciljKlijentControl.value,
+            ime: this.imeKlijentControl.value,
+            iskustvo: this.iskustvoKlijentControl.value,
+            password: this.passwordKlijentControl.value,
+            prezime: this.prezimeKlijentControl.value,
+            tezina: this.tezinaKlijentControl.value,
+            userName: this.usernameKlijentControl.value,
+            visina: this.visinaKlijentControl.value,
+            instruktori: []
+          };
+          this.klijentService.dodajKlijenta(noviKlijent);
+        } else {
+          this.signupFlag = true;
+        }
+      });
   }
 }

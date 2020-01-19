@@ -52,4 +52,40 @@ router.get("/:username", (req, res) => {
   });
 });
 
+router.get("/logininstruktor/:username", (req, res) => {
+  Instruktor.findOne({ userName: req.params.username }, (err, doc) => {
+    if (!err) {
+      if (doc == null) {
+        res.send({ password: 0 });
+        return;
+      }
+      res.send({ password: 1 });
+    } else {
+      console.log(
+        "Error in Retriving Employee :" + JSON.stringify(err, undefined, 2)
+      );
+    }
+  });
+});
+
+router.post("/loginstruktor", (req, res) => {
+  console.log(req.body);
+  Instruktor.findOne(
+    { userName: req.body.userName, password: req.body.password },
+    (err, doc) => {
+      if (!err) {
+        if (doc == null) {
+          res.send({ success: 0 });
+          return;
+        }
+        res.send({ success: 1 });
+      } else {
+        console.log(
+          "Greska pri pamcenju instruktor:" + JSON.stringify(err, undefined, 2)
+        );
+      }
+    }
+  );
+});
+
 module.exports = router;

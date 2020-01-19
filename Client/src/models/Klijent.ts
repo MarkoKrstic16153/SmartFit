@@ -6,7 +6,7 @@ export interface Klijent {
   bodyFat: number;
   iskustvo: string;
   cilj: string;
-  username: string;
+  userName: string;
   password: string;
   instruktori: string[];
 }

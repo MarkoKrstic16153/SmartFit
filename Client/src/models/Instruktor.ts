@@ -3,7 +3,7 @@ export interface Instruktor {
   prezime: string;
   radnoIskustvo: string;
   akreditacija: string;
-  username: string;
+  userName: string;
   password: string;
   klijenti: string[];
 }
