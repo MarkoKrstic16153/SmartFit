@@ -2,6 +2,9 @@ import { Component, OnInit } from '@angular/core';
 import { FormControl, Validators } from "@angular/forms";
 import { Klijent } from 'src/models/Klijent';
 import { Instruktor } from 'src/models/Instruktor';
+import { LoginService } from 'src/services/LoginService';
+import { InstruktorService } from 'src/services/InstruktorService';
+import { KlijentService } from 'src/services/KlijentService';
 
 @Component({
   selector: 'app-signup',
@@ -29,7 +32,7 @@ export class SignupComponent implements OnInit {
   usernameInstruktorControl : FormControl = new FormControl("", Validators.required);
   passwordInstruktorControl : FormControl = new FormControl("", Validators.required);
 
-  constructor() { }
+  constructor(private loginService:LoginService,private instruktorService:InstruktorService,private klijentService:KlijentService) { }
 
   ngOnInit() {
   }
@@ -41,9 +44,11 @@ export class SignupComponent implements OnInit {
       password:this.passwordInstruktorControl.value,
       prezime:this.prezimeInstruktorControl.value,
       radnoIskustvo:this.radnoIskustvoInstruktorControl.value,
-      username:this.usernameInstruktorControl.value
+      username:this.usernameInstruktorControl.value,
+      klijenti:[]
     };
     console.log(noviInstruktor);
+    this.instruktorService.dodajInstruktora(noviInstruktor);
   }
 
   SignUpClient(){
@@ -56,8 +61,10 @@ export class SignupComponent implements OnInit {
       prezime:this.prezimeKlijentControl.value,
       tezina:this.tezinaKlijentControl.value,
       username:this.usernameKlijentControl.value,
-      visina:this.visinaKlijentControl.value
+      visina:this.visinaKlijentControl.value,
+      instruktori:[]
     };
     console.log(noviKlijent);
+    this.klijentService.dodajKlijenta(noviKlijent);
   }
 }
