@@ -49,7 +49,8 @@ router.get("/:username", (req, res) => {
       res.send(doc);
     } else {
       console.log(
-        "Error in Retriving Employee :" + JSON.stringify(err, undefined, 2)
+        "Greska pri povlacenju klijenta iz baze :" +
+          JSON.stringify(err, undefined, 2)
       );
     }
   });
@@ -65,7 +66,9 @@ router.get("/loginklijent/:username", (req, res) => {
       res.send({ password: 1 });
     } else {
       console.log(
-        "Error in Retriving Employee :" + JSON.stringify(err, undefined, 2)
+        "Greska pri povlacenju klijenta iz baze :" +
+          JSON.stringify(err, undefined, 2) +
+          JSON.stringify(err, undefined, 2)
       );
     }
   });
@@ -84,7 +87,40 @@ router.post("/logklijent", (req, res) => {
         res.send({ success: 1 });
       } else {
         console.log(
-          "Greska pri pamcenju instruktor:" + JSON.stringify(err, undefined, 2)
+          "Greska pri logovanju klijenta:" + JSON.stringify(err, undefined, 2)
+        );
+      }
+    }
+  );
+});
+
+router.put("/updateklijent/:username", (req, res) => {
+  var klijent = {
+    ime: req.body.ime,
+    prezime: req.body.prezime,
+    visina: req.body.visina,
+    tezina: req.body.tezina,
+    bodyFat: req.body.bodyFat,
+    iskustvo: req.body.iskustvo,
+    ciljVezbanja: req.body.ciljVezbanja,
+    userName: req.body.userName,
+    password: req.body.password,
+    instruktori: req.body.instruktori
+  };
+  Klijent.findOneAndUpdate(
+    { userName: req.params.username },
+    { $set: klijent },
+    {
+      new: true,
+      useFindAndModify: false
+    },
+    (err, doc) => {
+      if (!err) {
+        res.send(doc);
+      } else {
+        console.log(
+          "Greska pri update-ovanju klijenta :" +
+            JSON.stringify(err, undefined, 2)
         );
       }
     }

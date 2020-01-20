@@ -88,4 +88,34 @@ router.post("/loginstruktor", (req, res) => {
   );
 });
 
+router.put("/updateinstruktor/:username", (req, res) => {
+  var instruktor = {
+    ime: req.body.ime,
+    prezime: req.body.prezime,
+    akreditacija: req.body.akreditacija,
+    radnoIskustvo: req.body.ciljVezbanja,
+    userName: req.body.userName,
+    password: req.body.password,
+    klijenti: req.body.klijenti
+  };
+  Klijent.findOneAndUpdate(
+    { userName: req.params.username },
+    { $set: instruktor },
+    {
+      new: true,
+      useFindAndModify: false
+    },
+    (err, doc) => {
+      if (!err) {
+        res.send(doc);
+      } else {
+        console.log(
+          "Greska pri update-ovanju instruktora :" +
+            JSON.stringify(err, undefined, 2)
+        );
+      }
+    }
+  );
+});
+
 module.exports = router;
