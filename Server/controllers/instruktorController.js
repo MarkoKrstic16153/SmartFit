@@ -93,12 +93,12 @@ router.put("/updateinstruktor", (req, res) => {
     ime: req.body.ime,
     prezime: req.body.prezime,
     akreditacija: req.body.akreditacija,
-    radnoIskustvo: req.body.ciljVezbanja,
+    radnoIskustvo: req.body.radnoIskustvo,
     userName: req.body.userName,
     password: req.body.password,
     klijenti: req.body.klijenti
   };
-  Klijent.findOneAndUpdate(
+  Instruktor.findOneAndUpdate(
     { userName: req.body.userName },
     { $set: instruktor },
     {

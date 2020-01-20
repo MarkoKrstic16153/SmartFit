@@ -94,7 +94,7 @@ router.post("/logklijent", (req, res) => {
   );
 });
 
-router.put("/updateklijent/:username", (req, res) => {
+router.put("/updateklijent", (req, res) => {
   var klijent = {
     ime: req.body.ime,
     prezime: req.body.prezime,
@@ -108,7 +108,7 @@ router.put("/updateklijent/:username", (req, res) => {
     instruktori: req.body.instruktori
   };
   Klijent.findOneAndUpdate(
-    { userName: req.params.username },
+    { userName: req.body.userName },
     { $set: klijent },
     {
       new: true,
