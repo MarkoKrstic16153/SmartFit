@@ -102,13 +102,13 @@ export class SignupComponent implements OnInit {
       .subscribe(({ password }) => {
         if (password != 1) {
           let noviKlijent: Klijent = {
-            bodyFat: this.bodyFatKlijentControl.value,
+            bodyFat: [this.bodyFatKlijentControl.value],
             cilj: this.ciljKlijentControl.value,
             ime: this.imeKlijentControl.value,
             iskustvo: this.iskustvoKlijentControl.value,
             password: this.passwordKlijentControl.value,
             prezime: this.prezimeKlijentControl.value,
-            tezina: this.tezinaKlijentControl.value,
+            tezina: [this.tezinaKlijentControl.value],
             userName: this.usernameKlijentControl.value,
             visina: this.visinaKlijentControl.value,
             instruktori: []
