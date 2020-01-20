@@ -29,7 +29,8 @@ router.post("/signupklijent", (req, res) => {
     ciljVezbanja: req.body.ciljVezbanja,
     userName: req.body.userName,
     password: req.body.password,
-    instruktori: req.body.instruktori
+    instruktori: req.body.instruktori,
+    godinaRodjenja: req.body.godinaRodjenja
   });
   console.log(klijent);
   klijent.save((err, doc) => {
@@ -105,7 +106,8 @@ router.put("/updateklijent", (req, res) => {
     ciljVezbanja: req.body.ciljVezbanja,
     userName: req.body.userName,
     password: req.body.password,
-    instruktori: req.body.instruktori
+    instruktori: req.body.instruktori,
+    godinaRodjenja: req.body.godinaRodjenja
   };
   Klijent.findOneAndUpdate(
     { userName: req.body.userName },

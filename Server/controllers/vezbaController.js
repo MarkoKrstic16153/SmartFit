@@ -51,4 +51,21 @@ router.get("/:ime", (req, res) => {
   });
 });
 
+router.get("/checkvezba/:ime", (req, res) => {
+  Vezba.findOne({ ime: req.params.ime }, (err, doc) => {
+    if (!err) {
+      if (doc == null) {
+        res.send({ success: 1 });
+        return;
+      }
+      res.send({ success: 0 });
+    } else {
+      console.log(
+        "Greska pri povlacenju vezbe iz baze :" +
+          JSON.stringify(err, undefined, 2)
+      );
+    }
+  });
+});
+
 module.exports = router;
