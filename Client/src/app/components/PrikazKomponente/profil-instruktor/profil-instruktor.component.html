@@ -1,1 +1,53 @@
-<p>profil-instruktor works!</p>
+<div *ngIf="instruktor!=null">
+    <div *ngIf="!daLiJeLogovan()">Morate biti logovani da vidite profile.</div>
+    <div *ngIf="daLiJeLogovan() && daLiNJegovProfilIliGleda()">
+        dobro logovan i njegov je profil.
+        <h2>Dobrodosli {{instruktor.username}}</h2>
+        <div>Ime : {{instruktor.ime}}</div>
+        <div>Prezime : {{instruktor.prezime}}</div>
+        <div>Akreditacija : {{instruktor.akreditacija}}</div>
+        <div>Radno Iskustvo : {{instruktor.radnoIskustvo}}</div>
+        <div>Broj Klijenta : {{instruktor.klijenti.length}}</div>
+        <button (click)="izmenaProfila()">Izmeni Profil</button>
+        <div *ngIf="flagIzmena == true">
+            <label for="prezimeInstruktorControl">Novo Prezime :</label>
+<input
+  type="text"
+  name="prezimeInstruktorControl"
+  [formControl]="prezimeInstruktorControl"
+/>
+<label for="akreditacijaInstruktorControl">Nova Akreditacija :</label>
+<input
+  type="text"
+  name="akreditacijaInstruktorControl"
+  [formControl]="akreditacijaInstruktorControl"
+/>
+
+<label for="radnoIskustvoInstruktorControl">Novo Radno iskustvo :</label>
+<input
+  type="text"
+  name="radnoIskustvoInstruktorControl"
+  [formControl]="radnoIskustvoInstruktorControl"
+/>
+<label for="noviPasswordInstruktorControl">Vas Novi Password :</label>
+<input
+  type="password"
+  name="noviPasswordInstruktorControl"
+  [formControl]="noviPasswordInstruktorControl"
+/>
+<label for="passwordInstruktorControl">Vas Stari Password :</label>
+<input
+  type="password"
+  name="passwordInstruktorControl"
+  [formControl]="passwordInstruktorControl"
+/>
+<button (click)="updateProfil()">Posalji Promene</button>
+        </div>
+<button>Dodaj Novu Hranu</button> <button>Dodaj Novu Vezbu</button>
+    </div>
+    <div *ngIf="daLiJeLogovan() && !daLiNJegovProfilIliGleda()">
+        dobro logovan i gleda tudji profil.
+
+    </div>
+    </div>
+

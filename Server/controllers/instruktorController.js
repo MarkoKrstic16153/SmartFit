@@ -88,7 +88,7 @@ router.post("/loginstruktor", (req, res) => {
   );
 });
 
-router.put("/updateinstruktor/:username", (req, res) => {
+router.put("/updateinstruktor", (req, res) => {
   var instruktor = {
     ime: req.body.ime,
     prezime: req.body.prezime,
@@ -99,7 +99,7 @@ router.put("/updateinstruktor/:username", (req, res) => {
     klijenti: req.body.klijenti
   };
   Klijent.findOneAndUpdate(
-    { userName: req.params.username },
+    { userName: req.body.userName },
     { $set: instruktor },
     {
       new: true,

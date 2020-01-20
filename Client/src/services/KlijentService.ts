@@ -6,8 +6,9 @@ import { Observable } from "rxjs";
 @Injectable({ providedIn: "root" })
 export class KlijentService {
   urlPostKlijent: string = "http://localhost:3000/klijent/signupklijent";
-  getKlijentByUsername: string = "http://localhost:3000/klijent/getklijent/";
+  getKlijentByUsername: string = "http://localhost:3000/klijent/";
   getAllClients: string = "http://localhost:3000/klijent/getallklijents/";
+  urlUpdateClient: string = "http://localhost:3000/klijent/updateklijent";
   constructor(private httpClient: HttpClient) {}
 
   dodajKlijenta(noviKlijent: Klijent) {
@@ -19,6 +20,17 @@ export class KlijentService {
       .subscribe(data => {
         console.log(data);
       });
+  }
+
+  updateKlijent(updatovaniKlijent: Klijent){
+    const headers = new HttpHeaders()
+    .set("Authorization", "my-auth-token")
+    .set("Content-Type", "application/json");
+  this.httpClient
+    .post<Klijent>(this.urlUpdateClient, updatovaniKlijent, { headers: headers })
+    .subscribe(data => {
+      console.log(data);
+    });
   }
 
   getKlijentProfile(username: string): Observable<Klijent> {

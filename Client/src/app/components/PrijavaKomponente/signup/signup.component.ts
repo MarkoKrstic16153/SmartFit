@@ -5,6 +5,7 @@ import { Instruktor } from "src/models/Instruktor";
 import { LoginService } from "src/services/LoginService";
 import { InstruktorService } from "src/services/InstruktorService";
 import { KlijentService } from "src/services/KlijentService";
+import { Router } from '@angular/router';
 
 @Component({
   selector: "app-signup",
@@ -70,7 +71,8 @@ export class SignupComponent implements OnInit {
   constructor(
     private loginService: LoginService,
     private instruktorService: InstruktorService,
-    private klijentService: KlijentService
+    private klijentService: KlijentService,
+    private router: Router
   ) {}
 
   ngOnInit() {}
@@ -90,6 +92,7 @@ export class SignupComponent implements OnInit {
             klijenti: []
           };
           this.instruktorService.dodajInstruktora(noviInstruktor);
+          this.router.navigate(["/profilinstruktor",this.usernameInstruktorControl.value]);
         } else {
           this.signupFlag1 = true;
         }
@@ -114,6 +117,7 @@ export class SignupComponent implements OnInit {
             instruktori: []
           };
           this.klijentService.dodajKlijenta(noviKlijent);
+          this.router.navigate(["/profilklijent",this.usernameKlijentControl.value]);
         } else {
           this.signupFlag = true;
         }

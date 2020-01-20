@@ -9,11 +9,12 @@ export class InstruktorService {
   urlPostInstruktor: string =
     "http://localhost:3000/instruktor/signupinstruktor";
   getInstruktorByUsername: string =
-    "http://localhost:3000/instruktor/getinstruktor/";
+    "http://localhost:3000/instruktor/";
   getAllInstruktors: string =
     "http://localhost:3000/instruktor/getallinstruktor/";
   getClientsInstruktor: string =
     "http://localhost:3000/instruktor/getclientinstruktor/";
+  urlUpdateInstruktor:string = "http://localhost:3000/instruktor/updateinstruktor";
   constructor(private httpClient: HttpClient) {}
 
   getAllInstruktori(): Observable<Instruktor[]> {
@@ -25,7 +26,20 @@ export class InstruktorService {
       .set("Authorization", "my-auth-token")
       .set("Content-Type", "application/json");
     this.httpClient
-      .post<Klijent>(this.urlPostInstruktor, noviInstruktor, {
+      .post<Klijent>(this.urlUpdateInstruktor, noviInstruktor, {
+        headers: headers
+      })
+      .subscribe(data => {
+        console.log(data);
+      });
+  }
+
+  updateInstruktor(updatovaniInstruktor: Instruktor){
+    const headers = new HttpHeaders()
+      .set("Authorization", "my-auth-token")
+      .set("Content-Type", "application/json");
+    this.httpClient
+      .post<Klijent>(this.urlPostInstruktor, updatovaniInstruktor, {
         headers: headers
       })
       .subscribe(data => {

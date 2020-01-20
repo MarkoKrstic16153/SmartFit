@@ -1,6 +1,7 @@
 import { Component, OnInit } from "@angular/core";
 import { FormControl, Validators } from "@angular/forms";
 import { LoginService } from "src/services/LoginService";
+import { Router } from '@angular/router';
 
 @Component({
   selector: "app-login",
@@ -26,7 +27,7 @@ export class LoginComponent implements OnInit {
     "",
     Validators.required
   );
-  constructor(private loginService: LoginService) {}
+  constructor(private loginService: LoginService,private router:Router) {}
 
   ngOnInit() {}
 
@@ -39,9 +40,9 @@ export class LoginComponent implements OnInit {
       .subscribe(({ success }) => {
         console.log(success);
         if (success == 1) {
-          console.log("ok");
           this.loginService.logovaniUsername = this.usernameKlijentControl.value;
           this.loginService.korisnik = true;
+          this.router.navigate(["/profilklijent",this.usernameKlijentControl.value]);
         } else {
           this.kliFlag = true;
         }
@@ -57,9 +58,9 @@ export class LoginComponent implements OnInit {
       .subscribe(({ success }) => {
         console.log(success);
         if (success == 1) {
-          console.log("ok");
           this.loginService.logovaniUsername = this.usernameInstruktorControl.value;
           this.loginService.korisnik = false;
+          this.router.navigate(["/profilinstruktor",this.usernameInstruktorControl.value]);
         } else {
           this.instFlag = true;
         }

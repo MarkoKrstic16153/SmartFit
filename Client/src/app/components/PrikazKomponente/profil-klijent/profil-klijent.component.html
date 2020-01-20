@@ -1,1 +1,9 @@
-<p>profil-klijent works!</p>
+<div *ngIf="klijent!=null">
+<div *ngIf="!daLiJeLogovan()">Morate biti logovani da vidite profile.</div>
+<div *ngIf="daLiJeLogovan() && daLiNJegovProfilIliGleda()">
+    dobro logovan i njegov je profil.
+</div>
+<div *ngIf="daLiJeLogovan() && !daLiNJegovProfilIliGleda()">
+    dobro logovan i gleda tudji profil.
+</div>
+</div>
