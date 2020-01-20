@@ -26,7 +26,7 @@ export class InstruktorService {
       .set("Authorization", "my-auth-token")
       .set("Content-Type", "application/json");
     this.httpClient
-      .post<Klijent>(this.urlUpdateInstruktor, noviInstruktor, {
+      .post<Instruktor>(this.urlPostInstruktor, noviInstruktor, {
         headers: headers
       })
       .subscribe(data => {
@@ -39,7 +39,7 @@ export class InstruktorService {
       .set("Authorization", "my-auth-token")
       .set("Content-Type", "application/json");
     this.httpClient
-      .post<Klijent>(this.urlPostInstruktor, updatovaniInstruktor, {
+      .put<Instruktor>(this.urlUpdateInstruktor, updatovaniInstruktor, {
         headers: headers
       })
       .subscribe(data => {

@@ -9,4 +9,5 @@ export interface Klijent {
   userName: string;
   password: string;
   instruktori: string[];
+  godinaRodjenja: number;
 }

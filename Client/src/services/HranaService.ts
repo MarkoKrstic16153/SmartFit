@@ -7,6 +7,7 @@ import { Observable } from "rxjs";
 export class HranaService {
   urlPostHrana = "http://localhost:3000/hrana/posthrana";
   ulrGetAllHrana = "http://localhost:3000/hrana/getallhrana";
+  ulrCheckHrana = "http://localhost:3000/hrana/checkhrana/";
   constructor(private httpClient: HttpClient) {}
 
   dodajHranu(novaHrana: Hrana) {
@@ -22,5 +23,9 @@ export class HranaService {
 
   getAllHrana(): Observable<Hrana[]> {
     return this.httpClient.get<Hrana[]>(this.ulrGetAllHrana);
+  }
+
+  checkHrana(imeHrane:string):Observable<any>{
+    return this.httpClient.get<any>(this.ulrCheckHrana+imeHrane);
   }
 }

@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { LoginService } from 'src/services/LoginService';
 import { Instruktor } from 'src/models/Instruktor';
 import { InstruktorService } from 'src/services/InstruktorService';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { FormControl, Validators } from '@angular/forms';
 
 @Component({
@@ -33,7 +33,7 @@ export class ProfilInstruktorComponent implements OnInit {
     "",
     Validators.required
   );
-  constructor(private loginService:LoginService,private instruktorService:InstruktorService,private route:ActivatedRoute) { }
+  constructor(private loginService:LoginService,private instruktorService:InstruktorService,private route:ActivatedRoute,private router:Router) { }
 
   ngOnInit() {
     this.instruktor=null;
@@ -74,6 +74,14 @@ export class ProfilInstruktorComponent implements OnInit {
       this.instruktor = updateProfile;
       this.instruktorService.updateInstruktor(updateProfile);
     }
+  }
+
+  dodajHranu(){
+    this.router.navigate(["/dodajhranu"]);
+  }
+
+  dodajVezbu(){
+    this.router.navigate(["/dodajvezbu"]);
   }
 
 }

@@ -92,6 +92,8 @@ export class SignupComponent implements OnInit {
             klijenti: []
           };
           this.instruktorService.dodajInstruktora(noviInstruktor);
+          this.loginService.logovaniUsername = this.usernameInstruktorControl.value;
+          this.loginService.korisnik = false;
           this.router.navigate(["/profilinstruktor",this.usernameInstruktorControl.value]);
         } else {
           this.signupFlag1 = true;
@@ -114,9 +116,13 @@ export class SignupComponent implements OnInit {
             tezina: [this.tezinaKlijentControl.value],
             userName: this.usernameKlijentControl.value,
             visina: this.visinaKlijentControl.value,
-            instruktori: []
+            instruktori: [],
+            godinaRodjenja:this.godinaRodjenjaKlijentControl.value
           };
           this.klijentService.dodajKlijenta(noviKlijent);
+          console.log(noviKlijent);
+          this.loginService.logovaniUsername = this.usernameKlijentControl.value;
+          this.loginService.korisnik = true;
           this.router.navigate(["/profilklijent",this.usernameKlijentControl.value]);
         } else {
           this.signupFlag = true;

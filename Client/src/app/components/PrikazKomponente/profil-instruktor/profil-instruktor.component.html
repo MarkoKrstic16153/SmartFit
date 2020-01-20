@@ -8,6 +8,7 @@
         <div>Akreditacija : {{instruktor.akreditacija}}</div>
         <div>Radno Iskustvo : {{instruktor.radnoIskustvo}}</div>
         <div>Broj Klijenta : {{instruktor.klijenti.length}}</div>
+        <div>Smart Search za Druge Instruktore : </div>
         <button (click)="izmenaProfila()">Izmeni Profil</button>
         <div *ngIf="flagIzmena == true">
             <label for="prezimeInstruktorControl">Novo Prezime :</label>
@@ -43,11 +44,17 @@
 />
 <button (click)="updateProfil()">Posalji Promene</button>
         </div>
-<button>Dodaj Novu Hranu</button> <button>Dodaj Novu Vezbu</button>
+
+<button (click)="dodajHranu()">Dodaj Novu Hranu</button> <button (click)="dodajVezbu()">Dodaj Novu Vezbu</button>
     </div>
     <div *ngIf="daLiJeLogovan() && !daLiNJegovProfilIliGleda()">
         dobro logovan i gleda tudji profil.
-
+        <h2>Dobrodosli na profil {{instruktor.username}}</h2>
+        <div>Ime : {{instruktor.ime}}</div>
+        <div>Prezime : {{instruktor.prezime}}</div>
+        <div>Akreditacija : {{instruktor.akreditacija}}</div>
+        <div>Radno Iskustvo : {{instruktor.radnoIskustvo}}</div>
+        <div>Broj Klijenta : {{instruktor.klijenti.length}}</div>
     </div>
     </div>
 

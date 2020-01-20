@@ -1,4 +1,5 @@
-<h3>Dodajte novu vrstu hrane :</h3>
+<div *ngIf="ulogovan()">
+  <h3>Dodajte novu vrstu hrane :</h3>
 <label for="imeControl">Naziv hrane :</label>
     <input
       type="text"
@@ -36,3 +37,7 @@
     />
     <div>{{ispisiKalorije()}}</div>
     <button (click)="DodajHranu()">Dodajte Hranu</button>
+</div>
+<div *ngIf="!ulogovan()">
+  Morate biti ulogovani Instruktor da dodajete novu hranu.
+</div>

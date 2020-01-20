@@ -9,6 +9,7 @@ export class VezbeService {
   ulrGetAllVezbe = "http://localhost:3000/vezba/getallvezba";
   ulrGetTreningVezbe = "http://localhost:3000/vezba/getallvezba";
   ulrGetMisicVezbe = "http://localhost:3000/vezba/getallvezba";
+  ulrCheckVezba = "http://localhost:3000/vezba/checkvezba/";
   constructor(private httpClient: HttpClient) {}
 
   dodajVezbu(novaVezba: Vezba) {
@@ -24,6 +25,10 @@ export class VezbeService {
 
   getAllVezbe(): Observable<Vezba[]> {
     return this.httpClient.get<Vezba[]>(this.ulrGetAllVezbe);
+  }
+
+  checkVezba(imeVezbe:string):Observable<any>{
+    return this.httpClient.get<any>(this.ulrCheckVezba+imeVezbe);
   }
 
   getTipTreningaVezbe(tipTrenigna: string) {}

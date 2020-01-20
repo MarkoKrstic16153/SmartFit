@@ -1,4 +1,4 @@
-<h3>Dodajte novu vezbu :</h3>
+<div *ngIf="ulogovan()"><h3>Dodajte novu vezbu :</h3>
     <label for="imeControl">Naziv vezbe :</label>
     <input
       type="text"
@@ -67,6 +67,8 @@
 
     [formControl]="bodyWeightControl"
     />
-
     <button (click)="dodajteVezbu()">Dodajte Vezbu</button>
-
+  </div>
+    <div *ngIf="!ulogovan()">
+      Morate biti ulogovani Instruktor da dodajete novu vezbu.
+    </div>

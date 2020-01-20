@@ -1,9 +1,141 @@
 <div *ngIf="klijent!=null">
 <div *ngIf="!daLiJeLogovan()">Morate biti logovani da vidite profile.</div>
 <div *ngIf="daLiJeLogovan() && daLiNJegovProfilIliGleda()">
-    dobro logovan i njegov je profil.
-</div>
+    dobro logovan .
+    <h2>Dobrodosli na profil {{klijent.username}}</h2>
+    <div>Ime : {{klijent.ime}}</div>
+    <div>Prezime : {{klijent.prezime}}</div>
+    <div>Godina Rodjenja : {{klijent.godinaRodjenja}}</div>
+    <div>Visina : {{klijent.visina}}</div>
+    <div>Trenutna Tezina : {{klijent.tezina[klijent.tezina.length-1]}}</div>
+    <div>Trenutni BodyFat : {{klijent.bodyFat[klijent.bodyFat.length-1]}}</div>
+    <div>Vezbacko Iskustvo : {{klijent.iskustvo}}</div>
+    <div>Cilj u treningu : {{klijent.cilj}}</div>
+    <div>Grafik</div>
+    <div>Smart Search za Druge Klijente : </div>
+    <div style="display: block">
+        Tezina Graf
+        <canvas baseChart
+            [chartType]="chartType"
+            [datasets]="chartDatasets"
+            [labels]="chartLabels"
+            [colors]="chartColors"
+            [options]="chartOptions"
+            [legend]="true">
+        </canvas>
+      </div>
+      <div style="display: block">
+        BodyFat Graf
+        <canvas baseChart
+            [chartType]="chartType"
+            [datasets]="chartDatasets1"
+            [labels]="chartLabels"
+            [colors]="chartColors1"
+            [options]="chartOptions"
+            [legend]="true">
+        </canvas>
+      </div>
+    <button (click)="izmena()">Izmeni Profil</button>
+    <button (click)="novoMerenje()">Merenje</button>
+    <button (click)="pogledajInstruktore()">Instruktori</button>
+    <div *ngIf="merenje==true">
+        <h3>Unesite vase novo merenje : </h3>
+        <label for="tezinaKlijentControl">Tezina :</label>
+        <input
+        type="number"
+        name="tezinaKlijentControl"
+        [formControl]="tezinaKlijentControl"
+        />
+        <label for="bodyFatKlijentControl">BodyFat :</label>
+        <input
+        type="number"
+        name="bodyFatKlijentControl"
+        [formControl]="bodyFatKlijentControl"
+        />
+        <button (click)="dodajMerenje()">Dodaj Merenje</button>
+    </div>
+    <div *ngIf="izmenaProfila==true">
+        <h4>Izmenite Vas profil : </h4>
+        <label for="prezimeKlijentControl">Novo Prezime :</label>
+        <input
+        type="text"
+        name="prezimeKlijentControl"
+        [formControl]="prezimeKlijentControl"
+        />
+        <label for="visinaKlijentControl">Nova Visina :</label>
+        <input
+        type="number"
+        name="visinaKlijentControl"
+        [formControl]="visinaKlijentControl"
+        />
+        <label for="bodyFatKlijentControl">Iskustvo u vezbanju :</label>
+        <select
+        type="number"
+        name="bodyFatKlijentControl"
+        [formControl]="iskustvoKlijentControl"
+        >
+        <option *ngFor="let iskustvo of iskustva" [value]="iskustvo">{{
+            iskustvo
+        }}</option>
+        </select>
+        <label for="ciljKlijentControl">Novi Cilj Vaseg treniranja :</label>
+        <input
+        type="text"
+        name="ciljKlijentControl"
+        [formControl]="ciljKlijentControl"
+        />
+        <label for="noviPasswordKlijentControl">Vas Novi Password :</label>
+        <input
+        type="password"
+        name="noviPasswordKlijentControl"
+        [formControl]="noviPasswordKlijentControl"
+        />
+        <label for="passwordKlijentControl">Vas Stari Password :</label>
+        <input
+        type="password"
+        name="passwordKlijentControl"
+        [formControl]="passwordKlijentControl"
+        />
+        <button (click)="updateProf()">Zapamti Izmene</button>
+    </div>
+    <div *ngIf="instruktori==true">
+    <h4>Lista Vasih Instruktora : </h4>
+    <h4>Lista svih Instruktora : </h4>
+    </div>
+</div
+>
 <div *ngIf="daLiJeLogovan() && !daLiNJegovProfilIliGleda()">
     dobro logovan i gleda tudji profil.
+    <h2>Dobrodosli na profil {{klijent.username}}</h2>
+    <div>Ime : {{klijent.ime}}</div>
+    <div>Prezime : {{klijent.prezime}}</div>
+    <div>Godina Rodjenja : {{klijent.godinaRodjenja}}</div>
+    <div>Visina : {{klijent.visina}}</div>
+    <div>Trenutna Tezina : {{klijent.tezina[klijent.tezina.length-1]}}</div>
+    <div>Trenutni BodyFat : {{klijent.bodyFat[klijent.bodyFat.length-1]}}</div>
+    <div>Vezbacko Iskustvo : {{klijent.iskustvo}}</div>
+    <div>Cilj u treningu : {{klijent.cilj}}</div>
+    <div style="display: block">
+        Tezina Graf
+        <canvas baseChart
+            [chartType]="chartType"
+            [datasets]="chartDatasets"
+            [labels]="chartLabels"
+            [colors]="chartColors"
+            [options]="chartOptions"
+            [legend]="true">
+        </canvas>
+      </div>
+      <div style="display: block">
+        BodyFat Graf
+        <canvas baseChart
+            [chartType]="chartType"
+            [datasets]="chartDatasets1"
+            [labels]="chartLabels"
+            [colors]="chartColors1"
+            [options]="chartOptions"
+            [legend]="true">
+        </canvas>
+      </div>
 </div>
 </div>

@@ -18,6 +18,9 @@ import { PlanIshraneComponent } from "./components/PrikazKomponente/plan-ishrane
 import { PlanTreningaComponent } from "./components/PrikazKomponente/plan-treninga/plan-treninga.component";
 import { HomeComponent } from "./components/PrikazKomponente/home/home.component";
 import { NavigationComponent } from "./components/PrikazKomponente/navigation/navigation.component";
+import { MaterialModule } from './material.module';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { ChartsModule } from 'ng2-charts';
 
 @NgModule({
   declarations: [
@@ -38,10 +41,13 @@ import { NavigationComponent } from "./components/PrikazKomponente/navigation/na
     NavigationComponent
   ],
   imports: [
+    MaterialModule,
     BrowserModule,
     AppRoutingModule,
     ReactiveFormsModule,
-    HttpClientModule
+    HttpClientModule,
+    BrowserAnimationsModule,
+    ChartsModule
   ],
   providers: [],
   bootstrap: [AppComponent]

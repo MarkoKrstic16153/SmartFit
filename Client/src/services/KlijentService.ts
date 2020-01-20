@@ -27,7 +27,7 @@ export class KlijentService {
     .set("Authorization", "my-auth-token")
     .set("Content-Type", "application/json");
   this.httpClient
-    .post<Klijent>(this.urlUpdateClient, updatovaniKlijent, { headers: headers })
+    .put<Klijent>(this.urlUpdateClient, updatovaniKlijent, { headers: headers })
     .subscribe(data => {
       console.log(data);
     });

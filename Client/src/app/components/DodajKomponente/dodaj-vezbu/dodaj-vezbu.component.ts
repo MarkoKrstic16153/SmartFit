@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormControl, Validators } from '@angular/forms';
 import { Vezba } from 'src/models/Vezba';
 import { VezbeService } from 'src/services/VezbeService';
+import { LoginService } from 'src/services/LoginService';
 
 @Component({
   selector: 'app-dodaj-vezbu',
@@ -19,7 +20,7 @@ export class DodajVezbuComponent implements OnInit {
   bodyWeightControl : FormControl = new FormControl("", Validators.required);
   tegoviControl : FormControl = new FormControl("", Validators.required);
   masineControl : FormControl = new FormControl("", Validators.required);
-  constructor(private vezbaService:VezbeService) { }
+  constructor(private vezbaService:VezbeService,private loginService:LoginService) { }
 
   ngOnInit() {
 
@@ -47,7 +48,16 @@ export class DodajVezbuComponent implements OnInit {
   }
 
   dodajteVezbu(){
-    let teg,masina,bodyWeight;
+    this.vezbaService.checkVezba(this.imeControl.value).subscribe(({success})=>{
+      console.log(success);
+      if(success == 0){
+        console.log('ta hrana vec postoji');
+      }
+      else{
+        console.log('hrana ne postoji');
+      }
+    })
+    /*let teg,masina,bodyWeight;
     if(this.tegoviControl.value == "" || this.tegoviControl.value == false)
       teg= false;
     else
@@ -69,7 +79,13 @@ export class DodajVezbuComponent implements OnInit {
       vrsteTreninga:this.dozvoljeniTreninzi
     };
     console.log(novaVezba);
-    this.vezbaService.dodajVezbu(novaVezba);
+    this.vezbaService.dodajVezbu(novaVezba);*/
   }
 
+  ulogovan():boolean{
+    if(this.loginService.logovaniUsername!="" && this.loginService.korisnik == false)
+      return true;
+    else
+      return false;
+  }
 }
