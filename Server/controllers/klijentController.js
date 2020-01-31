@@ -133,4 +133,57 @@ router.put("/updateklijent", (req, res) => {
   );
 });
 
+router.post("/updatelistainstruktora", async (req, res) => {
+  let instruktorUsername = req.body.usernameInstruktor;
+  await Klijent.findOne({ userName: req.body.usernameKlijent }, (err, doc) => {
+    var klijent = {
+      _id: doc._id,
+      ime: doc.ime,
+      prezime: doc.prezime,
+      visina: doc.visina,
+      tezina: doc.tezina,
+      bodyFat: doc.bodyFat,
+      iskustvo: doc.iskustvo,
+      ciljVezbanja: doc.ciljVezbanja,
+      userName: doc.userName,
+      password: doc.password,
+      instruktori: doc.instruktori,
+      godinaRodjenja: doc.godinaRodjenja
+    };
+
+    if (!err) {
+      const index = klijent.instruktori.indexOf(instruktorUsername);
+      if (index > -1) {
+        klijent.instruktori.splice(index, 1);
+      }
+
+      console.log(klijent.instruktori);
+
+      Klijent.findByIdAndUpdate(
+        klijent._id,
+        { $set: klijent },
+        {
+          new: true,
+          useFindAndModify: false
+        },
+        (err, doc) => {
+          if (!err) {
+            res.send(doc);
+          } else {
+            console.log(
+              "Greska pri update-ovanju klijenta :" +
+                JSON.stringify(err, undefined, 2)
+            );
+          }
+        }
+      );
+    } else {
+      console.log(
+        "Greska pri update-ovanju klijenta :" +
+          JSON.stringify(err, undefined, 2)
+      );
+    }
+  });
+});
+
 module.exports = router;
