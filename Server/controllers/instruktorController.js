@@ -5,10 +5,14 @@ var { Instruktor } = require("../models/instruktor");
 
 //localhost:3000/instruktor/lista
 
-router.get("/lista", (req, res) => {
+router.get("/getallinstruktor", (req, res) => {
   Instruktor.find((err, docs) => {
     if (!err) {
-      res.send(docs);
+      var lista = [];
+      docs.forEach(instruktor => {
+        lista.push(instruktor.userName);
+      });
+      res.send(lista);
     } else {
       console.log(
         "Greska pri povlacenju instruktora iz baze:" +

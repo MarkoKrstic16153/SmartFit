@@ -5,10 +5,14 @@ var { Klijent } = require("../models/klijent");
 
 //localhost:3000/klijent/lista
 
-router.get("/lista", (req, res) => {
+router.get("/getallklijent", (req, res) => {
   Klijent.find((err, docs) => {
     if (!err) {
-      res.send(docs);
+      var lista = [];
+      docs.forEach(klijent => {
+        lista.push(klijent.userName);
+      });
+      res.send(lista);
     } else {
       console.log(
         "Greska pri povlacenju korisnika iz baze:" +
