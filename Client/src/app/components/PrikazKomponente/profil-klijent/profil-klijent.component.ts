@@ -4,6 +4,7 @@ import { KlijentService } from 'src/services/KlijentService';
 import { Klijent } from 'src/models/Klijent';
 import { ActivatedRoute } from '@angular/router';
 import { FormControl, Validators } from '@angular/forms';
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-profil-klijent',
@@ -15,6 +16,8 @@ export class ProfilKlijentComponent implements OnInit {
   izmenaProfila:boolean=false;
   merenje:boolean=false;
   instruktori:boolean=false;
+  pretragaPoImenu:string = "Pretrazite Klijente : ";
+  obsKlijenti:Observable<Klijent> = null;
   iskustva: string[] = [
     "Vezbac sa velikim Iskustvom",
     "Vezbac sa Iskustvom",
@@ -69,6 +72,9 @@ export class ProfilKlijentComponent implements OnInit {
     this.klijentService.getKlijentProfile(this.route.snapshot.paramMap.get('username')).subscribe((klijentProfil)=>{
       this.klijent = klijentProfil;console.log(this.klijent);
       this.osveziGraf();
+    });
+    this.klijentService.getAllKlijents().subscribe((data)=>{
+      console.log(data);
     });
   }
 
@@ -145,5 +151,10 @@ export class ProfilKlijentComponent implements OnInit {
 
   subToInstruktor(){
 
+  }
+
+  pretraziTim($tim: any) {
+    console.log($tim); //rutiraj na tu stranu tima
+    //this.router.navigate(["/pretrazitimove/tim/", $tim]);
   }
 }

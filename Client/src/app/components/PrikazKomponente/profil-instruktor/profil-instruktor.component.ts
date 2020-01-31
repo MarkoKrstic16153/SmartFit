@@ -4,6 +4,7 @@ import { Instruktor } from 'src/models/Instruktor';
 import { InstruktorService } from 'src/services/InstruktorService';
 import { ActivatedRoute, Router } from '@angular/router';
 import { FormControl, Validators } from '@angular/forms';
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-profil-instruktor',
@@ -13,6 +14,8 @@ import { FormControl, Validators } from '@angular/forms';
 export class ProfilInstruktorComponent implements OnInit {
   instruktor:Instruktor=null;
   flagIzmena:boolean = false;
+  pretragaPoImenu:string = "Pretrazite Instruktore : ";
+  obsKlijenti:Observable<Instruktor> = null;
   prezimeInstruktorControl: FormControl = new FormControl(
     "",
     Validators.required
@@ -38,6 +41,9 @@ export class ProfilInstruktorComponent implements OnInit {
   ngOnInit() {
     this.instruktor=null;
     this.instruktorService.getInstruktorProfil(this.route.snapshot.paramMap.get('username')).subscribe((instruktorProfil)=>{this.instruktor = instruktorProfil;console.log(this.instruktor)});
+    this.instruktorService.getAllInstruktori().subscribe((data)=>{
+      console.log(data);
+    });
   }
 
   daLiJeLogovan():boolean{

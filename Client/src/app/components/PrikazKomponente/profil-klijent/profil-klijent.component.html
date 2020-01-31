@@ -102,6 +102,11 @@
     <h4>Lista Vasih Instruktora : </h4>
     <h4>Lista svih Instruktora : </h4>
     </div>
+    <app-smart-search-bar
+      (onEnter)="pretraziTim($event)"
+      [titlePretrage]="pretragaPoImenu"
+      [obsPretrage]="obsKlijenti"
+    ></app-smart-search-bar>
 </div
 >
 <div *ngIf="daLiJeLogovan() && !daLiNJegovProfilIliGleda()">

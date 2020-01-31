@@ -7,7 +7,7 @@ import { Observable } from "rxjs";
 export class KlijentService {
   urlPostKlijent: string = "http://localhost:3000/klijent/signupklijent";
   getKlijentByUsername: string = "http://localhost:3000/klijent/";
-  getAllClients: string = "http://localhost:3000/klijent/getallklijents/";
+  getAllClients: string = "http://localhost:3000/klijent/getallklijent";
   urlUpdateClient: string = "http://localhost:3000/klijent/updateklijent";
   constructor(private httpClient: HttpClient) {}
 

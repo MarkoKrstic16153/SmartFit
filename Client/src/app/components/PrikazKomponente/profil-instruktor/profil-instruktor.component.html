@@ -8,7 +8,15 @@
         <div>Akreditacija : {{instruktor.akreditacija}}</div>
         <div>Radno Iskustvo : {{instruktor.radnoIskustvo}}</div>
         <div>Broj Klijenta : {{instruktor.klijenti.length}}</div>
-        <div>Smart Search za Druge Instruktore : </div>
+        <div>Lista Vasih Klijenata : 
+          <ul>
+          </ul>
+        </div>
+        <app-smart-search-bar
+          (onEnter)="pretraziTim($event)"
+          [titlePretrage]="pretragaPoImenu"
+          [obsPretrage]="obsInstruktori"
+        ></app-smart-search-bar>
         <button (click)="izmenaProfila()">Izmeni Profil</button>
         <div *ngIf="flagIzmena == true">
             <label for="prezimeInstruktorControl">Novo Prezime :</label>
