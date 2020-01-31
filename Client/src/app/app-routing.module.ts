@@ -19,7 +19,9 @@ const routes: Routes = [
   { path: "dodajvezbu", component: DodajVezbuComponent },
   { path: "vezba/:ime", component: VezbaComponent },
   { path: "profilinstruktor/:username", component: ProfilInstruktorComponent },
+  { path: "vidiinstruktor/:username", component: ProfilInstruktorComponent },
   { path: "profilklijent/:username", component: ProfilKlijentComponent },
+  { path: "vidiklijent/:username", component: ProfilKlijentComponent },
   { path: "signup", component: SignupComponent },
   { path: "login", component: LoginComponent },
   { path: "", component: NavigationComponent }

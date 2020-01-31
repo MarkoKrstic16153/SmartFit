@@ -2,9 +2,11 @@ import { Component, OnInit } from '@angular/core';
 import { LoginService } from 'src/services/LoginService';
 import { KlijentService } from 'src/services/KlijentService';
 import { Klijent } from 'src/models/Klijent';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { FormControl, Validators } from '@angular/forms';
 import { Observable } from 'rxjs';
+import {Location} from '@angular/common';
+import { InstruktorService } from 'src/services/InstruktorService';
 
 @Component({
   selector: 'app-profil-klijent',
@@ -17,7 +19,8 @@ export class ProfilKlijentComponent implements OnInit {
   merenje:boolean=false;
   instruktori:boolean=false;
   pretragaPoImenu:string = "Pretrazite Klijente : ";
-  obsKlijenti:Observable<Klijent> = null;
+  obsKlijenti:Observable<string[]> = null;
+  sviInstruktori:String[]=[];
   iskustva: string[] = [
     "Vezbac sa velikim Iskustvom",
     "Vezbac sa Iskustvom",
@@ -65,7 +68,7 @@ export class ProfilKlijentComponent implements OnInit {
     "",
     Validators.required
   );
-  constructor(private loginService:LoginService,private klijentService:KlijentService,private route:ActivatedRoute) { }
+  constructor(private loginService:LoginService,private klijentService:KlijentService,private route:ActivatedRoute,private router:Router,private instruktorService:InstruktorService,private location:Location) { }
 
   ngOnInit() {
     this.klijent = null;
@@ -73,8 +76,9 @@ export class ProfilKlijentComponent implements OnInit {
       this.klijent = klijentProfil;console.log(this.klijent);
       this.osveziGraf();
     });
-    this.klijentService.getAllKlijents().subscribe((data)=>{
-      console.log(data);
+    this.obsKlijenti=this.klijentService.getAllKlijents();
+    this.instruktorService.getAllInstruktori().subscribe((data)=>{
+      this.sviInstruktori = data;
     });
   }
 
@@ -145,16 +149,31 @@ export class ProfilKlijentComponent implements OnInit {
         this.chartLabels.push(i+1);
   }
 
-  unSubFromInstruktor(){
-
+  angazuj(instruktorUsername:string){
+    
   }
 
-  subToInstruktor(){
-
+  vidiProfil(instruktorUsername:string){
+    
+    this.router.navigate(["/vidiinstruktor/", instruktorUsername]);
   }
 
-  pretraziTim($tim: any) {
-    console.log($tim); //rutiraj na tu stranu tima
-    //this.router.navigate(["/pretrazitimove/tim/", $tim]);
+  pretraziUsera($username: any) {
+    console.log($username); //rutiraj na taj username
+    this.router.navigate(["/vidiklijent/", $username]);
+  }
+
+  nazad(){
+    this.location.back();
+  }
+
+  logout(){
+    this.loginService.logovaniUsername="";
+    this.loginService.korisnik = true;
+    this.nazad();
+  }
+
+  odjaviUslugu(instruktorUsername:string){
+    console.log(instruktorUsername);
   }
 }

@@ -37,8 +37,8 @@ export class KlijentService {
     return this.httpClient.get<Klijent>(this.getKlijentByUsername + username);
   }
 
-  getAllKlijents(): Observable<Klijent[]> {
-    return this.httpClient.get<Klijent[]>(this.getAllClients);
+  getAllKlijents(): Observable<string[]> {
+    return this.httpClient.get<string[]>(this.getAllClients);
   }
 
   getKlijentInstruktori(usernameKlijenta: string) {}

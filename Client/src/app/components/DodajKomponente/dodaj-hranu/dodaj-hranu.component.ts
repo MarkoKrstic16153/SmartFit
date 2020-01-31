@@ -3,6 +3,7 @@ import { FormControl, Validators } from '@angular/forms';
 import { Hrana } from 'src/models/Hrana';
 import { HranaService } from 'src/services/HranaService';
 import { LoginService } from 'src/services/LoginService';
+import { Location } from '@angular/common';
 
 @Component({
   selector: 'app-dodaj-hranu',
@@ -15,30 +16,31 @@ export class DodajHranuComponent implements OnInit {
   proteiniControl : FormControl = new FormControl("", Validators.required);
   mastiControl : FormControl = new FormControl("", Validators.required);
   vlaknaControl : FormControl = new FormControl("", Validators.required);
-  constructor(private hranaService:HranaService,private loginService:LoginService) { }
+  poruka:string="";
+  constructor(private hranaService:HranaService,private loginService:LoginService,private location:Location) { }
 
   ngOnInit() {
   }
 
   DodajHranu(){
     this.hranaService.checkHrana(this.imeControl.value).subscribe(({success})=>{
-      console.log(success);
       if(success == 0){
-        console.log('ta hrana vec postoji');
+        this.poruka="Ta hrana vec postoji.";
       }
       else{
-        console.log('hrana ne postoji');
+        let novaHrana:Hrana = {
+          ime:this.imeControl.value,
+          masti:this.mastiControl.value,
+          proteini:this.proteiniControl.value,
+          ugljeniHidrati:this.ugljeniHidratiControl.value,
+          vlakna:this.vlaknaControl.value
+        };
+        console.log(novaHrana);
+        this.hranaService.dodajHranu(novaHrana);
+        this.poruka = "Nova hrana je uspesno dodata.";
       }
     });
-    /*let novaHrana:Hrana = {
-      ime:this.imeControl.value,
-      masti:this.mastiControl.value,
-      proteini:this.proteiniControl.value,
-      ugljeniHidrati:this.ugljeniHidratiControl.value,
-      vlakna:this.vlaknaControl.value
-    };
-    console.log(novaHrana);
-    this.hranaService.dodajHranu(novaHrana);*/
+    
   }
   
   ispisiKalorije():string{
@@ -53,5 +55,9 @@ export class DodajHranuComponent implements OnInit {
       return true;
     else
       return false;
+  }
+
+  nazad(){
+    this.location.back();
   }
 }

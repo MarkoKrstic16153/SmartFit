@@ -38,6 +38,7 @@
     <button (click)="izmena()">Izmeni Profil</button>
     <button (click)="novoMerenje()">Merenje</button>
     <button (click)="pogledajInstruktore()">Instruktori</button>
+    <button (click)="logout()">Odjavi Se</button>
     <div *ngIf="merenje==true">
         <h3>Unesite vase novo merenje : </h3>
         <label for="tezinaKlijentControl">Tezina :</label>
@@ -100,10 +101,24 @@
     </div>
     <div *ngIf="instruktori==true">
     <h4>Lista Vasih Instruktora : </h4>
+    <div>
+        <ul *ngIf="klijent.instruktori.length>0">
+            <li *ngFor="let instruktor of klijent.instruktori">Username Instruktora : <a (click)="vidiProfil(instruktor)">{{instruktor}}</a> 
+                <button (click)="odjaviUslugu(instruktor)">Odjavi usluge</button>
+            </li>
+        </ul>
+    </div>
     <h4>Lista svih Instruktora : </h4>
+    <div>
+        <ul *ngIf="sviInstruktori.length>0">
+            <li *ngFor="let instruktor of sviInstruktori">Username Instruktora : <a (click)="vidiProfil(instruktor)">{{instruktor}}</a> 
+                <button (click)="angazuj(instruktor)">Angazuj</button>
+            </li>
+        </ul>
+    </div>
     </div>
     <app-smart-search-bar
-      (onEnter)="pretraziTim($event)"
+      (onEnter)="pretraziUsera($event)"
       [titlePretrage]="pretragaPoImenu"
       [obsPretrage]="obsKlijenti"
     ></app-smart-search-bar>
@@ -142,5 +157,6 @@
             [legend]="true">
         </canvas>
       </div>
+      <button (click)="nazad()">Nazad</button>
 </div>
 </div>

@@ -68,6 +68,8 @@
     [formControl]="bodyWeightControl"
     />
     <button (click)="dodajteVezbu()">Dodajte Vezbu</button>
+    <label>{{poruka}}</label>
+    <button (click)="nazad()">Nazad</button>
   </div>
     <div *ngIf="!ulogovan()">
       Morate biti ulogovani Instruktor da dodajete novu vezbu.

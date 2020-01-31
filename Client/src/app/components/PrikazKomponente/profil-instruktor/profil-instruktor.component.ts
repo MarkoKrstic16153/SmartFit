@@ -5,6 +5,7 @@ import { InstruktorService } from 'src/services/InstruktorService';
 import { ActivatedRoute, Router } from '@angular/router';
 import { FormControl, Validators } from '@angular/forms';
 import { Observable } from 'rxjs';
+import { Location } from '@angular/common';
 
 @Component({
   selector: 'app-profil-instruktor',
@@ -15,7 +16,7 @@ export class ProfilInstruktorComponent implements OnInit {
   instruktor:Instruktor=null;
   flagIzmena:boolean = false;
   pretragaPoImenu:string = "Pretrazite Instruktore : ";
-  obsKlijenti:Observable<Instruktor> = null;
+  obsInstruktor:Observable<string[]> = null;
   prezimeInstruktorControl: FormControl = new FormControl(
     "",
     Validators.required
@@ -36,14 +37,12 @@ export class ProfilInstruktorComponent implements OnInit {
     "",
     Validators.required
   );
-  constructor(private loginService:LoginService,private instruktorService:InstruktorService,private route:ActivatedRoute,private router:Router) { }
+  constructor(private loginService:LoginService,private instruktorService:InstruktorService,private route:ActivatedRoute,private router:Router,private location:Location) { }
 
   ngOnInit() {
     this.instruktor=null;
     this.instruktorService.getInstruktorProfil(this.route.snapshot.paramMap.get('username')).subscribe((instruktorProfil)=>{this.instruktor = instruktorProfil;console.log(this.instruktor)});
-    this.instruktorService.getAllInstruktori().subscribe((data)=>{
-      console.log(data);
-    });
+    this.obsInstruktor=this.instruktorService.getAllInstruktori();
   }
 
   daLiJeLogovan():boolean{
@@ -90,4 +89,18 @@ export class ProfilInstruktorComponent implements OnInit {
     this.router.navigate(["/dodajvezbu"]);
   }
 
+  pretraziUsera($username: any) {
+    console.log($username); //rutiraj na taj username
+    this.router.navigate(["/vidiinstruktor/", $username]);
+  }
+
+  nazad(){
+    this.location.back();
+  }
+
+  logout(){
+    this.loginService.logovaniUsername="";
+    this.loginService.korisnik = true;
+    this.nazad();
+  }
 }

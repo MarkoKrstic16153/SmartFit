@@ -13,9 +13,9 @@
           </ul>
         </div>
         <app-smart-search-bar
-          (onEnter)="pretraziTim($event)"
+          (onEnter)="pretraziUsera($event)"
           [titlePretrage]="pretragaPoImenu"
-          [obsPretrage]="obsInstruktori"
+          [obsPretrage]="obsInstruktor"
         ></app-smart-search-bar>
         <button (click)="izmenaProfila()">Izmeni Profil</button>
         <div *ngIf="flagIzmena == true">
@@ -54,6 +54,7 @@
         </div>
 
 <button (click)="dodajHranu()">Dodaj Novu Hranu</button> <button (click)="dodajVezbu()">Dodaj Novu Vezbu</button>
+<button (click)="logout()">Odjavi Se</button>
     </div>
     <div *ngIf="daLiJeLogovan() && !daLiNJegovProfilIliGleda()">
         dobro logovan i gleda tudji profil.
@@ -63,6 +64,7 @@
         <div>Akreditacija : {{instruktor.akreditacija}}</div>
         <div>Radno Iskustvo : {{instruktor.radnoIskustvo}}</div>
         <div>Broj Klijenta : {{instruktor.klijenti.length}}</div>
+        <button (click)="nazad()">Nazad</button>
     </div>
     </div>
 

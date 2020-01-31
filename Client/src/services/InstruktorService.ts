@@ -17,8 +17,8 @@ export class InstruktorService {
   urlUpdateInstruktor:string = "http://localhost:3000/instruktor/updateinstruktor";
   constructor(private httpClient: HttpClient) {}
 
-  getAllInstruktori(): Observable<Instruktor[]> {
-    return this.httpClient.get<Instruktor[]>(this.getAllInstruktors);
+  getAllInstruktori(): Observable<string[]> {
+    return this.httpClient.get<string[]>(this.getAllInstruktors);
   }
 
   dodajInstruktora(noviInstruktor: Instruktor) {

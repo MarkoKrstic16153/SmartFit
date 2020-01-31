@@ -1,8 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, Validators } from '@angular/forms';
-import { Vezba } from 'src/models/Vezba';
 import { VezbeService } from 'src/services/VezbeService';
 import { LoginService } from 'src/services/LoginService';
+import { Location } from '@angular/common';
+import { Vezba } from 'src/models/Vezba';
 
 @Component({
   selector: 'app-dodaj-vezbu',
@@ -20,7 +21,8 @@ export class DodajVezbuComponent implements OnInit {
   bodyWeightControl : FormControl = new FormControl("", Validators.required);
   tegoviControl : FormControl = new FormControl("", Validators.required);
   masineControl : FormControl = new FormControl("", Validators.required);
-  constructor(private vezbaService:VezbeService,private loginService:LoginService) { }
+  poruka:string="";
+  constructor(private vezbaService:VezbeService,private loginService:LoginService,private location:Location) { }
 
   ngOnInit() {
 
@@ -49,37 +51,35 @@ export class DodajVezbuComponent implements OnInit {
 
   dodajteVezbu(){
     this.vezbaService.checkVezba(this.imeControl.value).subscribe(({success})=>{
-      console.log(success);
       if(success == 0){
-        console.log('ta hrana vec postoji');
+        this.poruka = "Vezba vec postoji.";
       }
       else{
-        console.log('hrana ne postoji');
+        let teg,masina,bodyWeight;
+        if(this.tegoviControl.value == "" || this.tegoviControl.value == false)
+          teg= false;
+        else
+          teg= true;
+        if(this.masineControl.value == "" || this.masineControl.value == false)
+          masina= false;
+        else
+          masina= true;
+        if(this.bodyWeightControl.value == "" || this.bodyWeightControl.value == false)
+          bodyWeight= false;
+        else
+          bodyWeight= true;
+        let novaVezba:Vezba = {
+          bodyWeight:bodyWeight,
+          ime:this.imeControl.value,
+          masine:masina,
+          tegovi:teg,
+          misicnePartije:this.pogodjeniMisici,
+          vrsteTreninga:this.dozvoljeniTreninzi
+        };
+        this.vezbaService.dodajVezbu(novaVezba);
+        this.poruka = "Nova vezba je uspesno dodata."
       }
     })
-    /*let teg,masina,bodyWeight;
-    if(this.tegoviControl.value == "" || this.tegoviControl.value == false)
-      teg= false;
-    else
-      teg= true;
-    if(this.masineControl.value == "" || this.masineControl.value == false)
-      masina= false;
-    else
-      masina= true;
-    if(this.bodyWeightControl.value == "" || this.bodyWeightControl.value == false)
-      bodyWeight= false;
-    else
-      bodyWeight= true;
-    let novaVezba:Vezba = {
-      bodyWeight:bodyWeight,
-      ime:this.imeControl.value,
-      masine:masina,
-      tegovi:teg,
-      misicnePartije:this.pogodjeniMisici,
-      vrsteTreninga:this.dozvoljeniTreninzi
-    };
-    console.log(novaVezba);
-    this.vezbaService.dodajVezbu(novaVezba);*/
   }
 
   ulogovan():boolean{
@@ -87,5 +87,9 @@ export class DodajVezbuComponent implements OnInit {
       return true;
     else
       return false;
+  }
+
+  nazad(){
+    this.location.back();
   }
 }

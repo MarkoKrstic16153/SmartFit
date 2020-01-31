@@ -25,14 +25,14 @@ export class SmartSearchBarComponent implements OnInit {
   }
 
   subskrajbujSeNaUlaznePodatke(){
-    /*this.obsPretrage.subscribe(podaci=>{
-      this.allPodaci=podaci.data.Tim;
+    this.obsPretrage.subscribe(podaci=>{
+      this.allPodaci=podaci;
     });
     this.filtriraniPodaci = this.myControl.valueChanges
     .pipe(
       startWith('/[a-zA-Z]/'),
       map(value => this._filter(value))
-    );*/
+    );
   }
 
   private _filter(value: string): string[] {
