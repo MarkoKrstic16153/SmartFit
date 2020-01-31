@@ -90,7 +90,6 @@ export class ProfilInstruktorComponent implements OnInit {
   }
 
   pretraziUsera($username: any) {
-    console.log($username); //rutiraj na taj username
     this.router.navigate(["/vidiinstruktor/", $username]);
   }
 
@@ -102,5 +101,22 @@ export class ProfilInstruktorComponent implements OnInit {
     this.loginService.logovaniUsername="";
     this.loginService.korisnik = true;
     this.nazad();
+  }
+
+  otvoriTreningPlan(klijentUsername:string){
+
+  }
+
+  otvoriIshranaPlan(klijentUsername:string){
+
+  }
+
+  prekiniSaradnju(klijentUsername:string){
+    const index = this.instruktor.klijenti.indexOf(klijentUsername);
+    if (index > -1) {
+      this.instruktor.klijenti.splice(index, 1);
+    }
+    this.instruktorService.updateInstruktor(this.instruktor);
+    this.instruktorService.raskiniSaradnju(this.instruktor.userName,klijentUsername);
   }
 }

@@ -1,7 +1,6 @@
 import { Injectable } from "@angular/core";
 import { HttpClient, HttpHeaders } from "@angular/common/http";
 import { Instruktor } from "src/models/Instruktor";
-import { Klijent } from "src/models/Klijent";
 import { Observable } from "rxjs";
 
 @Injectable({ providedIn: "root" })
@@ -15,6 +14,7 @@ export class InstruktorService {
   getClientsInstruktor: string =
     "http://localhost:3000/instruktor/getclientinstruktor/";
   urlUpdateInstruktor:string = "http://localhost:3000/instruktor/updateinstruktor";
+  urlSaradnjaInstruktor: string="http://localhost:3000/klijent/updatelistainstruktora";
   constructor(private httpClient: HttpClient) {}
 
   getAllInstruktori(): Observable<string[]> {
@@ -53,5 +53,18 @@ export class InstruktorService {
     return this.httpClient.get<Instruktor>(
       this.getInstruktorByUsername + username
     );
+  }
+
+  raskiniSaradnju(usernameInstruktora:string,usernameKlijenta:string){
+    const headers = new HttpHeaders()
+    .set("Authorization", "my-auth-token")
+    .set("Content-Type", "application/json");
+  this.httpClient
+    .post<Instruktor>(this.urlSaradnjaInstruktor, {usernameInstruktor:usernameInstruktora,usernameKlijent:usernameKlijenta}, {
+      headers: headers
+    })
+    .subscribe(data => {
+      console.log(data);
+    });
   }
 }

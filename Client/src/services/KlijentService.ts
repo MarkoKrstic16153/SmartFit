@@ -9,6 +9,7 @@ export class KlijentService {
   getKlijentByUsername: string = "http://localhost:3000/klijent/";
   getAllClients: string = "http://localhost:3000/klijent/getallklijent";
   urlUpdateClient: string = "http://localhost:3000/klijent/updateklijent";
+  urlSaradnjaKlijent: string="http://localhost:3000/instruktor/updatelistaklijenata";
   constructor(private httpClient: HttpClient) {}
 
   dodajKlijenta(noviKlijent: Klijent) {
@@ -41,5 +42,15 @@ export class KlijentService {
     return this.httpClient.get<string[]>(this.getAllClients);
   }
 
-  getKlijentInstruktori(usernameKlijenta: string) {}
+  updateSaradnja(usernameKlijent:string,usernameInstruktor:string,tip:number){
+    const headers = new HttpHeaders()
+    .set("Authorization", "my-auth-token")
+    .set("Content-Type", "application/json");
+  this.httpClient
+    .post<Klijent>(this.urlSaradnjaKlijent, {usernameKlijent:usernameKlijent,usernameInstruktor:usernameInstruktor,tip:tip}, { headers: headers })
+    .subscribe(data => {
+      console.log(data);
+    });
+  }
+
 }

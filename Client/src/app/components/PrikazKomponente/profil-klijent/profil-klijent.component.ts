@@ -20,7 +20,7 @@ export class ProfilKlijentComponent implements OnInit {
   instruktori:boolean=false;
   pretragaPoImenu:string = "Pretrazite Klijente : ";
   obsKlijenti:Observable<string[]> = null;
-  sviInstruktori:String[]=[];
+  sviInstruktori:string[]=[];
   iskustva: string[] = [
     "Vezbac sa velikim Iskustvom",
     "Vezbac sa Iskustvom",
@@ -75,11 +75,12 @@ export class ProfilKlijentComponent implements OnInit {
     this.klijentService.getKlijentProfile(this.route.snapshot.paramMap.get('username')).subscribe((klijentProfil)=>{
       this.klijent = klijentProfil;console.log(this.klijent);
       this.osveziGraf();
+      this.instruktorService.getAllInstruktori().subscribe((data)=>{
+        this.sviInstruktori = data;
+        this.sviInstruktori = this.sviInstruktori.filter( ( el ) => !this.klijent.instruktori.includes( el ) );
+      });
     });
     this.obsKlijenti=this.klijentService.getAllKlijents();
-    this.instruktorService.getAllInstruktori().subscribe((data)=>{
-      this.sviInstruktori = data;
-    });
   }
 
   daLiJeLogovan():boolean{
@@ -150,16 +151,20 @@ export class ProfilKlijentComponent implements OnInit {
   }
 
   angazuj(instruktorUsername:string){
-    
+    this.klijent.instruktori.push(instruktorUsername);
+    this.klijentService.updateKlijent(this.klijent);
+    const index = this.sviInstruktori.indexOf(instruktorUsername);
+    if (index > -1) {
+      this.sviInstruktori.splice(index, 1);
+    }
+    this.klijentService.updateSaradnja(this.klijent.userName,instruktorUsername,1);
   }
 
   vidiProfil(instruktorUsername:string){
-    
     this.router.navigate(["/vidiinstruktor/", instruktorUsername]);
   }
 
   pretraziUsera($username: any) {
-    console.log($username); //rutiraj na taj username
     this.router.navigate(["/vidiklijent/", $username]);
   }
 
@@ -175,5 +180,20 @@ export class ProfilKlijentComponent implements OnInit {
 
   odjaviUslugu(instruktorUsername:string){
     console.log(instruktorUsername);
+    const index = this.klijent.instruktori.indexOf(instruktorUsername);
+    if (index > -1) {
+      this.klijent.instruktori.splice(index, 1);
+    }
+    this.klijentService.updateKlijent(this.klijent);
+    this.sviInstruktori.push(instruktorUsername);
+    this.klijentService.updateSaradnja(this.klijent.userName,instruktorUsername,0);
+  }
+
+  vidiPlanTreninga(usernameInstruktora:string){
+
+  }
+
+  vidiPlanIshrane(usernameInstruktora:string){
+
   }
 }

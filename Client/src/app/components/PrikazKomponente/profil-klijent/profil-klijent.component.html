@@ -105,6 +105,8 @@
         <ul *ngIf="klijent.instruktori.length>0">
             <li *ngFor="let instruktor of klijent.instruktori">Username Instruktora : <a (click)="vidiProfil(instruktor)">{{instruktor}}</a> 
                 <button (click)="odjaviUslugu(instruktor)">Odjavi usluge</button>
+                <button (click)="vidiPlanTreninga(instruktor)">Vidi Plan Treninga</button>
+                <button (click)="vidiPlanIshrane(instruktor)">Vidi Plan Ishrane</button>
             </li>
         </ul>
     </div>

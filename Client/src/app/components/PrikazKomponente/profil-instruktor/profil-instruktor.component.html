@@ -9,8 +9,15 @@
         <div>Radno Iskustvo : {{instruktor.radnoIskustvo}}</div>
         <div>Broj Klijenta : {{instruktor.klijenti.length}}</div>
         <div>Lista Vasih Klijenata : 
-          <ul>
-          </ul>
+          <div>
+            <ul *ngIf="instruktor.klijenti.length>0">
+                <li *ngFor="let klijent of instruktor.klijenti">Username Klijenta : <a (click)="vidiProfil(klijent)">{{klijent}}</a> 
+                    <button (click)="prekiniSaradnju(klijent)">Prekini saradnju</button>
+                    <button (click)="otvoriTreningPlan(klijent)">Trening Plan</button>
+                    <button (click)="otvoriIshranaPlan(klijent)">Plan Ishrane</button>
+                </li>
+            </ul>
+        </div>
         </div>
         <app-smart-search-bar
           (onEnter)="pretraziUsera($event)"
