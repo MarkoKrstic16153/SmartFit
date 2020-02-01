@@ -11,6 +11,7 @@ var klijentController = require("./controllers/klijentController.js");
 var instruktorController = require("./controllers/instruktorController.js");
 var hranaController = require("./controllers/hranaController.js");
 var vezbaController = require("./controllers/vezbaController.js");
+var planIshraneController = require("./controllers/planIshraneController.js");
 
 const port = 3000;
 
@@ -30,3 +31,4 @@ app.use("/klijent", klijentController);
 app.use("/instruktor", instruktorController);
 app.use("/hrana", hranaController);
 app.use("/vezba", vezbaController);
+app.use("/planishrane", planIshraneController);
