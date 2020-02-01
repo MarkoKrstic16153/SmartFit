@@ -104,11 +104,11 @@ export class ProfilInstruktorComponent implements OnInit {
   }
 
   otvoriTreningPlan(klijentUsername:string){
-
+    this.router.navigate(["/dodajplantreninga/", klijentUsername+" "+this.instruktor.userName]);
   }
 
   otvoriIshranaPlan(klijentUsername:string){
-
+    this.router.navigate(["/dodajplanishrane/", klijentUsername+" "+this.instruktor.userName]);
   }
 
   prekiniSaradnju(klijentUsername:string){

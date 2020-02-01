@@ -1,5 +1,7 @@
+import { Dan } from './Dan';
+
 export interface PlanIshrane{
-    sadrzaj:string;
+    dani:Dan[];
     usernameKlijenta:string;
-    usernameTrenera:string;
+    usernameInstruktora:string;
 }

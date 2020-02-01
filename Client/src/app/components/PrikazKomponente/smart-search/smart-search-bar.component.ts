@@ -3,6 +3,7 @@ import { FormControl } from '@angular/forms';
 import { Observable } from 'rxjs';
 import { map, startWith } from 'rxjs/operators';
 import { Router } from '@angular/router';
+import { Hrana } from 'src/models/Hrana';
 
 @Component({
   selector: 'app-smart-search-bar',
@@ -35,12 +36,16 @@ export class SmartSearchBarComponent implements OnInit {
     );
   }
 
-  private _filter(value: string): string[] {
-    const filterValue = value.toLowerCase();
-    if(this.allPodaci[0] && this.allPodaci[0].naziv)
+  private _filter(value: any): string[] {
+    let filterValue;
+    if(value.ime)
+      filterValue= value.toLowerCase().ime;
+    else
+      filterValue= value.toLowerCase();
+    if(this.allPodaci[0] && this.allPodaci[0].ime)
     {
       if(value.length>2)
-        return this.allPodaci.filter(podatak =>podatak.naziv.toLowerCase().includes(filterValue));
+        return this.allPodaci.filter(podatak =>podatak.ime.toLowerCase().includes(filterValue));
     }
     else {
       if(value.length>2){
@@ -49,7 +54,35 @@ export class SmartSearchBarComponent implements OnInit {
     }
   }
 
-  pretraziTrenutno(){
-      this.onEnter.emit(this.myControl.value);
+  prikaz(podatak){
+    if(this.allPodaci[0].ime){
+      return podatak.ime;
+    }
+    else{
+      return podatak;
+    }
   }
+
+  vratiVrednost(podatak){
+    if(this.allPodaci[0].ime){
+      return podatak.ime;
+    }
+    else{
+      return podatak;
+    }
+  }
+
+  pretraziTrenutno(){
+    if(this.allPodaci[0].ime){
+    let vratiHranu:Hrana =null;
+    this.allPodaci.forEach(hrana => {
+      if(hrana.ime == this.myControl.value)
+        vratiHranu = hrana;
+    });
+    this.onEnter.emit(vratiHranu);
+  }
+  else{
+    this.onEnter.emit(this.myControl.value);
+  }
+}
 }

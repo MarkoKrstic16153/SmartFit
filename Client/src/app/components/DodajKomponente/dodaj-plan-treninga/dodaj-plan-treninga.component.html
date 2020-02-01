@@ -1,1 +1,14 @@
-<p>dodaj-plan-treninga works!</p>
+<div *ngIf="daLiJeLogovan()">
+    <h3>Plan Treninga - Klijent : {{usernameKlijenta}}, Instruktor : {{usernameInstruktora}}</h3>
+    <div>
+        Prethodni Planovi Treninga : 
+        <ul>
+    
+        </ul>
+    </div>
+    <h4>Dodajte novi Plan Treninga : </h4>
+    
+</div>
+<div *ngIf="!daLiJeLogovan()">
+    Morate Biti ulogovani.
+</div>

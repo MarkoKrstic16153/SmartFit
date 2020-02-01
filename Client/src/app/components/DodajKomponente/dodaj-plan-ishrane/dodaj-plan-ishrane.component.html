@@ -1,1 +1,100 @@
-<p>dodaj-plan-ishrane works!</p>
+ <div>
+<h3>Plan Ishrane - Klijent : {{usernameKlijenta}}, Instruktor : {{usernameInstruktora}}</h3>
+<div>
+    Prethodni Planovi Ishrane : 
+    <ul>
+        <li>Prethodni plan</li>
+    </ul>
+    <li>Poslednji plan ishrane</li>
+</div>
+<h4>Dodajte novi Plan Ishrane : </h4>
+<div>
+   <h5> Dodati dani : </h5>
+    <ul>
+        <li *ngFor="let dan of nizDana; let i = index" value="dan">Dan {{i + 1}} 
+            <button (click)="prikaziDetaljeDan(i)">Detalji</button>
+            <button (click)="obrisiDan(dan)">Obrisi</button>
+            <div *ngIf="detaljiZaDan == i">
+                <ul>
+                    <div>Broj Obroka : {{dan.obroci.length}}</div>
+                    <div>Dnevne kalorije : {{dan.kalorije}}kcal.</div>
+                    <div>Dnevni proteini : {{dan.proteini}}g.</div>
+                    <div>Dnevne masti : {{dan.masti}}g.</div>
+                    <div>Dnevni ugljenihhidrati : {{dan.ugljeniHidrati}}g.</div>
+                    <div>Dnevna vlakna : {{dan.vlakna}}g.</div>
+                </ul>
+            </div>
+        </li>
+    </ul>
+    <div>Trenutno dodajete Dan {{nizDana.length+1}}
+        <ul>
+            <li *ngFor="let obrok of trenutniDan.obroci; let i = index" value="obrok">Obrok {{i + 1}}, Vreme : {{obrok.vreme}}
+                <button (click)="prikaziDetaljeObrok(i)">Detalji</button>
+                <button (click)="obrisiObrok(obrok)">Obrisi</button>
+                <div *ngIf="detaljiZaObrok == i">
+                    <ul>
+                        <li *ngFor="let deoObroka of obrok.deloviObroka" value="deoObroka">Hrana : {{deoObroka.hrana.ime}} , Kolicina : {{deoObroka.kolicina}}g
+                        </li>
+                    </ul>
+                    <div>Ukupno kalorija : {{obrok.ukupneKalorije}}kcal.</div>
+                    <div>Ukupno proteina : {{obrok.ukupniProteini}}g.</div>
+                    <div>Ukupno masti : {{obrok.ukupneMasti}}g.</div>
+                    <div>Ukupno ugljenihhidrata : {{obrok.ukupniUgljeniHidrati}}g.</div>
+                    <div>Ukupno vlakana : {{obrok.ukupnaVlakna}}g.</div>
+                </div>
+            </li>
+        </ul>
+                    <div>Dnevne kalorije : {{dnevneKalorije()}}kcal.</div>
+                    <div>Dnevni proteini : {{dnevniProteini()}}g.</div>
+                    <div>Dnevne masti : {{dnevneMasti()}}g.</div>
+                    <div>Dnevni ugljenihhidrati : {{dnevniHidrati()}}g.</div>
+                    <div>Dnevna vlakna : {{dnevnaVlakna()}}g.</div>
+    </div>
+
+</div>
+<div>
+    <h4 *ngIf="!daLiJeGotov()">Trenutno dodajete obrok {{trenutniDan.obroci.length+1}} za dan {{nizDana.length+1}}.</h4>
+    <div>
+        Vas Obrok broj {{obrokBrojac}} izgleda ovako :
+        <ul>
+            <li *ngFor="let deoObroka of trenutniObrok.deloviObroka" value="deoObroka">Hrana : {{deoObroka.hrana.ime}} , Kolicina : {{deoObroka.kolicina}}g
+                <button (click)="izbaciIzObroka(deoObroka)">Izbaci iz Obroka</button>
+            </li>
+        </ul>
+        <div>Ukupno kalorija : {{trenutniObrok.ukupneKalorije}}kcal.</div>
+        <div>Ukupno proteina : {{trenutniObrok.ukupniProteini}}g.</div>
+        <div>Ukupno masti : {{trenutniObrok.ukupneMasti}}g.</div>
+        <div>Ukupno ugljenihhidrata : {{trenutniObrok.ukupniUgljeniHidrati}}g.</div>
+        <div>Ukupno vlakana : {{trenutniObrok.ukupnaVlakna}}g.</div>
+    </div>
+    <app-smart-search-bar
+          (onEnter)="selektujHranu($event)"
+          [titlePretrage]="pretragaPoImenu"
+          [obsPretrage]="obsHrana"
+        ></app-smart-search-bar>
+        <div>
+        <label for="kolicinaControl">Kolicina (g) : </label>
+        <input
+          type="number"
+          name="kolicinaControl"
+          [formControl]="kolicinaControl"
+        />
+        <button (click)="dodajUObrok()">Dodaj u Obrok</button>
+        <div>
+        <label for="vremeObrokaControl">Vreme Obroka :</label>
+        <input
+          type="text"
+          name="vremeObrokaControl"
+          [formControl]="vremeObrokaControl"
+        />
+        <button *ngIf="!daLiJeGotov()"(click) = "dodajObrok()">Dodaj Obrok</button>
+        </div>
+        </div>
+    <button *ngIf="!daLiJeGotov()" (click) = "dodajDan()">Zavrsi Dan</button>
+    <button *ngIf="daLiJeGotov() && poslatPlanFlag==false" (click) = "posaljiPlan()">Posalji Plan</button>
+    <label *ngIf="poslatPlanFlag==true">Vas Plan je uspesno poslat.</label>
+</div>
+</div>
+<div>
+    Morate Biti ulogovani.
+</div>

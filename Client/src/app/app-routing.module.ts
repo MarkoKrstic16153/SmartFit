@@ -13,8 +13,8 @@ import { DodajPlanTreningaComponent } from './components/DodajKomponente/dodaj-p
 
 
 const routes: Routes = [
-  { path: "dodajplanishrane", component: DodajPlanIshraneComponent },
-  { path: "dodajplantreninga", component: DodajPlanTreningaComponent },
+  { path: "dodajplanishrane/:data", component: DodajPlanIshraneComponent },
+  { path: "dodajplantreninga/:data", component: DodajPlanTreningaComponent },
   { path: "dodajhranu", component: DodajHranuComponent },
   { path: "dodajvezbu", component: DodajVezbuComponent },
   { path: "vezba/:ime", component: VezbaComponent },
