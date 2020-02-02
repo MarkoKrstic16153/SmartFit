@@ -18,6 +18,25 @@ router.get("/getallvezba", (req, res) => {
   });
 });
 
+router.post("/getallvezbatip", (req, res) => {
+  var tip = req.body.tipTreninga;
+  Vezba.find((err, doc) => {
+    if (!err) {
+      var lista = [];
+      doc.forEach(vezba => {
+        if (vezba.vrsteTreninga.includes(tip)) lista.push(vezba);
+      });
+      res.send(lista);
+      //res.send(docs);
+    } else {
+      console.log(
+        "Greska pri povlacenju vezbe iz baze:" +
+          JSON.stringify(err, undefined, 2)
+      );
+    }
+  });
+});
+
 router.post("/postvezba", (req, res) => {
   var vezba = new Vezba({
     ime: req.body.ime,
@@ -40,7 +59,7 @@ router.post("/postvezba", (req, res) => {
 });
 
 router.get("/:ime", (req, res) => {
-  hrana.findOne({ ime: req.params.ime }, (err, doc) => {
+  Vezba.findOne({ ime: req.params.ime }, (err, doc) => {
     if (!err) {
       res.send(doc);
     } else {
