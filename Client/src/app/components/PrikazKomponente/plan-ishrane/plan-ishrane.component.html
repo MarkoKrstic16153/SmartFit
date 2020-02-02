@@ -1,1 +1,7 @@
-<p>plan-ishrane works!</p>
+<div *ngIf="true">
+    Plan Ishrane : 
+    <button (click)="goBack()">Nazad</button>
+</div>
+<div *ngIf="!daLiJeLogovan()">
+    Morate biti ulogovani.
+</div>

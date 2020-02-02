@@ -103,10 +103,36 @@
     <h4>Lista Vasih Instruktora : </h4>
     <div>
         <ul *ngIf="klijent.instruktori.length>0">
-            <li *ngFor="let instruktor of klijent.instruktori">Username Instruktora : <a (click)="vidiProfil(instruktor)">{{instruktor}}</a> 
+            <li *ngFor="let instruktor of klijent.instruktori; let i = index">Username Instruktora : <a (click)="vidiProfil(instruktor)">{{instruktor}}</a> 
                 <button (click)="odjaviUslugu(instruktor)">Odjavi usluge</button>
-                <button (click)="vidiPlanTreninga(instruktor)">Vidi Plan Treninga</button>
-                <button (click)="vidiPlanIshrane(instruktor)">Vidi Plan Ishrane</button>
+                <button (click)="vidiPlanTreninga(i)">Vidi Plan Treninga</button>
+                <button (click)="vidiPlanIshrane(i)">Vidi Plan Ishrane</button>
+                <div *ngIf="planoviTreninga.length > 0 && detaljiPlanTreninga==i">
+                    Planovi Treninga :
+                    <ul>
+                      <li
+                        *ngFor="let plan of planoviTreninga; let j = index"
+                        value="plan"
+                        (click)="odvediNaPlanTreninga(plan,j)"
+                      >
+                         Naziv Plana : {{ plan.naziv }} , Datum Plana :
+                        {{ plan.datum }}
+                      </li>
+                    </ul>
+                  </div>
+                  <div *ngIf="planoviIshrane.length > 0 && detaljiPlanIshrane==i">
+                    Planovi Ishrane :
+                    <ul>
+                      <li
+                        *ngFor="let plan of planoviIshrane; let j = index"
+                        value="plan"
+                        (click)="odvediNaPlanIshrane(plan,j)"
+                      >
+                         Naziv Plana : {{ plan.naziv }} , Datum Plana :
+                        {{ plan.datum }}
+                      </li>
+                    </ul>
+                  </div>
             </li>
         </ul>
     </div>
@@ -120,6 +146,7 @@
     </div>
     </div>
     <app-smart-search-bar
+      [changing]="changingValue" 
       (onEnter)="pretraziUsera($event)"
       [titlePretrage]="pretragaPoImenu"
       [obsPretrage]="obsKlijenti"

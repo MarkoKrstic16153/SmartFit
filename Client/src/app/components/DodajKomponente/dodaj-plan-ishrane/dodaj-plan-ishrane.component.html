@@ -104,6 +104,7 @@
       <div>Ukupno vlakana : {{ trenutniObrok.ukupnaVlakna }}g.</div>
     </div>
     <app-smart-search-bar
+      [changing]="changingValue" 
       (onEnter)="selektujHranu($event)"
       [titlePretrage]="pretragaPoImenu"
       [obsPretrage]="obsHrana"
@@ -128,7 +129,7 @@
         </button>
       </div>
     </div>
-    <button *ngIf="!daLiJeGotov()" (click)="dodajDan()">Zavrsi Dan</button>
+    <button *ngIf="!daLiJeGotov() && poslatPlanFlag == false" (click)="dodajDan()">Zavrsi Dan</button>
     <div *ngIf="daLiJeGotov() && poslatPlanFlag == false">
       <label for="datumControl">Datum Plana :</label>
       <input type="text" name="datumControl" [formControl]="datumControl" />

@@ -20,6 +20,7 @@ router.get("/getallvezba", (req, res) => {
 
 router.post("/getallvezbatip", (req, res) => {
   var tip = req.body.tipTreninga;
+  console.log(req.body.tipTreninga);
   Vezba.find((err, doc) => {
     if (!err) {
       var lista = [];

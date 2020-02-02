@@ -1,6 +1,6 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { FormControl } from '@angular/forms';
-import { Observable } from 'rxjs';
+import { Observable, Subject } from 'rxjs';
 import { map, startWith } from 'rxjs/operators';
 import { Router } from '@angular/router';
 import { Hrana } from 'src/models/Hrana';
@@ -14,6 +14,7 @@ export class SmartSearchBarComponent implements OnInit {
 
   @Input() titlePretrage:string;
   @Input() obsPretrage:Observable<any>;
+  @Input() changing: Subject<any[]>;
   @Output() onEnter: EventEmitter<any> = new EventEmitter<any>();
   myControl = new FormControl();
   allPodaci:any[]=[];
@@ -22,11 +23,16 @@ export class SmartSearchBarComponent implements OnInit {
   constructor(private router: Router) { }
 
   async ngOnInit() {
+    this.changing.subscribe(v => { 
+      console.log('value is changing', v);
+      this.allPodaci = v;
+   });
     this.subskrajbujSeNaUlaznePodatke();
   }
 
   subskrajbujSeNaUlaznePodatke(){
     this.obsPretrage.subscribe(podaci=>{
+      console.log(podaci);
       this.allPodaci=podaci;
     });
     this.filtriraniPodaci = this.myControl.valueChanges

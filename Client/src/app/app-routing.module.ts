@@ -10,11 +10,15 @@ import { DodajVezbuComponent } from './components/DodajKomponente/dodaj-vezbu/do
 import { DodajHranuComponent } from './components/DodajKomponente/dodaj-hranu/dodaj-hranu.component';
 import { DodajPlanIshraneComponent } from './components/DodajKomponente/dodaj-plan-ishrane/dodaj-plan-ishrane.component';
 import { DodajPlanTreningaComponent } from './components/DodajKomponente/dodaj-plan-treninga/dodaj-plan-treninga.component';
+import { PlanTreningaComponent } from './components/PrikazKomponente/plan-treninga/plan-treninga.component';
+import { PlanIshraneComponent } from './components/PrikazKomponente/plan-ishrane/plan-ishrane.component';
 
 
 const routes: Routes = [
   { path: "dodajplanishrane/:data", component: DodajPlanIshraneComponent },
   { path: "dodajplantreninga/:data", component: DodajPlanTreningaComponent },
+  { path: "prikazplantreninga/:data", component: PlanTreningaComponent },
+  { path: "prikazplanishrane/:data", component: PlanIshraneComponent },
   { path: "dodajhranu", component: DodajHranuComponent },
   { path: "dodajvezbu", component: DodajVezbuComponent },
   { path: "vezba/:ime", component: VezbaComponent },

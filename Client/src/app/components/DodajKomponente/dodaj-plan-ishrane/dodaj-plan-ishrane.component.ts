@@ -7,7 +7,7 @@ import { Obrok } from "src/models/Obrok";
 import { Dan } from "src/models/Dan";
 import { Hrana } from "src/models/Hrana";
 import { HranaService } from "src/services/HranaService";
-import { Observable } from "rxjs";
+import { Observable, Subject } from "rxjs";
 import { DeoObroka } from "src/models/DeoObroka";
 import { PlanIshrane } from "src/models/PlanIshrane";
 import { PlanIshraneService } from "src/services/PlanIshraneService";
@@ -18,6 +18,7 @@ import { PlanIshraneService } from "src/services/PlanIshraneService";
   styleUrls: ["./dodaj-plan-ishrane.component.css"]
 })
 export class DodajPlanIshraneComponent implements OnInit {
+  changingValue: Subject<boolean> = new Subject();
   pretragaPoImenu: string = "Pretrazite Hranu : ";
   usernameKlijenta: string = "";
   usernameInstruktora: string = "";
@@ -74,7 +75,8 @@ export class DodajPlanIshraneComponent implements OnInit {
   }
 
   odvediNaPlan(plan: any) {
-    console.log(plan);
+    let param = {uK:this.usernameKlijenta,uI:this.usernameInstruktora,dat:plan.datum,naz:plan.naziv};
+    this.router.navigate(["prikazplanishrane",JSON.stringify(param)]);
   }
 
   daLiJeLogovan(): boolean {
@@ -146,7 +148,11 @@ export class DodajPlanIshraneComponent implements OnInit {
       };
       this.detaljiZaDan = -1;
       this.detaljiZaObrok = -1;
-      this.planIshraneService.addPlanIshrane(noviPlan);
+      this.planIshraneService.addPlanIshrane(noviPlan).subscribe((data)=>{
+        this.planIshraneService.getAllPlanIshrane(this.usernameKlijenta,this.usernameInstruktora).subscribe((data)=>{
+          this.prethodniPlanovi = data;
+        });
+      });;
     }
   }
 

@@ -4,7 +4,7 @@ import { Instruktor } from 'src/models/Instruktor';
 import { InstruktorService } from 'src/services/InstruktorService';
 import { ActivatedRoute, Router } from '@angular/router';
 import { FormControl, Validators } from '@angular/forms';
-import { Observable } from 'rxjs';
+import { Observable, Subject } from 'rxjs';
 import { Location } from '@angular/common';
 
 @Component({
@@ -13,6 +13,7 @@ import { Location } from '@angular/common';
   styleUrls: ['./profil-instruktor.component.css']
 })
 export class ProfilInstruktorComponent implements OnInit {
+  changingValue: Subject<boolean> = new Subject();
   instruktor:Instruktor=null;
   flagIzmena:boolean = false;
   pretragaPoImenu:string = "Pretrazite Instruktore : ";

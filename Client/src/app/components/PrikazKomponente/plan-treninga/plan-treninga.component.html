@@ -1,1 +1,7 @@
-<p>plan-treninga works!</p>
+<div *ngIf="true">
+    Plan Treninga : 
+    <button (click)="goBack()">Nazad</button>
+</div>
+<div *ngIf="!daLiJeLogovan()">
+    Morate biti ulogovani.
+</div>

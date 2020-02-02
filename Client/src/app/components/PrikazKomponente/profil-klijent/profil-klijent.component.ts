@@ -4,9 +4,11 @@ import { KlijentService } from 'src/services/KlijentService';
 import { Klijent } from 'src/models/Klijent';
 import { ActivatedRoute, Router } from '@angular/router';
 import { FormControl, Validators } from '@angular/forms';
-import { Observable } from 'rxjs';
+import { Observable, Subject } from 'rxjs';
 import {Location} from '@angular/common';
 import { InstruktorService } from 'src/services/InstruktorService';
+import { PlanIshraneService } from 'src/services/PlanIshraneService';
+import { PlanTrenignaService } from 'src/services/PlanTreningaService';
 
 @Component({
   selector: 'app-profil-klijent',
@@ -14,10 +16,15 @@ import { InstruktorService } from 'src/services/InstruktorService';
   styleUrls: ['./profil-klijent.component.css']
 })
 export class ProfilKlijentComponent implements OnInit {
+  changingValue: Subject<boolean> = new Subject();
   klijent:Klijent=null;
   izmenaProfila:boolean=false;
   merenje:boolean=false;
   instruktori:boolean=false;
+  detaljiPlanTreninga:number = -1;
+  detaljiPlanIshrane:number= -1;
+  planoviIshrane:any[]=[];
+  planoviTreninga:any[]=[];
   pretragaPoImenu:string = "Pretrazite Klijente : ";
   obsKlijenti:Observable<string[]> = null;
   sviInstruktori:string[]=[];
@@ -68,7 +75,7 @@ export class ProfilKlijentComponent implements OnInit {
     "",
     Validators.required
   );
-  constructor(private loginService:LoginService,private klijentService:KlijentService,private route:ActivatedRoute,private router:Router,private instruktorService:InstruktorService,private location:Location) { }
+  constructor(private loginService:LoginService,private klijentService:KlijentService,private route:ActivatedRoute,private router:Router,private instruktorService:InstruktorService,private location:Location,private planIshraneService:PlanIshraneService,private planTreningaService:PlanTrenignaService) { }
 
   ngOnInit() {
     this.klijent = null;
@@ -189,11 +196,36 @@ export class ProfilKlijentComponent implements OnInit {
     this.klijentService.updateSaradnja(this.klijent.userName,instruktorUsername,0);
   }
 
-  vidiPlanTreninga(usernameInstruktora:string){
-
+  vidiPlanTreninga(index:number){
+    console.log(index);
+    if (index == this.detaljiPlanTreninga) this.detaljiPlanTreninga = -1;
+    else{
+      this.detaljiPlanTreninga = index;
+      this.planTreningaService.getAllPlanTreninga(this.klijent.userName,this.klijent.instruktori[index]).subscribe((data)=>{
+        this.planoviTreninga = data;
+      });
+    }
   }
 
-  vidiPlanIshrane(usernameInstruktora:string){
-
+  vidiPlanIshrane(index:number){
+    console.log(index);
+    if (index == this.detaljiPlanIshrane) this.detaljiPlanIshrane = -1;
+    else{
+      this.detaljiPlanIshrane = index;
+      this.planIshraneService.getAllPlanIshrane(this.klijent.userName,this.klijent.instruktori[index]).subscribe((data)=>{
+        this.planoviIshrane = data;
+      });
+    }
   }
+
+  odvediNaPlanIshrane(plan:any,index:number){
+    let param = {uK:this.klijent.userName,uI:this.klijent.instruktori[index],dat:plan.datum,naz:plan.naziv};
+    this.router.navigate(["prikazplanishrane",JSON.stringify(param)]);
+  }
+
+  odvediNaPlanTreninga(plan:any,index:number){
+    let param = {uK:this.klijent.userName,uI:this.klijent.instruktori[index],dat:plan.datum,naz:plan.naziv};
+    this.router.navigate(["prikazplantreninga",JSON.stringify(param)]);
+  }
+
 }

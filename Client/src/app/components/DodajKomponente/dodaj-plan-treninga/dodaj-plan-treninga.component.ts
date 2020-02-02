@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { Location } from '@angular/common';
 import { Router, ActivatedRoute } from '@angular/router';
 import { LoginService } from 'src/services/LoginService';
@@ -10,6 +10,7 @@ import { VezbeService } from 'src/services/VezbeService';
 import { PlanTrenignaService } from 'src/services/PlanTreningaService';
 import { OdradjenaVezba } from 'src/models/OdradjenjaVezba';
 import { PlanTreninga } from 'src/models/PlanTreninga';
+import {Subject} from 'rxjs';
 
 @Component({
   selector: 'app-dodaj-plan-treninga',
@@ -17,6 +18,7 @@ import { PlanTreninga } from 'src/models/PlanTreninga';
   styleUrls: ['./dodaj-plan-treninga.component.css']
 })
 export class DodajPlanTreningaComponent implements OnInit {
+  changingValue: Subject<Vezba[]> = new Subject();
   usernameKlijenta:string = "";
   usernameInstruktora:string = "";
   smartSearch:boolean = false;
@@ -28,7 +30,8 @@ export class DodajPlanTreningaComponent implements OnInit {
   trenutnaVezba:Vezba = null;
   trenutniTrening:Trening = {odmorIzmedjuSerija:0,trajanje:0,vezbe:[],vrsta:""};
   nizTreninga:Trening[] = [];
-  nizMogucihTreninga:string[] = ['FullBody','Push','Pull','Legs','BroArms','BroChest','Calisthenics','Cardio','Odmor'];
+  prethodniPlanovi:any[]=[];
+  nizMogucihTreninga:string[] = ['FullBody','Push','Pull','Legs','BroArms','BroChest','Calisthenics','Odmor'];
   treningControl : FormControl = new FormControl("", Validators.required);
   serijeControl : FormControl = new FormControl("", Validators.required);
   opterecenjeControl : FormControl = new FormControl("", Validators.required);
@@ -37,6 +40,7 @@ export class DodajPlanTreningaComponent implements OnInit {
   trajanjeControl : FormControl = new FormControl("", Validators.required);
   datumControl : FormControl = new FormControl("", Validators.required);
   nazivControl : FormControl = new FormControl("", Validators.required);
+  bodyControl : FormControl = new FormControl("", Validators.required);
 
   constructor(private route:ActivatedRoute,private router:Router,private location:Location,private loginService:LoginService,private vezbaService:VezbeService,private planTreningaService:PlanTrenignaService) { }
 
@@ -46,7 +50,9 @@ export class DodajPlanTreningaComponent implements OnInit {
     console.log(res[0] + res[1]);
     this.usernameInstruktora = res[1];
     this.usernameKlijenta = res [0];
-    
+    this.planTreningaService.getAllPlanTreninga(this.usernameKlijenta,this.usernameInstruktora).subscribe((data)=>{
+      this.prethodniPlanovi = data;
+    });
   }
 
   daLiJeLogovan():boolean{
@@ -57,8 +63,14 @@ export class DodajPlanTreningaComponent implements OnInit {
   }
 
   dodajVezbu(){
-    if(this.opterecenjeControl.value!="" && this.serijeControl.value!="" && this.ponavljanjaControl.value!="" && this.trenutnaVezba!=null){
-      let novaOdradjenaVezba : OdradjenaVezba = {brojPonavljanja:this.ponavljanjaControl.value,brojSerija:this.serijeControl.value,opterecenje:this.opterecenjeControl.value,vezba:this.trenutnaVezba};
+    console.log(this.bodyControl.value);
+    if((this.opterecenjeControl.value!="" || (this.bodyControl.value == true && this.opterecenjeControl.value!=null)) && this.serijeControl.value!="" && this.ponavljanjaControl.value!="" && this.trenutnaVezba!=null){
+      let opterecenjePom;
+      if(this.opterecenjeControl.value=="" || this.opterecenjeControl.value==null)
+        opterecenjePom = 0;
+      else
+        opterecenjePom = this.opterecenjeControl.value;
+      let novaOdradjenaVezba : OdradjenaVezba = {brojPonavljanja:this.ponavljanjaControl.value,brojSerija:this.serijeControl.value,opterecenje:opterecenjePom,vezba:this.trenutnaVezba};
       this.trenutniTrening.vezbe.push(novaOdradjenaVezba);
       console.log(this.trenutniTrening);
     }
@@ -76,7 +88,12 @@ export class DodajPlanTreningaComponent implements OnInit {
   }
 
   fetchujTipVezbi() {
-    this.obsVezbe = this.vezbaService.getAllVezbe();
+    if(this.treningControl.value!="Odmor"){
+      this.obsVezbe=this.vezbaService.getTipTreningaVezbe(this.treningControl.value);
+      this.obsVezbe.subscribe((data)=>{
+        this.changingValue.next(data);
+      });
+    }
   }
 
   back(){
@@ -84,7 +101,7 @@ export class DodajPlanTreningaComponent implements OnInit {
   }
 
   zavrsiTrening(){
-    if(this.treningControl.value == "" || this.treningControl.value == "Odmor"){
+    if(this.treningControl.value == "" || this.treningControl.value == "Odmor" || this.trenutniTrening.vezbe.length==0){
       this.trenutniTrening.trajanje = 0;
       this.trenutniTrening.odmorIzmedjuSerija = 0;
       this.trenutniTrening.vrsta = "Odmor";
@@ -111,7 +128,11 @@ export class DodajPlanTreningaComponent implements OnInit {
         treninzi:this.nizTreninga
       };
       console.log(noviPlanTreninga);
-      this.planTreningaService.addPlanTreninga(noviPlanTreninga);
+      this.planTreningaService.addPlanTreninga(noviPlanTreninga).subscribe((data)=>{
+        this.planTreningaService.getAllPlanTreninga(this.usernameKlijenta,this.usernameInstruktora).subscribe((data)=>{
+          this.prethodniPlanovi = data;
+        });
+      });
       this.poslatPlanFlag = true;
       this.nizTreninga = [];
     }
@@ -158,4 +179,10 @@ export class DodajPlanTreningaComponent implements OnInit {
     else 
       return "Dan " + (index + 1) + " -> Dan Odmora.";
   }
+
+  odvediNaPlan(plan: any) {
+    let param = {uK:this.usernameKlijenta,uI:this.usernameInstruktora,dat:plan.datum,naz:plan.naziv};
+    this.router.navigate(["prikazplantreninga",JSON.stringify(param)]);
+  }
+
 }

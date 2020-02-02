@@ -16,7 +16,6 @@ import { DodajPlanTreningaComponent } from "./components/DodajKomponente/dodaj-p
 import { DodajPlanIshraneComponent } from "./components/DodajKomponente/dodaj-plan-ishrane/dodaj-plan-ishrane.component";
 import { PlanIshraneComponent } from "./components/PrikazKomponente/plan-ishrane/plan-ishrane.component";
 import { PlanTreningaComponent } from "./components/PrikazKomponente/plan-treninga/plan-treninga.component";
-import { HomeComponent } from "./components/PrikazKomponente/home/home.component";
 import { NavigationComponent } from "./components/PrikazKomponente/navigation/navigation.component";
 import { MaterialModule } from './material.module';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
@@ -39,7 +38,6 @@ import { SmartSearchBarComponent } from './components/PrikazKomponente/smart-sea
     DodajPlanIshraneComponent,
     PlanIshraneComponent,
     PlanTreningaComponent,
-    HomeComponent,
     NavigationComponent,
     SmartSearchBarComponent
   ],

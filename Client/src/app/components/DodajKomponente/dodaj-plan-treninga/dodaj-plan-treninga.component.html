@@ -1,13 +1,23 @@
-<div *ngIf="true">
+<div *ngIf="daLiJeLogovan()">
     <h3>Plan Treninga - Klijent : {{usernameKlijenta}}, Instruktor : {{usernameInstruktora}}</h3>
-    <div>
-        Prethodni Planovi Treninga : 
+    <div *ngIf="prethodniPlanovi.length > 0">
+        Prethodni Planovi Treninga :
         <ul>
-            <li>prethodni</li>
+          <li
+            *ngFor="let plan of prethodniPlanovi; let i = index"
+            value="plan"
+            (click)="odvediNaPlan(plan)"
+          >
+            Plan {{ i + 1 }} Naziv Plana : {{ plan.naziv }} , Datum Plana :
+            {{ plan.datum }}
+          </li>
         </ul>
-        Trenutni Plan Treninga : 
-        <li>trenutni</li>
-    </div>
+        <div>Trenutni Plan Treninga :</div>
+        <li (click)="odvediNaPlan(prethodniPlanovi[prethodniPlanovi.length - 1])">
+          Naziv Plana : {{ prethodniPlanovi[prethodniPlanovi.length - 1].naziv }} ,
+          Datum Plana : {{ prethodniPlanovi[prethodniPlanovi.length - 1].datum }}
+        </li>
+      </div>
     <h4>Dodajte novi Plan Treninga : </h4>
     <h5>Dodati Treninzi po danima : </h5>
         <div>
@@ -74,6 +84,7 @@
         </div>
     <div *ngIf="smartSearch == true">
     <app-smart-search-bar
+      [changing]="changingValue" 
       (onEnter)="selektujVezbu($event)"
       [titlePretrage]="pretragaPoImenu"
       [obsPretrage]="obsVezbe"
@@ -100,6 +111,12 @@
         type="number"
         name="opterecenjeControl"
         [formControl]="opterecenjeControl"
+      />
+      <label for="bodyControl">BodyWeight (kg) : </label>
+      <input
+        type="checkbox"
+        name="bodyControl"
+        [formControl]="bodyControl"
       />
       </div>
       <button (click)="dodajVezbu()">Dodaj Vezbu</button>

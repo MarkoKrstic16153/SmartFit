@@ -7,6 +7,7 @@ import { Observable } from "rxjs";
 export class PlanIshraneService {
   urlDodajPlanIshrane = "http://localhost:3000/planishrane/dodajplan";
   urlGetAllPlanIshrane = "http://localhost:3000/planishrane/getall";
+  urlGetPlanIshrane = "http://localhost:3000/planishrane/getplan";
   constructor(private httpClient: HttpClient) {}
 
   getAllPlanIshrane(
@@ -26,22 +27,36 @@ export class PlanIshraneService {
         headers: headers
       }
     );
-    a.subscribe(data => {
-      console.log(data);
-    });
     return a;
   }
 
-  addPlanIshrane(planIshrane: PlanIshrane) {
+  getPlanIshrane(usernameKlijenta:string,usernameInstruktora:string,datum:string,naziv:string):Observable<PlanIshrane>{
+    const headers = new HttpHeaders()
+    .set("Authorization", "my-auth-token")
+    .set("Content-Type", "application/json");
+  let a = this.httpClient.post<PlanIshrane>(
+    this.urlGetPlanIshrane,
+    {
+      usernameInstruktora: usernameInstruktora,
+      usernameKlijenta: usernameKlijenta,
+      naziv:naziv,
+      datum:datum
+    },
+    {
+      headers: headers
+    }
+  );
+  return a;
+  }
+
+  addPlanIshrane(planIshrane: PlanIshrane):Observable<any> {
     const headers = new HttpHeaders()
       .set("Authorization", "my-auth-token")
       .set("Content-Type", "application/json");
-    this.httpClient
+    let a =this.httpClient
       .post<PlanIshrane>(this.urlDodajPlanIshrane, planIshrane, {
         headers: headers
       })
-      .subscribe(data => {
-        console.log(data);
-      });
+      return a;
   }
 }

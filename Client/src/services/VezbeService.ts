@@ -7,8 +7,7 @@ import { Observable } from "rxjs";
 export class VezbeService {
   urlPostVezba = "http://localhost:3000/vezba/postvezba";
   ulrGetAllVezbe = "http://localhost:3000/vezba/getallvezba";
-  ulrGetTreningVezbe = "http://localhost:3000/vezba/getallvezba";
-  ulrGetMisicVezbe = "http://localhost:3000/vezba/getallvezba";
+  ulrGetTreningVezbe = "http://localhost:3000/vezba/getallvezbatip";
   ulrCheckVezba = "http://localhost:3000/vezba/checkvezba/";
   ulrGetVezba = "http://localhost:3000/vezba/";
   constructor(private httpClient: HttpClient) {}
@@ -36,7 +35,23 @@ export class VezbeService {
     return this.httpClient.get<any>(this.ulrCheckVezba + ime);
   }
 
-  getTipTreningaVezbe(tipTrenigna: string) {}
+  getTipTreningaVezbe(tipTreninga: string): Observable<Vezba[]> {
+    const headers = new HttpHeaders()
+    .set("Authorization", "my-auth-token")
+    .set("Content-Type", "application/json");
+  let a = this.httpClient.post<Vezba[]>(
+    this.ulrGetTreningVezbe,
+    {
+      tipTreninga:tipTreninga
+    },
+    {
+      headers: headers
+    }
+  );
+  a.subscribe(data => {
+    console.log(data);
+  });
+  return a;
+  }
 
-  getMisicVezbe(misic: string) {}
 }

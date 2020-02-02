@@ -20,6 +20,7 @@
         </div>
         </div>
         <app-smart-search-bar
+          [changing]="changingValue" 
           (onEnter)="pretraziUsera($event)"
           [titlePretrage]="pretragaPoImenu"
           [obsPretrage]="obsInstruktor"
