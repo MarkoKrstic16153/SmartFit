@@ -268,4 +268,8 @@ export class DodajPlanIshraneComponent implements OnInit {
     });
     return vrati;
   }
+
+  back(){
+    this.location.back();
+  }
 }

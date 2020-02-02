@@ -4,4 +4,6 @@ export interface PlanTreninga{
     treninzi:Trening[];
     usernameKlijenta:string;
     usernameInstruktora:string;
+    datum: string;
+    naziv: string;
 }

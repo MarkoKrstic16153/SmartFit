@@ -1,4 +1,4 @@
-<div>
+<div *ngIf="daLiJeLogovan()">
   <h3>
     Plan Ishrane - Klijent : {{ usernameKlijenta }}, Instruktor :
     {{ usernameInstruktora }}
@@ -142,8 +142,9 @@
       Posalji Plan
     </button>
     <label *ngIf="poslatPlanFlag == true">Vas Plan je uspesno poslat.</label>
+    <button (click)="back()">Nazad</button>
   </div>
 </div>
-<div>
+<div *ngIf="!daLiJeLogovan()">
   Morate Biti ulogovani.
 </div>

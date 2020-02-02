@@ -6,7 +6,7 @@ var { Vezba } = require("../models/vezba");
 //localhost:3000/vezba/lista
 
 router.get("/getallvezba", (req, res) => {
-  vezba.find((err, docs) => {
+  Vezba.find((err, docs) => {
     if (!err) {
       res.send(docs);
     } else {
