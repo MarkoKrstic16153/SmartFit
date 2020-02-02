@@ -6,9 +6,28 @@ var { Vezba } = require("../models/vezba");
 //localhost:3000/vezba/lista
 
 router.get("/getallvezba", (req, res) => {
-  vezba.find((err, docs) => {
+  Vezba.find((err, docs) => {
     if (!err) {
       res.send(docs);
+    } else {
+      console.log(
+        "Greska pri povlacenju vezbe iz baze:" +
+          JSON.stringify(err, undefined, 2)
+      );
+    }
+  });
+});
+
+router.post("/getallvezbatip", (req, res) => {
+  var tip = req.body.tipTreninga;
+  Vezba.find((err, doc) => {
+    if (!err) {
+      var lista = [];
+      doc.forEach(vezba => {
+        if (vezba.vrsteTreninga.includes(tip)) lista.push(vezba);
+      });
+      res.send(lista);
+      //res.send(docs);
     } else {
       console.log(
         "Greska pri povlacenju vezbe iz baze:" +
@@ -40,7 +59,7 @@ router.post("/postvezba", (req, res) => {
 });
 
 router.get("/:ime", (req, res) => {
-  hrana.findOne({ ime: req.params.ime }, (err, doc) => {
+  Vezba.findOne({ ime: req.params.ime }, (err, doc) => {
     if (!err) {
       res.send(doc);
     } else {
