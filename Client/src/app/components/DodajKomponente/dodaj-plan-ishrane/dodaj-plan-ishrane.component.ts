@@ -124,7 +124,8 @@ export class DodajPlanIshraneComponent implements OnInit {
         usernameKlijenta: this.usernameKlijenta,
         usernameInstruktora: this.usernameInstruktora,
         datum: this.datumControl.value,
-        naziv: this.nazivControl.value
+        naziv: this.nazivControl.value,
+        komentari: []
       };
       console.log(noviPlan);
       this.poslatPlanFlag = true;

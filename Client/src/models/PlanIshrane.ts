@@ -1,4 +1,5 @@
 import { Dan } from "./Dan";
+import { Odgovor } from './Odgovor';
 
 export interface PlanIshrane {
   dani: Dan[];
@@ -6,4 +7,5 @@ export interface PlanIshrane {
   usernameInstruktora: string;
   datum: string;
   naziv: string;
+  komentari: Odgovor[];
 }

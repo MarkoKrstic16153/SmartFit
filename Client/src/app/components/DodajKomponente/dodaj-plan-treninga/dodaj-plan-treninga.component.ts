@@ -125,7 +125,8 @@ export class DodajPlanTreningaComponent implements OnInit {
         naziv:this.nazivControl.value,
         usernameInstruktora:this.usernameInstruktora,
         usernameKlijenta:this.usernameKlijenta,
-        treninzi:this.nizTreninga
+        treninzi:this.nizTreninga,
+        komentari: []
       };
       console.log(noviPlanTreninga);
       this.planTreningaService.addPlanTreninga(noviPlanTreninga).subscribe((data)=>{
