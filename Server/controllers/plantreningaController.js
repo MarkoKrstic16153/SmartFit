@@ -1,13 +1,13 @@
 const express = require("express");
 var router = express.Router();
 
-var { planishrane } = require("../models/planishrane");
+var { plantreninga } = require("../models/plantreninga");
 
-//localhost:3000/planishrane
+//localhost:3000/plantreninga
 
 router.post("/getall", (req, res) => {
   console.log(req.body);
-  planishrane.find(
+  plantreninga.find(
     {
       usernameKlijenta: req.body.usernameKlijenta,
       usernameInstruktora: req.body.usernameInstruktora
@@ -21,7 +21,7 @@ router.post("/getall", (req, res) => {
         res.send(lista);
       } else {
         console.log(
-          "Greska pri povlacenju plana iz baze:" +
+          "Greska pri povlacenju plana treninga iz baze:" +
             JSON.stringify(err, undefined, 2)
         );
       }
@@ -31,7 +31,7 @@ router.post("/getall", (req, res) => {
 
 router.post("/getplan", (req, res) => {
   console.log(req.body);
-  planishrane.findOne(
+  plantreninga.findOne(
     {
       usernameKlijenta: req.body.usernameKlijenta,
       usernameInstruktora: req.body.usernameInstruktora,
@@ -53,10 +53,10 @@ router.post("/getplan", (req, res) => {
 
 router.post("/dodajplan", (req, res) => {
   console.log(req.body);
-  var plan = new planishrane({
+  var plan = new plantreninga({
     usernameInstruktora: req.body.usernameInstruktora,
     usernameKlijenta: req.body.usernameKlijenta,
-    dani: req.body.dani,
+    treninzi: req.body.treninzi,
     datum: req.body.datum,
     naziv: req.body.naziv
   });
@@ -65,7 +65,8 @@ router.post("/dodajplan", (req, res) => {
       res.send(doc);
     } else {
       console.log(
-        "Greska pri pamcenju plana ishrane:" + JSON.stringify(err, undefined, 2)
+        "Greska pri pamcenju plana treninga:" +
+          JSON.stringify(err, undefined, 2)
       );
     }
   });
