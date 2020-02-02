@@ -1,1 +1,24 @@
-<p>vezba works!</p>
+<div *ngIf="vezba != null">
+  <h4>
+    <div>Ime : {{ vezba.ime }}</div>
+    <div>Koristi tegove: {{ kastujUDaNe(vezba.tegovi) }}</div>
+    <div>Koristi masine: {{ kastujUDaNe(vezba.masine) }}</div>
+    <div>Vezba je bodyweight: {{ kastujUDaNe(vezba.bodyWeight) }}</div>
+  </h4>
+  <div>
+    <h4>Misicne partije koje pogadja :</h4>
+    <div>
+      <ul *ngIf="vezba.misicnePartije.length > 0">
+        <li *ngFor="let partija of vezba.misicnePartije">{{ partija }}</li>
+      </ul>
+    </div>
+  </div>
+  <div>
+    <h4>Vrste treninga :</h4>
+    <div>
+      <ul *ngIf="vezba.vrsteTreninga.length > 0">
+        <li *ngFor="let trening of vezba.vrsteTreninga">{{ trening }}</li>
+      </ul>
+    </div>
+  </div>
+</div>
