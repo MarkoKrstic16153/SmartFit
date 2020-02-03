@@ -1,7 +1,45 @@
 <div *ngIf="true">
-    Plan Ishrane : 
-    <button (click)="goBack()">Nazad</button>
+  Plan Ishrane :
+  <div *ngIf="plan != null">
+    <div>Naziv: {{ plan.naziv }}</div>
+    <div>Datum: {{ plan.datum }}</div>
+    <div>Instruktor: {{ plan.usernameInstruktora }}</div>
+    <div>Klijent: {{ plan.usernameKlijenta }}</div>
+    <div *ngIf="true">
+      Dani:
+      <div class="col row">
+        <div class=" col">
+          <ul>
+            <li *ngFor="let dan of plan.dani; let i = index">
+              <h4>{{ kastujDan(i + 1) }}</h4>
+              <div>Kalorije: {{ dan.kalorije }}</div>
+              <div>Ugljeni hidrati: {{ dan.ugljeniHidrati }}</div>
+              <div>Proteini: {{ dan.proteini }}</div>
+              <div>Masti: {{ dan.masti }}</div>
+              <div>Vlakna: {{ dan.vlakna }}</div>
+              <div *ngFor="let obrok of dan.obroci; let j = index">
+                <ul>
+                  <li>
+                    Obrok {{ j + 1 }}
+                    {{ prikaziKalorijeObroka(obrok) }}
+                    <button (click)="prikaziDetaljeObroka()">Detalji</button>
+                    <div *ngIf="detaljiObrok">UgljeniHidrati:</div>
+                    <div *ngFor="let deo of obrok.deloviObroka">
+                      {{ deo.hrana.ime }}
+                      {{ deo.kolicina }} g
+                    </div>
+                  </li>
+                </ul>
+              </div>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <button (click)="goBack()">Nazad</button>
 </div>
 <div *ngIf="!daLiJeLogovan()">
-    Morate biti ulogovani.
+  Morate biti ulogovani.
 </div>
