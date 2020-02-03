@@ -1,13 +1,13 @@
 const express = require("express");
 var router = express.Router();
 
-var { plantreninga } = require("../models/plantreninga");
+var { planTreninga } = require("../models/plantreninga");
 
 //localhost:3000/plantreninga
 
 router.post("/getall", (req, res) => {
   console.log(req.body);
-  plantreninga.find(
+  planTreninga.find(
     {
       usernameKlijenta: req.body.usernameKlijenta,
       usernameInstruktora: req.body.usernameInstruktora
@@ -31,7 +31,7 @@ router.post("/getall", (req, res) => {
 
 router.post("/getplan", (req, res) => {
   console.log(req.body);
-  plantreninga.findOne(
+  planTreninga.findOne(
     {
       usernameKlijenta: req.body.usernameKlijenta,
       usernameInstruktora: req.body.usernameInstruktora,
@@ -53,7 +53,7 @@ router.post("/getplan", (req, res) => {
 
 router.post("/dodajplan", (req, res) => {
   console.log(req.body);
-  var plan = new plantreninga({
+  var plan = new planTreninga({
     usernameInstruktora: req.body.usernameInstruktora,
     usernameKlijenta: req.body.usernameKlijenta,
     treninzi: req.body.treninzi,
@@ -71,6 +71,58 @@ router.post("/dodajplan", (req, res) => {
       );
     }
   });
+});
+
+router.post("/dodajkomentar", async (req, res) => {
+  let odgovor = req.body.noviOdgovor;
+
+  await planTreninga.findOne(
+    {
+      usernameKlijenta: req.body.usernameKlijenta,
+      usernameInstruktora: req.body.userNameInstruktora,
+      naziv: req.body.naziv,
+      datum: req.body.datum
+    },
+    (err, doc) => {
+      var plantreninga = {
+        _id: doc._id,
+        usernameInstruktora: doc.usernameInstruktora,
+        usernameKlijenta: doc.usernameKlijenta,
+        naziv: doc.naziv,
+        dani: doc.dani,
+        datum: doc.datum,
+        plan: doc.plan,
+        komentari: doc.komentari
+      };
+
+      if (!err) {
+        plantreninga.komentari.push(odgovor);
+
+        planTreninga.findByIdAndUpdate(
+          plantreninga._id,
+          { $set: plantreninga },
+          {
+            new: true,
+            useFindAndModify: false
+          },
+          (err, doc) => {
+            if (!err) {
+              res.send(doc);
+            } else {
+              console.log(
+                "Greska pri update-ovanju plana :" +
+                  JSON.stringify(err, undefined, 2)
+              );
+            }
+          }
+        );
+      } else {
+        console.log(
+          "Greska pri update-ovanju plana :" + JSON.stringify(err, undefined, 2)
+        );
+      }
+    }
+  );
 });
 
 module.exports = router;

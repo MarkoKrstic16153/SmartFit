@@ -1,10 +1,23 @@
 <form class="example-form flex-grow-1">
-    <mat-form-field class="example-full-width">
-      <input type="text" placeholder="{{titlePretrage}}" aria-label="Question" matInput [formControl]="myControl" [matAutocomplete]="auto" (keyup.enter)="pretraziTrenutno()">
-      <mat-autocomplete #auto="matAutocomplete">
-        <mat-option *ngFor="let podatak of filtriraniPodaci | async" [value]="vratiVrednost(podatak)">
-          {{prikaz(podatak)}}
-        </mat-option>
-      </mat-autocomplete>
-    </mat-form-field>
-  </form>
+  <mat-form-field class="example-full-width">
+    <input
+      type="text"
+      placeholder="{{ titlePretrage }}"
+      aria-label="Question"
+      matInput
+      [formControl]="myControl"
+      [matAutocomplete]="auto"
+      (keyup.enter)="pretraziTrenutno()"
+      [(ngModel)]="show"
+    />
+    <mat-autocomplete #auto="matAutocomplete">
+      <mat-option
+        *ngFor="let podatak of filtriraniPodaci | async"
+        [value]="vratiVrednost(podatak)"
+        (click)="klikNaOpciju(vratiVrednost(podatak))"
+      >
+        {{ prikaz(podatak) }}
+      </mat-option>
+    </mat-autocomplete>
+  </mat-form-field>
+</form>

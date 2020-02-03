@@ -1,54 +1,62 @@
-<div *ngIf="true">
-    <div *ngIf="plan!=null">
-    <h2> Plan Treninga {{plan.naziv}}</h2>
-    <div>Instruktor : {{plan.usernameInstruktora}}</div>
-    <div>Klijent : {{plan.usernameKlijenta}}</div>
-    <div>Datum pocetka plana : {{plan.datum}}</div>
-    <h4>Dnevni Treninzi : </h4>
+<div *ngIf="daLiJeLogovan()">
+  <div *ngIf="plan != null">
+    <h2>Plan Treninga {{ plan.naziv }}</h2>
+    <div>Instruktor : {{ plan.usernameInstruktora }}</div>
+    <div>Klijent : {{ plan.usernameKlijenta }}</div>
+    <div>Datum pocetka plana : {{ plan.datum }}</div>
+    <h4>Dnevni Treninzi :</h4>
     <div>
-        <ul>
-            <li *ngFor="let trening of plan.treninzi; let i = index"> 
-                <h5 (click)="prikaziDan(i)">{{kastujDan(i+1)}}</h5>
-                <div>Vrsta Treninga : {{trening.vrsta}}</div>
-                <div>Trajanje Treninga : {{trening.trajanje}}min</div>
-                <div>Odmor Izmedju Serija : {{trening.odmorIzmedjuSerija}}min</div>
-                <div *ngIf="detaljiDan[i] != -1">
-                <h6>Lista Vezbi</h6>
-                <ul>
-                    <li *ngFor="let vezba of trening.vezbe; let j = index" (click) = "pogledajVezbu(vezba.vezba.ime)">
-                        <div>Vezba {{j+1}} : {{vezba.vezba.ime}}</div>
-                        <div> Serije : {{vezba.brojSerija}}</div>
-                        <div> Broj Ponavljanja : {{vezba.brojPonavljanja}}</div>
-                        <div> Opterecenje : {{vezba.opterecenje}}kg</div>
-                    </li>
-                </ul>
-                </div>
-            </li>
-        </ul>
-    </div>
-    <div>
-        <h4>Komentari : </h4>
-        <div>
+      <ul>
+        <li *ngFor="let trening of plan.treninzi; let i = index">
+          <h5 (click)="prikaziDan(i)">{{ kastujDan(i + 1) }}</h5>
+          <div>Vrsta Treninga : {{ trening.vrsta }}</div>
+          <div>Trajanje Treninga : {{ trening.trajanje }}min</div>
+          <div>Odmor Izmedju Serija : {{ trening.odmorIzmedjuSerija }}min</div>
+          <div *ngIf="detaljiDan[i] != -1">
+            <h6>Lista Vezbi</h6>
             <ul>
-                <li *ngFor="let komentar of plan.Komentari"> 
-                    <div>
-                    <h6>{{komentar.koJeOdgovorio}} : </h6>
-                    <div>{{komentar.text}</div>
-                    </div>
-                </li>
+              <li
+                *ngFor="let vezba of trening.vezbe; let j = index"
+                (click)="pogledajVezbu(vezba.vezba.ime)"
+              >
+                <div>Vezba {{ j + 1 }} : {{ vezba.vezba.ime }}</div>
+                <div>Serije : {{ vezba.brojSerija }}</div>
+                <div>Broj Ponavljanja : {{ vezba.brojPonavljanja }}</div>
+                <div>Opterecenje : {{ vezba.opterecenje }}kg</div>
+              </li>
             </ul>
-        </div>
-        <h4>Dodajte Komentar ...</h4>
-        <div>
-            <textarea style=" resize: none;" rows="5" placeholder="Unesite odgovor..." [formControl]="komentarControl"></textarea>
-        </div>
-        <div>
-            <button (click)="dodajKomentar()">Dodaj Komentar</button>
-        </div>
+          </div>
+        </li>
+      </ul>
     </div>
+    <div>
+      <h4>Komentari :</h4>
+      <div>
+        <ul>
+          <li *ngFor="let komentar of plan.komentari">
+            <div>
+              <h6>{{ komentar.koJeOdgovorio }} :</h6>
+              <div>{{ komentar.text }}</div>
+            </div>
+          </li>
+        </ul>
+      </div>
+      <h4>Dodajte Komentar ...</h4>
+      <div>
+        <textarea
+          style=" resize: none;"
+          rows="5"
+          placeholder="Unesite odgovor..."
+          [formControl]="komentarControl"
+        ></textarea>
+      </div>
+      <div>
+        <button (click)="dodajKomentar()">Dodaj Komentar</button>
+      </div>
     </div>
-    <button (click)="goBack()">Nazad</button>
+  </div>
+  <button (click)="goBack()">Nazad</button>
 </div>
 <div *ngIf="!daLiJeLogovan()">
-    Morate biti ulogovani.
+  Morate biti ulogovani.
 </div>

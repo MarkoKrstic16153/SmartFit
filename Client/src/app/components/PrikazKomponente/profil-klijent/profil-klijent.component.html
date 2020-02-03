@@ -1,8 +1,7 @@
 <div *ngIf="klijent!=null">
 <div *ngIf="!daLiJeLogovan()">Morate biti logovani da vidite profile.</div>
 <div *ngIf="daLiJeLogovan() && daLiNJegovProfilIliGleda()">
-    dobro logovan .
-    <h2>Dobrodosli na profil {{klijent.username}}</h2>
+    <h2>Dobrodosli na profil {{klijent.userName}}</h2>
     <div>Ime : {{klijent.ime}}</div>
     <div>Prezime : {{klijent.prezime}}</div>
     <div>Godina Rodjenja : {{klijent.godinaRodjenja}}</div>
@@ -154,8 +153,7 @@
 </div
 >
 <div *ngIf="daLiJeLogovan() && !daLiNJegovProfilIliGleda()">
-    dobro logovan i gleda tudji profil.
-    <h2>Dobrodosli na profil {{klijent.username}}</h2>
+    <h2>Dobrodosli na profil {{klijent.userName}}</h2>
     <div>Ime : {{klijent.ime}}</div>
     <div>Prezime : {{klijent.prezime}}</div>
     <div>Godina Rodjenja : {{klijent.godinaRodjenja}}</div>

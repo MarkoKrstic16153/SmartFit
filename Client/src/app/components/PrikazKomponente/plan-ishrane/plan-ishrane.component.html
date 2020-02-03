@@ -1,38 +1,79 @@
-<div *ngIf="true">
+<div *ngIf="daLiJeLogovan()">
   <div *ngIf="plan != null">
-    <h2> Plan Ishrane {{plan.naziv}}</h2>
+    <h2>Plan Ishrane {{ plan.naziv }}</h2>
     <div>Datum: {{ plan.datum }}</div>
     <div>Instruktor: {{ plan.usernameInstruktora }}</div>
     <div>Klijent: {{ plan.usernameKlijenta }}</div>
     <div *ngIf="true">
-      <h4>Lista Dana : </h4>
+      <h4>Lista Dana :</h4>
       <div class="col row">
         <div class=" col">
           <ul>
             <li *ngFor="let dan of plan.dani; let i = index">
               <h5 (click)="prikaziDan(i)">{{ kastujDan(i + 1) }}</h5>
               <div *ngIf="detaljiDan[i] != -1">
-              <div *ngFor="let obrok of dan.obroci; let j = index">
-                <ul>
-                  <li>
-                    <h6 (click)="prikaziMacrosObroka(i,j)">Obrok {{ j + 1 }}, Ukupno Kalorija :{{ obrok.ukupneKalorije }}kcal.</h6>
-                    <div *ngIf="detaljiObrok[0] == i && detaljiObrok[1]==j">
-                      <div>UgljeniHidrati : {{obrok.ukupniUgljeniHidrati}}g</div>
-                      <div>Proteini : {{obrok.ukupniProteini}}g</div>
-                      <div>Masti : {{obrok.ukupneMasti}}g</div>
-                      <div>Vlakna : {{obrok.ukupnaVlakna}}g</div>
-                    </div>
-                    <div *ngFor="let deo of obrok.deloviObroka; let z = index">
-                      <div (click)="prikaziMacrosHrane(i,j,z)">{{ deo.hrana.ime }} {{ deo.kolicina }} g {{izracunajKalorijeHrana(deo.hrana,deo.kolicina)}} kcal.</div>
-                      <div *ngIf="detaljiHrana[0] == i && detaljiHrana[1]==j && detaljiHrana[2]==z">
-                        <div>Proteini  ({{deo.kolicina}})g : {{vratiVrednost(deo.hrana.proteini,deo.kolicina)}} g.</div>
-                        <div>UgljeniHidrati  ({{deo.kolicina}})g : {{vratiVrednost(deo.hrana.ugljeniHidrati,deo.kolicina)}} g.</div>
-                        <div>Masti  ({{deo.kolicina}})g : {{vratiVrednost(deo.hrana.masti,deo.kolicina)}} g.</div>
-                        <div>Vlakna  ({{deo.kolicina}})g : {{vratiVrednost(deo.hrana.vlakna,deo.kolicina)}} g.</div>
+                <div *ngFor="let obrok of dan.obroci; let j = index">
+                  <ul>
+                    <li>
+                      <h6 (click)="prikaziMacrosObroka(i, j)">
+                        Obrok {{ j + 1 }}, Ukupno Kalorija :{{
+                          obrok.ukupneKalorije
+                        }}kcal.
+                      </h6>
+                      <div *ngIf="detaljiObrok[0] == i && detaljiObrok[1] == j">
+                        <div>
+                          UgljeniHidrati : {{ obrok.ukupniUgljeniHidrati }}g
+                        </div>
+                        <div>Proteini : {{ obrok.ukupniProteini }}g</div>
+                        <div>Masti : {{ obrok.ukupneMasti }}g</div>
+                        <div>Vlakna : {{ obrok.ukupnaVlakna }}g</div>
                       </div>
-                    </div>
-                  </li>
-                </ul>
+                      <div
+                        *ngFor="let deo of obrok.deloviObroka; let z = index"
+                      >
+                        <div (click)="prikaziMacrosHrane(i, j, z)">
+                          {{ deo.hrana.ime }} {{ deo.kolicina }} g
+                          {{ izracunajKalorijeHrana(deo.hrana, deo.kolicina) }}
+                          kcal.
+                        </div>
+                        <div
+                          *ngIf="
+                            detaljiHrana[0] == i &&
+                            detaljiHrana[1] == j &&
+                            detaljiHrana[2] == z
+                          "
+                        >
+                          <div>
+                            Proteini ({{ deo.kolicina }})g :
+                            {{
+                              vratiVrednost(deo.hrana.proteini, deo.kolicina)
+                            }}
+                            g.
+                          </div>
+                          <div>
+                            UgljeniHidrati ({{ deo.kolicina }})g :
+                            {{
+                              vratiVrednost(
+                                deo.hrana.ugljeniHidrati,
+                                deo.kolicina
+                              )
+                            }}
+                            g.
+                          </div>
+                          <div>
+                            Masti ({{ deo.kolicina }})g :
+                            {{ vratiVrednost(deo.hrana.masti, deo.kolicina) }}
+                            g.
+                          </div>
+                          <div>
+                            Vlakna ({{ deo.kolicina }})g :
+                            {{ vratiVrednost(deo.hrana.vlakna, deo.kolicina) }}
+                            g.
+                          </div>
+                        </div>
+                      </div>
+                    </li>
+                  </ul>
                 </div>
               </div>
               <div>Dnevne Kalorije: {{ dan.kalorije }}kcal.</div>
@@ -46,25 +87,30 @@
       </div>
     </div>
     <div>
-      <h4>Komentari : </h4>
+      <h4>Komentari :</h4>
       <div>
-          <ul>
-              <li *ngFor="let komentar of plan.Komentari"> 
-                  <div>
-                  <h6>{{komentar.koJeOdgovorio}} : </h6>
-                  <div>{{komentar.text}</div>
-                  </div>
-              </li>
-          </ul>
+        <ul>
+          <li *ngFor="let komentar of plan.komentari">
+            <div>
+              <h6>{{ komentar.koJeOdgovorio }} :</h6>
+              <div>{{ komentar.text }}</div>
+            </div>
+          </li>
+        </ul>
       </div>
       <h4>Dodajte Komentar ...</h4>
       <div>
-          <textarea style=" resize: none;" rows="5" placeholder="Unesite odgovor..." [formControl]="komentarControl"></textarea>
+        <textarea
+          style=" resize: none;"
+          rows="5"
+          placeholder="Unesite odgovor..."
+          [formControl]="komentarControl"
+        ></textarea>
       </div>
       <div>
-          <button (click)="dodajKomentar()">Dodaj Komentar</button>
+        <button (click)="dodajKomentar()">Dodaj Komentar</button>
       </div>
-  </div>
+    </div>
   </div>
   <button (click)="goBack()">Nazad</button>
 </div>

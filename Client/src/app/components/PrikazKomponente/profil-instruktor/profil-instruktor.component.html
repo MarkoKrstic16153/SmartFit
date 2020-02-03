@@ -1,78 +1,79 @@
-<div *ngIf="instruktor!=null">
-    <div *ngIf="!daLiJeLogovan()">Morate biti logovani da vidite profile.</div>
-    <div *ngIf="daLiJeLogovan() && daLiNJegovProfilIliGleda()">
-        dobro logovan i njegov je profil.
-        <h2>Dobrodosli {{instruktor.username}}</h2>
-        <div>Ime : {{instruktor.ime}}</div>
-        <div>Prezime : {{instruktor.prezime}}</div>
-        <div>Akreditacija : {{instruktor.akreditacija}}</div>
-        <div>Radno Iskustvo : {{instruktor.radnoIskustvo}}</div>
-        <div>Broj Klijenta : {{instruktor.klijenti.length}}</div>
-        <div>Lista Vasih Klijenata : 
-          <div>
-            <ul *ngIf="instruktor.klijenti.length>0">
-                <li *ngFor="let klijent of instruktor.klijenti">Username Klijenta : <a (click)="vidiProfil(klijent)">{{klijent}}</a> 
-                    <button (click)="prekiniSaradnju(klijent)">Prekini saradnju</button>
-                    <button (click)="otvoriTreningPlan(klijent)">Trening Plan</button>
-                    <button (click)="otvoriIshranaPlan(klijent)">Plan Ishrane</button>
-                </li>
-            </ul>
-        </div>
-        </div>
-        <app-smart-search-bar
-          [changing]="changingValue" 
-          (onEnter)="pretraziUsera($event)"
-          [titlePretrage]="pretragaPoImenu"
-          [obsPretrage]="obsInstruktor"
-        ></app-smart-search-bar>
-        <button (click)="izmenaProfila()">Izmeni Profil</button>
-        <div *ngIf="flagIzmena == true">
-            <label for="prezimeInstruktorControl">Novo Prezime :</label>
-<input
-  type="text"
-  name="prezimeInstruktorControl"
-  [formControl]="prezimeInstruktorControl"
-/>
-<label for="akreditacijaInstruktorControl">Nova Akreditacija :</label>
-<input
-  type="text"
-  name="akreditacijaInstruktorControl"
-  [formControl]="akreditacijaInstruktorControl"
-/>
-
-<label for="radnoIskustvoInstruktorControl">Novo Radno iskustvo :</label>
-<input
-  type="text"
-  name="radnoIskustvoInstruktorControl"
-  [formControl]="radnoIskustvoInstruktorControl"
-/>
-<label for="noviPasswordInstruktorControl">Vas Novi Password :</label>
-<input
-  type="password"
-  name="noviPasswordInstruktorControl"
-  [formControl]="noviPasswordInstruktorControl"
-/>
-<label for="passwordInstruktorControl">Vas Stari Password :</label>
-<input
-  type="password"
-  name="passwordInstruktorControl"
-  [formControl]="passwordInstruktorControl"
-/>
-<button (click)="updateProfil()">Posalji Promene</button>
-        </div>
-
-<button (click)="dodajHranu()">Dodaj Novu Hranu</button> <button (click)="dodajVezbu()">Dodaj Novu Vezbu</button>
-<button (click)="logout()">Odjavi Se</button>
+<div *ngIf="instruktor != null">
+  <div *ngIf="!daLiJeLogovan()">Morate biti logovani da vidite profile.</div>
+  <div *ngIf="daLiJeLogovan() && daLiNJegovProfilIliGleda()">
+    <h2>Dobrodosli {{ instruktor.userName }}</h2>
+    <div>Ime : {{ instruktor.ime }}</div>
+    <div>Prezime : {{ instruktor.prezime }}</div>
+    <div>Akreditacija : {{ instruktor.akreditacija }}</div>
+    <div>Radno Iskustvo : {{ instruktor.radnoIskustvo }}</div>
+    <div>Broj Klijenta : {{ instruktor.klijenti.length }}</div>
+    <div>
+      Lista Vasih Klijenata :
+      <div>
+        <ul *ngIf="instruktor.klijenti.length > 0">
+          <li *ngFor="let klijent of instruktor.klijenti">
+            Username Klijenta :
+            <a (click)="vidiProfil(klijent)">{{ klijent }}</a>
+            <button (click)="prekiniSaradnju(klijent)">Prekini saradnju</button>
+            <button (click)="otvoriTreningPlan(klijent)">Trening Plan</button>
+            <button (click)="otvoriIshranaPlan(klijent)">Plan Ishrane</button>
+          </li>
+        </ul>
+      </div>
     </div>
-    <div *ngIf="daLiJeLogovan() && !daLiNJegovProfilIliGleda()">
-        dobro logovan i gleda tudji profil.
-        <h2>Dobrodosli na profil {{instruktor.username}}</h2>
-        <div>Ime : {{instruktor.ime}}</div>
-        <div>Prezime : {{instruktor.prezime}}</div>
-        <div>Akreditacija : {{instruktor.akreditacija}}</div>
-        <div>Radno Iskustvo : {{instruktor.radnoIskustvo}}</div>
-        <div>Broj Klijenta : {{instruktor.klijenti.length}}</div>
-        <button (click)="nazad()">Nazad</button>
-    </div>
+    <app-smart-search-bar
+      [changing]="changingValue"
+      (onEnter)="pretraziUsera($event)"
+      [titlePretrage]="pretragaPoImenu"
+      [obsPretrage]="obsInstruktor"
+    ></app-smart-search-bar>
+    <button (click)="izmenaProfila()">Izmeni Profil</button>
+    <div *ngIf="flagIzmena == true">
+      <label for="prezimeInstruktorControl">Novo Prezime :</label>
+      <input
+        type="text"
+        name="prezimeInstruktorControl"
+        [formControl]="prezimeInstruktorControl"
+      />
+      <label for="akreditacijaInstruktorControl">Nova Akreditacija :</label>
+      <input
+        type="text"
+        name="akreditacijaInstruktorControl"
+        [formControl]="akreditacijaInstruktorControl"
+      />
+
+      <label for="radnoIskustvoInstruktorControl">Novo Radno iskustvo :</label>
+      <input
+        type="text"
+        name="radnoIskustvoInstruktorControl"
+        [formControl]="radnoIskustvoInstruktorControl"
+      />
+      <label for="noviPasswordInstruktorControl">Vas Novi Password :</label>
+      <input
+        type="password"
+        name="noviPasswordInstruktorControl"
+        [formControl]="noviPasswordInstruktorControl"
+      />
+      <label for="passwordInstruktorControl">Vas Stari Password :</label>
+      <input
+        type="password"
+        name="passwordInstruktorControl"
+        [formControl]="passwordInstruktorControl"
+      />
+      <button (click)="updateProfil()">Posalji Promene</button>
     </div>
 
+    <button (click)="dodajHranu()">Dodaj Novu Hranu</button>
+    <button (click)="dodajVezbu()">Dodaj Novu Vezbu</button>
+    <button (click)="logout()">Odjavi Se</button>
+  </div>
+  <div *ngIf="daLiJeLogovan() && !daLiNJegovProfilIliGleda()">
+    <h2>Dobrodosli na profil {{ instruktor.userName }}</h2>
+    <div>Ime : {{ instruktor.ime }}</div>
+    <div>Prezime : {{ instruktor.prezime }}</div>
+    <div>Akreditacija : {{ instruktor.akreditacija }}</div>
+    <div>Radno Iskustvo : {{ instruktor.radnoIskustvo }}</div>
+    <div>Broj Klijenta : {{ instruktor.klijenti.length }}</div>
+    <button (click)="nazad()">Nazad</button>
+  </div>
+</div>

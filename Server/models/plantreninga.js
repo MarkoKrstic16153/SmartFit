@@ -1,11 +1,11 @@
 const mongoose = require("mongoose");
-var plantreninga = mongoose.model("plantreninga", {
+var planTreninga = mongoose.model("planTreninga", {
   usernameInstruktora: { type: String },
   usernameKlijenta: { type: String },
   treninzi: { type: JSON },
   naziv: { type: String },
   datum: { type: String },
-  komentari: { type: JSON }
+  komentari: { type: [JSON] }
 });
 
-module.exports = { plantreninga };
+module.exports = { planTreninga };
