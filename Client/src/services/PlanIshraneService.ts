@@ -2,12 +2,14 @@ import { Injectable } from "@angular/core";
 import { HttpClient, HttpHeaders } from "@angular/common/http";
 import { PlanIshrane } from "src/models/PlanIshrane";
 import { Observable } from "rxjs";
+import { Odgovor } from 'src/models/Odgovor';
 
 @Injectable({ providedIn: "root" })
 export class PlanIshraneService {
   urlDodajPlanIshrane = "http://localhost:3000/planishrane/dodajplan";
   urlGetAllPlanIshrane = "http://localhost:3000/planishrane/getall";
   urlGetPlanIshrane = "http://localhost:3000/planishrane/getplan";
+  urlDodajKomentar = "http://localhost:3000/planishrane/dodajkomentar";
   constructor(private httpClient: HttpClient) {}
 
   getAllPlanIshrane(
@@ -58,5 +60,25 @@ export class PlanIshraneService {
         headers: headers
       })
       return a;
+  }
+
+  addKomentar(usernameKlijenta:string,userNameInstruktora:string,datum:string,naziv:string,noviOdgovor:Odgovor){
+    const headers = new HttpHeaders()
+      .set("Authorization", "my-auth-token")
+      .set("Content-Type", "application/json");
+    this.httpClient
+      .post<any>(this.urlDodajKomentar, 
+        {
+          usernameKlijenta:usernameKlijenta,
+          userNameInstruktora:userNameInstruktora,
+          datum:datum,
+          naziv:naziv,
+          noviOdgovor:noviOdgovor
+        }, 
+        {
+        headers: headers
+      }).subscribe((data)=>{
+        console.log(data);
+      })
   }
 }

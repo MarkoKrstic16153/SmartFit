@@ -7,6 +7,9 @@ import { Location } from "@angular/common";
 import { PlanIshrane } from "src/models/PlanIshrane";
 import { identifierModuleUrl } from "@angular/compiler";
 import { stringify } from "querystring";
+import { Odgovor } from 'src/models/Odgovor';
+import { FormControl, Validators } from '@angular/forms';
+import { Hrana } from 'src/models/Hrana';
 
 @Component({
   selector: "app-plan-ishrane",
@@ -16,12 +19,13 @@ import { stringify } from "querystring";
 export class PlanIshraneComponent implements OnInit {
   parametri: any = {};
   plan: PlanIshrane = null;
-  detaljiObrok: boolean = false;
+  detaljiObrok: number[] = [-1,-1];
+  detaljiHrana: number[] = [-1,-1,-1];
+  detaljiDan:number[] = [-1,-1,-1,-1,-1,-1,-1];
+  komentarControl : FormControl = new FormControl("", Validators.required);
   constructor(
     private loginService: LoginService,
     private planIshraneService: PlanIshraneService,
-    private hranaService: HranaService,
-    private router: Router,
     private route: ActivatedRoute,
     private location: Location
   ) {}
@@ -60,25 +64,36 @@ export class PlanIshraneComponent implements OnInit {
     else if (dan == 5) vrednost = "Petak";
     else if (dan == 6) vrednost = "Subota";
     else vrednost = "Nedelja";
-
     return vrednost;
   }
 
-  prikaziDetaljeObroka() {
-    console.log(this.detaljiObrok);
-    if (this.detaljiObrok == false) this.detaljiObrok = true;
-    else this.detaljiObrok = false;
+  prikaziMacrosObroka(i:number,j:number) {
+    if (this.detaljiObrok[0] == i && this.detaljiObrok[1] == j) this.detaljiObrok = [-1,-1];
+    else this.detaljiObrok = [i,j];
   }
 
-  prikaziKalorijeObroka(obrok: any): number {
-    let vrati: number = 0;
-    obrok.deloviObroka.forEach(deoObroka => {
-      vrati +=
-        deoObroka.hrana.proteini * 4 +
-        deoObroka.hrana.ugljeniHidrati * 4 +
-        deoObroka.hrana.masti * 9;
-    });
-    vrati.toFixed(1);
-    return vrati;
+  prikaziMacrosHrane(i:number,j:number,z:number) {
+    if (this.detaljiHrana[0] == i && this.detaljiHrana[1] == j && this.detaljiHrana[2] == z)
+     this.detaljiHrana = [-1,-1,-1];
+    else
+     this.detaljiHrana = [i,j,z];
+  }
+
+  izracunajKalorijeHrana(hrana:Hrana,kolicina:number):string{
+    return (((hrana.masti*9 + hrana.proteini*4 + hrana.ugljeniHidrati*4)*kolicina)/100).toFixed(1);
+  }
+
+  dodajKomentar(){
+    let noviKomentar : Odgovor = {koJeOdgovorio:this.loginService.logovaniUsername,text:this.komentarControl.value};
+    console.log(noviKomentar);
+    //this.plan.komentari.push(noviKomentar);
+  }
+
+  vratiVrednost(vrednost:number,kolicina:number):string{
+    return ((vrednost*kolicina)/100).toFixed(1);
+  }
+
+  prikaziDan(index:number){
+    this.detaljiDan[index]*=-1;
   }
 }

@@ -40,4 +40,8 @@ export class VezbaComponent implements OnInit {
 
     return vrati;
   }
+
+  goBack(){
+    this.location.back();
+  }
 }

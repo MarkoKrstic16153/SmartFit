@@ -5,6 +5,8 @@ import { Router, ActivatedRoute } from '@angular/router';
 import { Location } from '@angular/common';
 import { PlanTrenignaService } from 'src/services/PlanTreningaService';
 import { PlanTreninga } from 'src/models/PlanTreninga';
+import { FormControl, Validators } from '@angular/forms';
+import { Odgovor } from 'src/models/Odgovor';
 
 @Component({
   selector: 'app-plan-treninga',
@@ -14,6 +16,8 @@ import { PlanTreninga } from 'src/models/PlanTreninga';
 export class PlanTreningaComponent implements OnInit {
   parametri:any = {};
   plan:PlanTreninga = null;
+  komentarControl : FormControl = new FormControl("", Validators.required);
+  detaljiDan:number[] = [-1,-1,-1,-1,-1,-1,-1];
   constructor(private loginService : LoginService,private planTreningaService:PlanTrenignaService,private vezbaService:VezbeService,private router:Router,private route: ActivatedRoute,private location :Location) { }
 
   ngOnInit() {
@@ -34,6 +38,33 @@ export class PlanTreningaComponent implements OnInit {
 
   goBack(){
     this.location.back();
+  }
+
+  dodajKomentar(){
+    let noviKomentar : Odgovor = {koJeOdgovorio:this.loginService.logovaniUsername,text:this.komentarControl.value};
+    console.log(noviKomentar);
+    //this.plan.komentari.push(noviKomentar);
+  }
+
+  pogledajVezbu(imeVezbe:string){
+    console.log(imeVezbe);
+    this.router.navigate(["vezba",imeVezbe]);
+  }
+
+  kastujDan(index:number){
+    let vrednost: string;
+    if (index == 1) vrednost = "Ponedeljak";
+    else if (index == 2) vrednost = "Utorak";
+    else if (index == 3) vrednost = "Sreda";
+    else if (index == 4) vrednost = "Cetvrtak";
+    else if (index == 5) vrednost = "Petak";
+    else if (index == 6) vrednost = "Subota";
+    else vrednost = "Nedelja";
+    return vrednost;
+  }
+
+  prikaziDan(index:number){
+    this.detaljiDan[index]*=-1;
   }
 
 }
