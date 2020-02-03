@@ -4,7 +4,8 @@ var plantreninga = mongoose.model("plantreninga", {
   usernameKlijenta: { type: String },
   treninzi: { type: JSON },
   naziv: { type: String },
-  datum: { type: String }
+  datum: { type: String },
+  komentari: { type: JSON }
 });
 
 module.exports = { plantreninga };

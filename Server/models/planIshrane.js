@@ -4,7 +4,8 @@ var planishrane = mongoose.model("planishrane", {
   usernameKlijenta: { type: String },
   dani: { type: JSON },
   naziv: { type: String },
-  datum: { type: String }
+  datum: { type: String },
+  komentari: { type: JSON }
 });
 
 module.exports = { planishrane };

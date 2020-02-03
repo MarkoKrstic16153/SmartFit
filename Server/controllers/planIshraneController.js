@@ -58,7 +58,8 @@ router.post("/dodajplan", (req, res) => {
     usernameKlijenta: req.body.usernameKlijenta,
     dani: req.body.dani,
     datum: req.body.datum,
-    naziv: req.body.naziv
+    naziv: req.body.naziv,
+    komentari: req.body.komentari
   });
   plan.save((err, doc) => {
     if (!err) {
