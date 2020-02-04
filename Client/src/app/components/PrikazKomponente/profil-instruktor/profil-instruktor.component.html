@@ -22,12 +22,7 @@
             >
               Username Klijenta :
               <a (click)="vidiProfil(klijent)">{{ klijent }}</a>
-              <button
-                class="btn btn-primary "
-                (click)="prekiniSaradnju(klijent)"
-              >
-                Prekini saradnju
-              </button>
+
               <button
                 class="btn btn-primary "
                 (click)="otvoriTreningPlan(klijent)"
@@ -39,6 +34,12 @@
                 (click)="otvoriIshranaPlan(klijent)"
               >
                 Plan Ishrane
+              </button>
+              <button
+                class="btn btn-primary "
+                (click)="prekiniSaradnju(klijent)"
+              >
+                Prekini saradnju
               </button>
             </li>
           </ul>

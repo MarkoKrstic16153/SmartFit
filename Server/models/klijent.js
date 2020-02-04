@@ -7,7 +7,7 @@ var Klijent = mongoose.model("klijent", {
   tezina: { type: [Number] },
   bodyFat: { type: [Number] },
   iskustvo: { type: String },
-  ciljVezbanja: { type: String },
+  cilj: { type: String },
   userName: { type: String },
   password: { type: String },
   instruktori: { type: [String] }

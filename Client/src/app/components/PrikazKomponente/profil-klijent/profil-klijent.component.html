@@ -72,9 +72,7 @@
         >
           Instruktori
         </button>
-        <button class="btn btn-secondary mt-2 mb-2 ml-1" (click)="logout()">
-          Odjavi Se
-        </button>
+       
 
         <div class="col-6 border mt-4" *ngIf="merenje == true">
           <h3 class="mt-2">Unesite vase novo merenje :</h3>
@@ -132,13 +130,6 @@
             name="ciljKlijentControl"
             [formControl]="ciljKlijentControl"
           />
-          <label for="noviPasswordKlijentControl">Vas Novi Password :</label>
-          <input
-            class="form-control"
-            type="password"
-            name="noviPasswordKlijentControl"
-            [formControl]="noviPasswordKlijentControl"
-          />
           <label for="passwordKlijentControl">Vas Stari Password :</label>
           <input
             class="form-control"
@@ -146,11 +137,21 @@
             name="passwordKlijentControl"
             [formControl]="passwordKlijentControl"
           />
+          <label for="noviPasswordKlijentControl">Vas Novi Password :</label>
+          <input
+            class="form-control"
+            type="password"
+            name="noviPasswordKlijentControl"
+            [formControl]="noviPasswordKlijentControl"
+          />
+         
           <button class="btn btn-secondary mt-4 mb-4" (click)="updateProf()">
             Zapamti Izmene
           </button>
         </div>
-
+        <button class="btn btn-secondary mt-2 mb-2 ml-1" (click)="logout()">
+          Odjavi Se
+        </button>
         <div class="col-8" *ngIf="instruktori == true">
           <h4 class="list-group-item list-group-item-action active text-center">
             Lista Vasih Instruktora :
@@ -164,12 +165,7 @@
                 <div>
                   Username Instruktora :
                   <a (click)="vidiProfil(instruktor)">{{ instruktor }}</a>
-                  <button
-                    class=" ml-1 btn btn-secondary"
-                    (click)="odjaviUslugu(instruktor)"
-                  >
-                    Odjavi usluge
-                  </button>
+                  
                   <button
                     class=" ml-1 btn btn-secondary"
                     (click)="vidiPlanTreninga(i)"
@@ -182,6 +178,14 @@
                   >
                     Vidi Plan Ishrane
                   </button>
+
+                  <button
+                    class=" ml-1 btn btn-secondary"
+                    (click)="odjaviUslugu(instruktor)"
+                  >
+                    Odjavi usluge
+                  </button>
+
                 </div>
                 <div class="">
                   <div

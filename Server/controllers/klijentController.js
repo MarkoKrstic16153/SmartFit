@@ -23,6 +23,7 @@ router.get("/getallklijent", (req, res) => {
 });
 
 router.post("/signupklijent", (req, res) => {
+  console.log(req.body);
   var klijent = new Klijent({
     ime: req.body.ime,
     prezime: req.body.prezime,
@@ -30,7 +31,7 @@ router.post("/signupklijent", (req, res) => {
     tezina: req.body.tezina,
     bodyFat: req.body.bodyFat,
     iskustvo: req.body.iskustvo,
-    ciljVezbanja: req.body.ciljVezbanja,
+    cilj: req.body.cilj,
     userName: req.body.userName,
     password: req.body.password,
     instruktori: req.body.instruktori,
@@ -107,7 +108,7 @@ router.put("/updateklijent", (req, res) => {
     tezina: req.body.tezina,
     bodyFat: req.body.bodyFat,
     iskustvo: req.body.iskustvo,
-    ciljVezbanja: req.body.ciljVezbanja,
+    cilj: req.body.cilj,
     userName: req.body.userName,
     password: req.body.password,
     instruktori: req.body.instruktori,
@@ -144,7 +145,7 @@ router.post("/updatelistainstruktora", async (req, res) => {
       tezina: doc.tezina,
       bodyFat: doc.bodyFat,
       iskustvo: doc.iskustvo,
-      ciljVezbanja: doc.ciljVezbanja,
+      cilj: doc.cilj,
       userName: doc.userName,
       password: doc.password,
       instruktori: doc.instruktori,

@@ -1,166 +1,173 @@
-<!--<div *ngIf="daLiJeLogovan()">-->
-<div class="container shadow p-3">
-  <h3 class="mt-4 mb-5 text-center">
-    Plan Treninga - Klijent : {{ usernameKlijenta }}, Instruktor :
-    {{ usernameInstruktora }}
-  </h3>
+<div *ngIf="daLiJeLogovan()">
+  <div class="container shadow p-3">
+    <h3 class="mt-4 mb-5 text-center">
+      Plan Treninga - Klijent : {{ usernameKlijenta }}, Instruktor :
+      {{ usernameInstruktora }}
+    </h3>
 
-  <div class="border rounded-lg m-2 p-2" *ngIf="prethodniPlanovi.length > 0">
-    Prethodni Planovi Treninga :
-    <ul>
-      <li
-        *ngFor="let plan of prethodniPlanovi; let i = index"
-        value="plan"
-        (click)="odvediNaPlan(plan)"
-      >
-        Plan {{ i + 1 }} Naziv Plana : {{ plan.naziv }} , Datum Plana :
-        {{ plan.datum }}
-      </li>
-    </ul>
-    <div>Trenutni Plan Treninga :</div>
-    <li (click)="odvediNaPlan(prethodniPlanovi[prethodniPlanovi.length - 1])">
-      Naziv Plana : {{ prethodniPlanovi[prethodniPlanovi.length - 1].naziv }} ,
-      Datum Plana : {{ prethodniPlanovi[prethodniPlanovi.length - 1].datum }}
-    </li>
-  </div>
-  <div class="border rounded-lg m-2 p-2">
-    <h4>Dodajte novi Plan Treninga :</h4>
-    <h5>Dodati Treninzi po danima :</h5>
-    <div>
+    <div class="border rounded-lg m-2 p-2" *ngIf="prethodniPlanovi.length > 0">
+      Prethodni Planovi Treninga :
       <ul>
-        <li *ngFor="let trening of nizTreninga; let i = index">
-          {{ vratiTreningUString(i) }}
-          <button (click)="prikaziDetaljeTrening(i)">Detalji</button>
-          <button (click)="obrisiTrening(trening)">Obrisi</button>
-          <div *ngIf="detaljiTrening == i">
-            <div>Trajanje : {{ trening.trajanje }} min.</div>
-            <div>
-              Odmor izmedju serija : {{ trening.odmorIzmedjuSerija }} min.
-            </div>
-            <ul>
-              <li *ngFor="let vezba of trening.vezbe">
-                {{ vezba.vezba.ime }} Serije :
-                {{ vezba.vezba.brojSerija }} ,Broj Ponavljanja :
-                {{ vezba.vezba.brojPonavljanja }}, Opterecenje :
-                {{ vezba.vezba.opterecenje }} kg.
-              </li>
-            </ul>
-          </div>
+        <li
+          *ngFor="let plan of prethodniPlanovi; let i = index"
+          value="plan"
+          (click)="odvediNaPlan(plan)"
+        >
+          Plan {{ i + 1 }} Naziv Plana : {{ plan.naziv }} , Datum Plana :
+          {{ plan.datum }}
         </li>
       </ul>
+      <div>Trenutni Plan Treninga :</div>
+      <li (click)="odvediNaPlan(prethodniPlanovi[prethodniPlanovi.length - 1])">
+        Naziv Plana :
+        {{ prethodniPlanovi[prethodniPlanovi.length - 1].naziv }} , Datum Plana
+        : {{ prethodniPlanovi[prethodniPlanovi.length - 1].datum }}
+      </li>
     </div>
-  </div>
-  <div *ngIf="!daLiJeGotov()">
     <div class="border rounded-lg m-2 p-2">
-      <h5>Vas trening {{ nizTreninga.length + 1 }} izgleda ovako :</h5>
-      <div *ngIf="trenutniTrening && trenutniTrening.vezbe.length > 0">
-        Lista Vezbi :
+      <h4>Dodajte novi Plan Treninga :</h4>
+      <h5>Dodati Treninzi po danima :</h5>
+      <div>
         <ul>
-          <li *ngFor="let vezba of trenutniTrening.vezbe; let i = index">
-            Naziv : {{ vezba.vezba.ime }} , Serije : {{ vezba.brojSerija }},
-            Ponavljanja : {{ vezba.brojPonavljanja }}, Opterecenje :
-            {{ vezba.opterecenje }}kg
-            <button (click)="prikaziDetaljeVezba(i)">Detalji</button>
-            <button (click)="obrisiVezba(vezba)">Obrisi</button>
-            <div *ngIf="detaljiVezba == i">
+          <li *ngFor="let trening of nizTreninga; let i = index">
+            {{ vratiTreningUString(i) }}
+            <button (click)="prikaziDetaljeTrening(i)">Detalji</button>
+            <button (click)="obrisiTrening(trening)">Obrisi</button>
+            <div *ngIf="detaljiTrening == i">
+              <div>Trajanje : {{ trening.trajanje }} min.</div>
               <div>
-                Misicne Grupe koje pogadja :
-                <ul>
-                  <li *ngFor="let misic of vezba.vezba.misicnePartije">
-                    {{ misic }}
-                  </li>
-                </ul>
+                Odmor izmedju serija : {{ trening.odmorIzmedjuSerija }} min.
               </div>
-              <div>
-                Tipovi treninga gde se koristi :
-                <ul>
-                  <li *ngFor="let trening of vezba.vezba.vrsteTreninga">
-                    {{ trening }}
-                  </li>
-                </ul>
-              </div>
+              <ul>
+                <li *ngFor="let vezba of trening.vezbe">
+                  {{ vezba.ime }} Serije : {{ vezba.brojSerija }} ,Broj
+                  Ponavljanja : {{ vezba.brojPonavljanja }}, Opterecenje :
+                  {{ vezba.opterecenje }} kg.
+                </li>
+              </ul>
             </div>
           </li>
         </ul>
       </div>
-      <div *ngIf="trenutniTrening && trenutniTrening.vezbe.length == 0">
-        Dan Odmora.
-      </div>
     </div>
     <div *ngIf="!daLiJeGotov()">
-      <label for="treningControl"
-        >Selektujte tip treninga koji klijent radi :
-      </label>
-      <select
-        type="number"
-        name="treningControl"
-        (change)="selektujTipTreninga()"
-        [formControl]="treningControl"
+      <div class="border rounded-lg m-2 p-2">
+        <h5>Vas trening {{ nizTreninga.length + 1 }} izgleda ovako :</h5>
+        <div *ngIf="trenutniTrening && trenutniTrening.vezbe.length > 0">
+          Lista Vezbi :
+          <ul>
+            <li *ngFor="let vezba of trenutniTrening.vezbe; let i = index">
+              Naziv : {{ vezba.vezba.ime }} , Serije : {{ vezba.brojSerija }},
+              Ponavljanja : {{ vezba.brojPonavljanja }}, Opterecenje :
+              {{ vezba.opterecenje }}kg
+              <button (click)="prikaziDetaljeVezba(i)">Detalji</button>
+              <button (click)="obrisiVezba(vezba)">Obrisi</button>
+              <div *ngIf="detaljiVezba == i">
+                <div>
+                  Misicne Grupe koje pogadja :
+                  <ul>
+                    <li *ngFor="let misic of vezba.vezba.misicnePartije">
+                      {{ misic }}
+                    </li>
+                  </ul>
+                </div>
+                <div>
+                  Tipovi treninga gde se koristi :
+                  <ul>
+                    <li *ngFor="let trening of vezba.vezba.vrsteTreninga">
+                      {{ trening }}
+                    </li>
+                  </ul>
+                </div>
+              </div>
+            </li>
+          </ul>
+        </div>
+        <div *ngIf="trenutniTrening && trenutniTrening.vezbe.length == 0">
+          Dan Odmora.
+        </div>
+      </div>
+      <div *ngIf="!daLiJeGotov()">
+        <label for="treningControl"
+          >Selektujte tip treninga koji klijent radi :
+        </label>
+        <select
+          type="number"
+          name="treningControl"
+          (change)="selektujTipTreninga()"
+          [formControl]="treningControl"
+        >
+          <option
+            *ngFor="let trening of nizMogucihTreninga"
+            [value]="trening"
+            >{{ trening }}</option
+          >
+        </select>
+      </div>
+      <div *ngIf="smartSearch == true">
+        <app-smart-search-bar
+          [changing]="changingValue"
+          (onEnter)="selektujVezbu($event)"
+          [titlePretrage]="pretragaPoImenu"
+          [obsPretrage]="obsVezbe"
+        ></app-smart-search-bar>
+        <div>
+          <label for="serijeControl">Broj Serija : </label>
+          <input
+            type="number"
+            name="serijeControl"
+            [formControl]="serijeControl"
+          />
+        </div>
+        <div>
+          <label for="ponavljanjaControl">Broj Ponavljanja : </label>
+          <input
+            type="number"
+            name="ponavljanjaControl"
+            [formControl]="ponavljanjaControl"
+          />
+        </div>
+        <div>
+          <label for="opterecenjeControl">Opterecenje (kg) : </label>
+          <input
+            type="number"
+            name="opterecenjeControl"
+            [formControl]="opterecenjeControl"
+          />
+          <label for="bodyControl">BodyWeight (kg) : </label>
+          <input
+            type="checkbox"
+            name="bodyControl"
+            [formControl]="bodyControl"
+          />
+        </div>
+        <button (click)="dodajVezbu()">Dodaj Vezbu</button>
+      </div>
+      <div *ngIf="!daLiJeGotov()">
+        <label for="trajanjeControl">Trajanje Treninga (min) : </label>
+        <input
+          type="number"
+          name="trajanjeControl"
+          [formControl]="trajanjeControl"
+        />
+      </div>
+      <div *ngIf="!daLiJeGotov()">
+        <label for="odmorIzmedjuSerijaControl"
+          >Odmor izmedju serija (min) :
+        </label>
+        <input
+          type="number"
+          name="odmorIzmedjuSerijaControl"
+          [formControl]="odmorIzmedjuSerijaControl"
+        />
+      </div>
+      <button
+        *ngIf="!daLiJeGotov() && poslatPlanFlag == false"
+        (click)="zavrsiTrening()"
       >
-        <option *ngFor="let trening of nizMogucihTreninga" [value]="trening">{{
-          trening
-        }}</option>
-      </select>
+        Zavrsi Dnevni Trening
+      </button>
     </div>
-    <div *ngIf="smartSearch == true">
-      <app-smart-search-bar
-        [changing]="changingValue"
-        (onEnter)="selektujVezbu($event)"
-        [titlePretrage]="pretragaPoImenu"
-        [obsPretrage]="obsVezbe"
-      ></app-smart-search-bar>
-      <div>
-        <label for="serijeControl">Broj Serija : </label>
-        <input
-          type="number"
-          name="serijeControl"
-          [formControl]="serijeControl"
-        />
-      </div>
-      <div>
-        <label for="ponavljanjaControl">Broj Ponavljanja : </label>
-        <input
-          type="number"
-          name="ponavljanjaControl"
-          [formControl]="ponavljanjaControl"
-        />
-      </div>
-      <div>
-        <label for="opterecenjeControl">Opterecenje (kg) : </label>
-        <input
-          type="number"
-          name="opterecenjeControl"
-          [formControl]="opterecenjeControl"
-        />
-        <label for="bodyControl">BodyWeight (kg) : </label>
-        <input type="checkbox" name="bodyControl" [formControl]="bodyControl" />
-      </div>
-      <button (click)="dodajVezbu()">Dodaj Vezbu</button>
-    </div>
-    <div *ngIf="!daLiJeGotov()">
-      <label for="trajanjeControl">Trajanje Treninga (min) : </label>
-      <input
-        type="number"
-        name="trajanjeControl"
-        [formControl]="trajanjeControl"
-      />
-    </div>
-    <div *ngIf="!daLiJeGotov()">
-      <label for="odmorIzmedjuSerijaControl"
-        >Odmor izmedju serija (min) :
-      </label>
-      <input
-        type="number"
-        name="odmorIzmedjuSerijaControl"
-        [formControl]="odmorIzmedjuSerijaControl"
-      />
-    </div>
-    <button
-      *ngIf="!daLiJeGotov() && poslatPlanFlag == false"
-      (click)="zavrsiTrening()"
-    >
-      Zavrsi Dnevni Trening
-    </button>
     <div *ngIf="daLiJeGotov() && poslatPlanFlag == false">
       <label for="datumControl">Datum Plana :</label>
       <input type="text" name="datumControl" [formControl]="datumControl" />
@@ -175,10 +182,10 @@
         Posalji Plan
       </button>
     </div>
+
+    <label *ngIf="poslatPlanFlag == true">Vas Plan je uspesno poslat.</label>
+    <div><button (click)="back()">Nazad</button></div>
   </div>
-  <label *ngIf="poslatPlanFlag == true">Vas Plan je uspesno poslat.</label>
-  <div><button (click)="back()">Nazad</button></div>
-  <!--</div>-->
 </div>
 <div *ngIf="!daLiJeLogovan()">
   Morate Biti ulogovani.

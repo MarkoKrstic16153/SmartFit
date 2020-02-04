@@ -164,6 +164,7 @@ export class DodajPlanTreningaComponent implements OnInit {
       this.trenutniTrening.odmorIzmedjuSerija = this.odmorIzmedjuSerijaControl.value;
       this.trenutniTrening.vrsta = this.treningControl.value;
       this.nizTreninga.push(this.trenutniTrening);
+      console.log(this.nizTreninga);
       this.trenutniTrening = {
         odmorIzmedjuSerija: 0,
         trajanje: 0,
