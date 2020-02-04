@@ -1,25 +1,37 @@
 <div *ngIf="vezba != null">
-  <h4>
-    <div>Ime : {{ vezba.ime }}</div>
-    <div>Koristi tegove: {{ kastujUDaNe(vezba.tegovi) }}</div>
-    <div>Koristi masine: {{ kastujUDaNe(vezba.masine) }}</div>
-    <div>Vezba je bodyweight: {{ kastujUDaNe(vezba.bodyWeight) }}</div>
-  </h4>
-  <div>
-    <h4>Misicne partije koje pogadja :</h4>
-    <div>
-      <ul *ngIf="vezba.misicnePartije.length > 0">
-        <li *ngFor="let partija of vezba.misicnePartije">{{ partija }}</li>
-      </ul>
+  <div class="container shadow p-3">
+    <h4 class="mt-4 mb-5 text-center">
+      <div>{{ vezba.ime }}</div>
+    </h4>
+    <div class="border rounded-lg m-2 p-2">
+      <div>Koristi tegove: {{ kastujUDaNe(vezba.tegovi) }}</div>
+      <div>Koristi masine: {{ kastujUDaNe(vezba.masine) }}</div>
+      <div>Vezba je bodyweight: {{ kastujUDaNe(vezba.bodyWeight) }}</div>
     </div>
-  </div>
-  <div>
-    <h4>Vrste treninga :</h4>
-    <div>
-      <ul *ngIf="vezba.vrsteTreninga.length > 0">
-        <li *ngFor="let trening of vezba.vrsteTreninga">{{ trening }}</li>
-      </ul>
+    <div class="border rounded-lg m-2 p-2">
+      <h4 class="border rounded-lg bg-primary text-white pl-1 pt-2 pb-2">
+        Misicne partije koje pogadja :
+      </h4>
+      <div>
+        <div *ngIf="vezba.misicnePartije.length > 0">
+          <div *ngFor="let partija of vezba.misicnePartije">
+            <h5>{{ partija }}</h5>
+          </div>
+        </div>
+      </div>
     </div>
+    <div class="border rounded-lg m-2 p-2">
+      <h4 class="border rounded-lg bg-primary text-white pl-1 pt-2 pb-2">
+        Vrste treninga :
+      </h4>
+      <div>
+        <div *ngIf="vezba.vrsteTreninga.length > 0">
+          <div *ngFor="let trening of vezba.vrsteTreninga">
+            <h5>{{ trening }}</h5>
+          </div>
+        </div>
+      </div>
+    </div>
+    <button class=" btn btn-secondary" (click)="goBack()">Nazad</button>
   </div>
-  <button (click)="goBack()">Nazad</button>
 </div>

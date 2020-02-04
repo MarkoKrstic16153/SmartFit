@@ -1,44 +1,50 @@
 <div *ngIf="ulogovan()">
-  <h3>Dodajte novu vrstu hrane :</h3>
-<label for="imeControl">Naziv hrane :</label>
+  <div class="container shadow p-3">
+    <h3>Dodajte novu vrstu hrane :</h3>
+    <label for="imeControl">Naziv hrane :</label>
     <input
+      class="form-control"
       type="text"
       name="imeControl"
-
       [formControl]="imeControl"
     />
     <label for="ugljeniHidratiControl">Ugljeni Hidrati (100g)</label>
     <input
+      class="form-control"
       type="number"
       name="ugljeniHidratiControl"
-
       [formControl]="ugljeniHidratiControl"
     />
     <label for="proteiniControl">Proteini (100g)</label>
     <input
+      class="form-control"
       type="number"
       name="proteiniControl"
-
       [formControl]="proteiniControl"
     />
     <label for="mastiControl">Masti (100g):</label>
     <input
+      class="form-control"
       type="number"
       name="mastiControl"
-
       [formControl]="mastiControl"
     />
     <label for="vlaknaControl">Vlakna (100g):</label>
     <input
+      class="form-control"
       type="number"
       name="vlaknaControl"
-
       [formControl]="vlaknaControl"
     />
-    <div>{{ispisiKalorije()}}</div>
-    <button (click)="DodajHranu()">Dodajte Hranu</button>
-    <label>{{poruka}}</label>
-    <button (click)="nazad()">Nazad</button>
+    <div>{{ ispisiKalorije() }}</div>
+    <button class="btn btn-secondary mt-4 mb-2 " (click)="DodajHranu()">
+      Dodajte Hranu
+    </button>
+    <label>{{ poruka }}</label>
+    <button class="btn btn-secondary mt-4 mb-2 ml-3" (click)="nazad()">
+      Nazad
+    </button>
+  </div>
 </div>
 <div *ngIf="!ulogovan()">
   Morate biti ulogovani Instruktor da dodajete novu hranu.

@@ -1,106 +1,143 @@
-<h2>Stvorite SmartFit nalog brzo i besplatno...</h2>
-<h3>Korisnicki Nalog :</h3>
-<label for="imeKlijentControl">Ime :</label>
-<input type="text" name="imeKlijentControl" [formControl]="imeKlijentControl" />
-<label for="prezimeKlijentControl">Prezime :</label>
-<input
-  type="text"
-  name="prezimeKlijentControl"
-  [formControl]="prezimeKlijentControl"
-/>
-<label for="godinaRodjenjaKlijentControl">Godina Rodjenja :</label>
-<input
-  type="number"
-  name="godinaRodjenjaKlijentControl"
-  [formControl]="godinaRodjenjaKlijentControl"
-/>
-<label for="visinaKlijentControl">Visina :</label>
-<input
-  type="number"
-  name="visinaKlijentControl"
-  [formControl]="visinaKlijentControl"
-/>
-<label for="tezinaKlijentControl">Tezina :</label>
-<input
-  type="number"
-  name="tezinaKlijentControl"
-  [formControl]="tezinaKlijentControl"
-/>
-<label for="bodyFatKlijentControl">BodyFat :</label>
-<input
-  type="number"
-  name="bodyFatKlijentControl"
-  [formControl]="bodyFatKlijentControl"
-/>
-<label for="bodyFatKlijentControl">Iskustvo u vezbanju :</label>
-<select
-  type="number"
-  name="bodyFatKlijentControl"
-  [formControl]="iskustvoKlijentControl"
->
-  <option *ngFor="let iskustvo of iskustva" [value]="iskustvo">{{
-    iskustvo
-  }}</option>
-</select>
-<label for="ciljKlijentControl">Cilj Vaseg treniranja :</label>
-<input
-  type="text"
-  name="ciljKlijentControl"
-  [formControl]="ciljKlijentControl"
-/>
-<label for="usernameKlijentControl">Vas Username :</label>
-<input
-  type="text"
-  name="usernameKlijentControl"
-  [formControl]="usernameKlijentControl"
-/>
-<label for="passwordKlijentControl">Vas Password :</label>
-<input
-  type="password"
-  name="passwordKlijentControl"
-  [formControl]="passwordKlijentControl"
-/>
-<button (click)="signUpClient()">Sign up as Client</button>
-<div *ngIf="signupFlag == true">Username Klijenta je vec zauzet.</div>
-<h3>Instruktorski Nalog :</h3>
-<label for="imeInstruktorControl">Ime :</label>
-<input
-  type="text"
-  name="imeInstruktorControl"
-  [formControl]="imeInstruktorControl"
-/>
-<label for="prezimeInstruktorControl">Prezime :</label>
-<input
-  type="text"
-  name="prezimeInstruktorControl"
-  [formControl]="prezimeInstruktorControl"
-/>
-<label for="akreditacijaInstruktorControl">Akreditacija :</label>
-<input
-  type="text"
-  name="akreditacijaInstruktorControl"
-  [formControl]="akreditacijaInstruktorControl"
-/>
+<div class="container shadow p-2">
+  <h2 class="ml-4 mr-4 mt-5 mb-5">
+    Stvorite SmartFit nalog brzo i besplatno...
+  </h2>
+  <div class="col row">
+    <div class="col border ml-4 mr-4 mb-5">
+      <h3 class="mt-4 mb-4">Korisnicki Nalog :</h3>
+      <label for="imeKlijentControl">Ime :</label>
+      <input
+        class="form-control"
+        type="text"
+        name="imeKlijentControl"
+        [formControl]="imeKlijentControl"
+      />
+      <label for="prezimeKlijentControl">Prezime :</label>
+      <input
+        class="form-control"
+        type="text"
+        name="prezimeKlijentControl"
+        [formControl]="prezimeKlijentControl"
+      />
+      <label for="godinaRodjenjaKlijentControl">Godina Rodjenja :</label>
+      <input
+        class="form-control"
+        type="number"
+        name="godinaRodjenjaKlijentControl"
+        [formControl]="godinaRodjenjaKlijentControl"
+      />
+      <label for="visinaKlijentControl">Visina :</label>
+      <input
+        class="form-control"
+        type="number"
+        name="visinaKlijentControl"
+        [formControl]="visinaKlijentControl"
+      />
+      <label for="tezinaKlijentControl">Tezina :</label>
+      <input
+        class="form-control"
+        type="number"
+        name="tezinaKlijentControl"
+        [formControl]="tezinaKlijentControl"
+      />
+      <label for="bodyFatKlijentControl">BodyFat :</label>
+      <input
+        class="form-control"
+        type="number"
+        name="bodyFatKlijentControl"
+        [formControl]="bodyFatKlijentControl"
+      />
+      <label for="bodyFatKlijentControl">Iskustvo u vezbanju :</label>
+      <select
+        class="form-control"
+        type="number"
+        name="bodyFatKlijentControl"
+        [formControl]="iskustvoKlijentControl"
+      >
+        <option *ngFor="let iskustvo of iskustva" [value]="iskustvo">{{
+          iskustvo
+        }}</option>
+      </select>
+      <label for="ciljKlijentControl">Cilj Vaseg treniranja :</label>
+      <input
+        class="form-control"
+        type="text"
+        name="ciljKlijentControl"
+        [formControl]="ciljKlijentControl"
+      />
+      <label for="usernameKlijentControl">Vas Username :</label>
+      <input
+        class="form-control"
+        type="text"
+        name="usernameKlijentControl"
+        [formControl]="usernameKlijentControl"
+      />
+      <label for="passwordKlijentControl">Vas Password :</label>
+      <input
+        class="form-control"
+        type="password"
+        name="passwordKlijentControl"
+        [formControl]="passwordKlijentControl"
+      />
+      <button class="btn btn-secondary mt-4 mb-4" (click)="signUpClient()">
+        Sign up as Client
+      </button>
+      <div *ngIf="signupFlag == true">Username Klijenta je vec zauzet.</div>
+    </div>
 
-<label for="radnoIskustvoInstruktorControl">Radno iskustvo :</label>
-<input
-  type="text"
-  name="radnoIskustvoInstruktorControl"
-  [formControl]="radnoIskustvoInstruktorControl"
-/>
+    <div class="col border ml-4 mr-4 mb-5">
+      <h3 class="mt-4 mb-4">Instruktorski Nalog :</h3>
+      <label for="imeInstruktorControl">Ime :</label>
+      <input
+        class="form-control"
+        type="text"
+        name="imeInstruktorControl"
+        [formControl]="imeInstruktorControl"
+      />
+      <label for="prezimeInstruktorControl">Prezime :</label>
+      <input
+        class="form-control"
+        type="text"
+        name="prezimeInstruktorControl"
+        [formControl]="prezimeInstruktorControl"
+      />
+      <label for="akreditacijaInstruktorControl">Akreditacija :</label>
+      <input
+        class="form-control"
+        type="text"
+        name="akreditacijaInstruktorControl"
+        [formControl]="akreditacijaInstruktorControl"
+      />
 
-<label for="usernameInstruktorControl">Vas Username :</label>
-<input
-  type="text"
-  name="usernameInstruktorControl"
-  [formControl]="usernameInstruktorControl"
-/>
+      <label for="radnoIskustvoInstruktorControl">Radno iskustvo :</label>
+      <input
+        class="form-control"
+        type="text"
+        name="radnoIskustvoInstruktorControl"
+        [formControl]="radnoIskustvoInstruktorControl"
+      />
 
-<label for="passwordInstruktorControl">Vas Password :</label>
-<input
-  type="password"
-  name="passwordInstruktorControl"
-  [formControl]="passwordInstruktorControl"
-/>
-<button (click)="signUpInstructor()">Sign up as Instructor</button>
-<div *ngIf="signupFlag1 == true">Username Instruktora je vec zauzet.</div>
+      <label for="usernameInstruktorControl">Vas Username :</label>
+      <input
+        class="form-control"
+        type="text"
+        name="usernameInstruktorControl"
+        [formControl]="usernameInstruktorControl"
+      />
+
+      <label for="passwordInstruktorControl">Vas Password :</label>
+      <input
+        class="form-control"
+        type="password"
+        name="passwordInstruktorControl"
+        [formControl]="passwordInstruktorControl"
+      />
+      <button class="btn btn-secondary mt-4 mb-4" (click)="signUpInstructor()">
+        Sign up as Instructor
+      </button>
+      <div *ngIf="signupFlag1 == true">
+        Username Instruktora je vec zauzet.
+      </div>
+    </div>
+  </div>
+</div>

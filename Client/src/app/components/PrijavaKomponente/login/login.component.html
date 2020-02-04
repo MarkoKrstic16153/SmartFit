@@ -1,32 +1,61 @@
-<h2>Prijavite se na vas SmartFit nalog</h2>
-<h3>Korisnicki Nalog :</h3>
-<label for="usernameKlijentControl">Vas Username :</label>
-<input
-  type="text"
-  name="usernameKlijentControl"
-  [formControl]="usernameKlijentControl"
-/>
-<label for="passwordKlijentControl">Vas Password :</label>
-<input
-  type="password"
-  name="passwordKlijentControl"
-  [formControl]="passwordKlijentControl"
-/>
-<button (click)="loginClient()">Login as Client</button>
-<div *ngIf="kliFlag == true">Greska prilikom login-a kao klijent.</div>
-<h3>Instruktorski Nalog :</h3>
-<label for="usernameInstruktorControl">Vas Username :</label>
-<input
-  type="text"
-  name="usernameInstruktorControl"
-  [formControl]="usernameInstruktorControl"
-/>
-
-<label for="passwordInstruktorControl">Vas Password :</label>
-<input
-  type="password"
-  name="passwordInstruktorControl"
-  [formControl]="passwordInstruktorControl"
-/>
-<button (click)="loginInstructor()">Login as Instructor</button>
-<div *ngIf="instFlag == true">Greska prilikom login-a kao instruktor.</div>
+<div class=" container p-3 shadow  ">
+  <div class=" text-center">
+    <h2 class="col">Prijavite se na Vas SmartFit nalog</h2>
+  </div>
+  <div class="col-md-4 offset-md-4 border mt-5 ">
+    <div class="">
+      <h3 class="mt-2">Korisnicki Nalog :</h3>
+      <div>
+        <label for="usernameKlijentControl">Vas Username :</label>
+        <input
+          class="form-control"
+          type="text"
+          name="usernameKlijentControl"
+          [formControl]="usernameKlijentControl"
+        />
+      </div>
+      <label for="passwordKlijentControl">Vas Password : </label>
+      <input
+        class="form-control"
+        type="password"
+        name="passwordKlijentControl"
+        [formControl]="passwordKlijentControl"
+      />
+      <div class="mb-3 mt-3">
+        <button class="btn btn-secondary shadow" (click)="loginClient()">
+          Login as Client
+        </button>
+      </div>
+      <div *ngIf="kliFlag == true">Greska prilikom login-a kao klijent.</div>
+    </div>
+  </div>
+  <div class="col col-md-4 offset-md-4 border border mt-5 mb-5 ">
+    <h3 class="mt-2">Instruktorski Nalog :</h3>
+    <div>
+      <label for="usernameInstruktorControl">Vas Username :</label>
+      <input
+        class="form-control"
+        type="text"
+        name="usernameInstruktorControl"
+        [formControl]="usernameInstruktorControl"
+      />
+    </div>
+    <div>
+      <label for="passwordInstruktorControl">Vas Password :</label>
+      <input
+        class="form-control"
+        type="password"
+        name="passwordInstruktorControl"
+        [formControl]="passwordInstruktorControl"
+      />
+      <div class="mb-3 mt-3">
+        <button class="btn btn-secondary shadow" (click)="loginInstructor()">
+          Login as Instructor
+        </button>
+      </div>
+      <div *ngIf="instFlag == true">
+        Greska prilikom login-a kao instruktor.
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,61 +1,98 @@
 <div *ngIf="daLiJeLogovan()">
-  <div *ngIf="plan != null">
-    <h2>Plan Treninga {{ plan.naziv }}</h2>
-    <div>Instruktor : {{ plan.usernameInstruktora }}</div>
-    <div>Klijent : {{ plan.usernameKlijenta }}</div>
-    <div>Datum pocetka plana : {{ plan.datum }}</div>
-    <h4>Dnevni Treninzi :</h4>
-    <div>
-      <ul>
-        <li *ngFor="let trening of plan.treninzi; let i = index">
-          <h5 (click)="prikaziDan(i)">{{ kastujDan(i + 1) }}</h5>
-          <div>Vrsta Treninga : {{ trening.vrsta }}</div>
-          <div>Trajanje Treninga : {{ trening.trajanje }}min</div>
-          <div>Odmor Izmedju Serija : {{ trening.odmorIzmedjuSerija }}min</div>
-          <div *ngIf="detaljiDan[i] != -1">
-            <h6>Lista Vezbi</h6>
-            <ul>
-              <li
-                *ngFor="let vezba of trening.vezbe; let j = index"
-                (click)="pogledajVezbu(vezba.vezba.ime)"
+  <div class="container shadow p-3">
+    <div *ngIf="plan != null">
+      <div>
+        <h2 class="text-center  mt-4 mb-5">Plan Treninga {{ plan.naziv }}</h2>
+        <div class="border rounded-lg pl-2 pt-3 pb-3 mb-4">
+          <div>Instruktor : {{ plan.usernameInstruktora }}</div>
+          <div>Klijent : {{ plan.usernameKlijenta }}</div>
+          <div>Datum pocetka plana : {{ plan.datum }}</div>
+        </div>
+        <div class="pt-2 border rounded-lg">
+          <h4 class="pl-3">Dnevni Treninzi :</h4>
+          <div>
+            <ul class="row">
+              <div
+                class="border rounded-lg m-2 p-2"
+                *ngFor="let trening of plan.treninzi; let i = index"
               >
-                <div>Vezba {{ j + 1 }} : {{ vezba.vezba.ime }}</div>
-                <div>Serije : {{ vezba.brojSerija }}</div>
-                <div>Broj Ponavljanja : {{ vezba.brojPonavljanja }}</div>
-                <div>Opterecenje : {{ vezba.opterecenje }}kg</div>
-              </li>
+                <h5
+                  class=" text-center border bg-primary text-white rounded p-1 "
+                  (click)="prikaziDan(i)"
+                >
+                  {{ kastujDan(i + 1) }}
+                </h5>
+                <div>Vrsta Treninga : {{ trening.vrsta }}</div>
+                <div>Trajanje Treninga : {{ trening.trajanje }}min</div>
+                <div>
+                  Odmor Izmedju Serija : {{ trening.odmorIzmedjuSerija }}min
+                </div>
+                <div class="mt-2" *ngIf="detaljiDan[i] != -1">
+                  <h6>Lista Vezbi</h6>
+                  <div>
+                    <div
+                      class="border border-info rounded-lg p-1 mb-1 "
+                      *ngFor="let vezba of trening.vezbe; let j = index"
+                      (click)="pogledajVezbu(vezba.vezba.ime)"
+                    >
+                      <div class="row ml-1">
+                        <div>Vezba {{ j + 1 }} :</div>
+                        <div
+                          class="border rounded-lg bg-primary text-white pl-8"
+                        >
+                          {{ vezba.vezba.ime }}
+                        </div>
+                      </div>
+                      <div>Serije : {{ vezba.brojSerija }}</div>
+                      <div>Broj Ponavljanja : {{ vezba.brojPonavljanja }}</div>
+                      <div>Opterecenje : {{ vezba.opterecenje }}kg</div>
+                    </div>
+                  </div>
+                </div>
+              </div>
             </ul>
           </div>
-        </li>
-      </ul>
-    </div>
-    <div>
-      <h4>Komentari :</h4>
-      <div>
-        <ul>
-          <li *ngFor="let komentar of plan.komentari">
+        </div>
+        <div class="border mt-4 mb-4 rounded-lg">
+          <div
+            class="m-1 border rounded-lg bg-primary text-white pl-1 pt-2 pb-2"
+          >
+            <h4>Komentari :</h4>
+          </div>
+          <div>
             <div>
-              <h6>{{ komentar.koJeOdgovorio }} :</h6>
-              <div>{{ komentar.text }}</div>
+              <div *ngFor="let komentar of plan.komentari">
+                <div class="m-1 p-1 border border-primary rounded-lg">
+                  <h6 class=" border rounded-lg p-1 bg-primary text-white">
+                    {{ komentar.koJeOdgovorio }} :
+                  </h6>
+                  <div>{{ komentar.text }}</div>
+                </div>
+              </div>
             </div>
-          </li>
-        </ul>
+          </div>
+          <div class="mt-3 mb-4 ml-2">
+            <h4>Dodajte Komentar:</h4>
+            <div>
+              <textarea
+                class="col-8"
+                style=" resize: none;"
+                rows="5"
+                placeholder="Unesite odgovor..."
+                [formControl]="komentarControl"
+              ></textarea>
+            </div>
+            <div>
+              <button class="mt-2 btn btn-primary" (click)="dodajKomentar()">
+                Dodaj Komentar
+              </button>
+            </div>
+          </div>
+        </div>
       </div>
-      <h4>Dodajte Komentar ...</h4>
-      <div>
-        <textarea
-          style=" resize: none;"
-          rows="5"
-          placeholder="Unesite odgovor..."
-          [formControl]="komentarControl"
-        ></textarea>
-      </div>
-      <div>
-        <button (click)="dodajKomentar()">Dodaj Komentar</button>
-      </div>
+      <button class=" btn btn-secondary" (click)="goBack()">Nazad</button>
     </div>
   </div>
-  <button (click)="goBack()">Nazad</button>
 </div>
 <div *ngIf="!daLiJeLogovan()">
   Morate biti ulogovani.
