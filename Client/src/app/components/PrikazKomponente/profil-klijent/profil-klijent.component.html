@@ -1,6 +1,10 @@
-<div *ngIf="klijent != null">
-  <div *ngIf="!daLiJeLogovan()">
-    Morate biti logovani da vidite profile.
+<div class="back" *ngIf="klijent != null">
+  <div class="container shadow p-3" *ngIf="!daLiJeLogovan()">
+    <div
+      class="border rounded-lg text-center p-2 m-2 bg-danger text-white ml-20 mr-20 "
+    >
+      Morate biti logovani da vidite profile.
+    </div>
   </div>
   <div *ngIf="daLiJeLogovan() && daLiNJegovProfilIliGleda()">
     <div class="container shadow p-3">
@@ -72,7 +76,6 @@
         >
           Instruktori
         </button>
-       
 
         <div class="col-6 border mt-4" *ngIf="merenje == true">
           <h3 class="mt-2">Unesite vase novo merenje :</h3>
@@ -144,7 +147,7 @@
             name="noviPasswordKlijentControl"
             [formControl]="noviPasswordKlijentControl"
           />
-         
+
           <button class="btn btn-secondary mt-4 mb-4" (click)="updateProf()">
             Zapamti Izmene
           </button>
@@ -158,14 +161,14 @@
           </h4>
           <div>
             <ul class="list-group" *ngIf="klijent.instruktori.length > 0">
-              <li
-                class="column list-group-item list-group-item-action d-flex justify-content-between align-items-center"
+              <div
+                class=" list-group-item list-group-item-action d-flex justify-content-between align-items-center"
                 *ngFor="let instruktor of klijent.instruktori; let i = index"
               >
                 <div>
                   Username Instruktora :
                   <a (click)="vidiProfil(instruktor)">{{ instruktor }}</a>
-                  
+
                   <button
                     class=" ml-1 btn btn-secondary"
                     (click)="vidiPlanTreninga(i)"
@@ -185,46 +188,58 @@
                   >
                     Odjavi usluge
                   </button>
-
-                </div>
-                <div class="">
-                  <div
-                    *ngIf="
-                      planoviTreninga.length > 0 && detaljiPlanTreninga == i
-                    "
-                  >
-                    Planovi Treninga :
-                    <ul>
-                      <li
-                        *ngFor="let plan of planoviTreninga; let j = index"
-                        value="plan"
-                        (click)="odvediNaPlanTreninga(plan, j)"
+                  <div>
+                    <div
+                      class="border rounded-lg mt-1 mb-1 p-1"
+                      *ngIf="
+                        planoviTreninga.length > 0 && detaljiPlanTreninga == i
+                      "
+                    >
+                      <div
+                        class="border rounded-lg bg-primary text-white m-1 p-1"
                       >
-                        Naziv Plana : {{ plan.naziv }} , Datum Plana :
-                        {{ plan.datum }}
-                      </li>
-                    </ul>
+                        Planovi Treninga :
+                      </div>
+                      <div>
+                        <div
+                          class="border rounded-lg border-primary hover p-1 m-1"
+                          *ngFor="let plan of planoviTreninga; let j = index"
+                          value="plan"
+                          (click)="odvediNaPlanTreninga(plan, j)"
+                        >
+                          Naziv Plana : {{ plan.naziv }} , Datum Plana :
+                          {{ plan.datum }}
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div>
+                    <div
+                      class="border rounded-lg mt-1 mb-1 p-1"
+                      *ngIf="
+                        planoviIshrane.length > 0 && detaljiPlanIshrane == i
+                      "
+                    >
+                      <div
+                        class="border rounded-lg bg-primary text-white m-1 p-1"
+                      >
+                        Planovi Ishrane :
+                      </div>
+                      <div>
+                        <div
+                          class="border rounded-lg border-primary hover p-1 m-1"
+                          *ngFor="let plan of planoviIshrane; let j = index"
+                          value="plan"
+                          (click)="odvediNaPlanIshrane(plan, j)"
+                        >
+                          Naziv Plana : {{ plan.naziv }} , Datum Plana :
+                          {{ plan.datum }}
+                        </div>
+                      </div>
+                    </div>
                   </div>
                 </div>
-                <div>
-                  <div
-                    class=""
-                    *ngIf="planoviIshrane.length > 0 && detaljiPlanIshrane == i"
-                  >
-                    Planovi Ishrane :
-                    <ul>
-                      <li
-                        *ngFor="let plan of planoviIshrane; let j = index"
-                        value="plan"
-                        (click)="odvediNaPlanIshrane(plan, j)"
-                      >
-                        Naziv Plana : {{ plan.naziv }} , Datum Plana :
-                        {{ plan.datum }}
-                      </li>
-                    </ul>
-                  </div>
-                </div>
-              </li>
+              </div>
             </ul>
           </div>
           <h4

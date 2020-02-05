@@ -34,7 +34,7 @@ router.post("/getplan", (req, res) => {
   planIshrane.findOne(
     {
       usernameKlijenta: req.body.usernameKlijenta,
-      usernameInstruktora: req.body.usernameInstruktora,
+      // usernameInstruktora: req.body.usernameInstruktora,
       naziv: req.body.naziv,
       datum: req.body.datum
     },

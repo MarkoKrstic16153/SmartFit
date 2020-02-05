@@ -1,5 +1,11 @@
 <div *ngIf="instruktor != null">
-  <div *ngIf="!daLiJeLogovan()">Morate biti logovani da vidite profile.</div>
+  <div class="container shadow p-3 " *ngIf="!daLiJeLogovan()">
+    <div
+      class="border rounded-lg text-center p-2 m-2 bg-danger text-white ml-20 mr-20 "
+    >
+      Morate biti logovani da vidite profile.
+    </div>
+  </div>
   <div *ngIf="daLiJeLogovan() && daLiNJegovProfilIliGleda()">
     <div class="container shadow p-3">
       <h2 class="text-center">Dobrodosli {{ instruktor.userName }}</h2>

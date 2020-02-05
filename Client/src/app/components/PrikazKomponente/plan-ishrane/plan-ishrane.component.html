@@ -145,9 +145,14 @@
         </div>
       </div>
     </div>
+    <button class=" btn btn-secondary" (click)="goBack()">Nazad</button>
   </div>
-  <button class=" btn btn-secondary" (click)="goBack()">Nazad</button>
 </div>
-<div *ngIf="!daLiJeLogovan()">
-  Morate biti ulogovani.
+
+<div class="container shadow p-3 " *ngIf="!daLiJeLogovan()">
+  <div
+    class="border rounded-lg text-center p-2 m-2 bg-danger text-white ml-20 mr-20 "
+  >
+    Morate biti logovani da vidite profile.
+  </div>
 </div>

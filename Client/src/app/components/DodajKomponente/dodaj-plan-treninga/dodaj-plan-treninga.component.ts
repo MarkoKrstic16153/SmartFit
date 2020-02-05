@@ -238,12 +238,12 @@ export class DodajPlanTreningaComponent implements OnInit {
       return (
         "Dan " +
         (index + 1) +
-        " -> Tip Treninga : " +
+        "  Tip Treninga : " +
         this.nizTreninga[index].vrsta +
         ", Broj Vezbi : " +
         this.nizTreninga[index].vezbe.length
       );
-    else return "Dan " + (index + 1) + " -> Dan Odmora.";
+    else return "Dan " + (index + 1) + "  Dan Odmora.";
   }
 
   odvediNaPlan(plan: any) {
