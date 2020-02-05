@@ -1,1 +1,18 @@
+<nav [className]="getNavBarClasses()" style="width: 100vw;">
+  <a class="navbar-brand" routerLink="/" style="font-size: 25px;"
+    ><img src="../assets/icons/logo.png" alt="" width="32px" /> Dobrodosli na
+    SmartFit</a
+  >
+  <ul class="navbar-nav mr-auto offset-8">
+    <li *ngIf="!daLiJeLogovan()" class="nav-item active">
+      <a class="nav-link" routerLink="/login">Prijavite se</a>
+    </li>
+    <li *ngIf="!daLiJeLogovan()" class="nav-item active">
+      <a class="nav-link" routerLink="/signup">Uclanite se</a>
+    </li>
+    <li *ngIf="daLiJeLogovan()" class="nav-item active">
+      <a class="nav-link" (click)="logout()">Izloguj se</a>
+    </li>
+  </ul>
+</nav>
 <router-outlet></router-outlet>
